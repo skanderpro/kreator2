@@ -1,123 +1,85 @@
-import React from 'react'
-import { Input } from '../components/Input'
-import { Textarea } from '../components/Textarea'
-import { ReactComponent as Twitter } from '../assets/svg/twitter.svg'
-import { ReactComponent as Instagram } from '../assets/svg/instagram.svg'
-import { ReactComponent as Discord } from '../assets/svg/discord.svg'
-import Ellipse from '../assets/img/ellipse.png'
-import LetterSend from '../assets/img/letter-send.png'
-import phoneCall from '../assets/img/phone-call.svg'
-import sharpEmail from '../assets/img/sharp-email.svg'
-import locationFilled from '../assets/img/location-filled.svg'
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Map } from "../components/Map";
+
 function ContactPage() {
-  return (
-    <section className='contact'>
-      <div className='container'>
-        <div className='contact__inner'>
-          <h1>Contact Us</h1>
-          <p>Any question or remarks? Just write us a message!</p>
-          <div className='contact__inner-card'>
-            <img src={LetterSend} alt="" />
-            <div className='contact__inner-card-info' style={{backgroundImage: `url(${Ellipse})`}}>
-              <div className='contact__inner-card-info-text'>
-                <div className='contact__inner-card-info-title'>
-                  Contact Information
+    return (
+        <>
+            <div className="breadcrumbs">
+                <div className="container">
+                    <div className="breadcrumbs__inner">
+                        <NavLink to="/">
+                            <img
+                                src={
+                                    new URL(
+                                        `/src/assets/svg/mini-logo.svg`,
+                                        import.meta.url,
+                                    ).href
+                                }
+                            />
+                        </NavLink>
+                        <span>Контакти</span>
+                    </div>
                 </div>
-                <div className='contact__inner-card-info-subtitle'>
-                  Say something to start a live chat!
-                </div>
-              </div>
-              <div className='contact__inner-card-info-contact'>
-                <ul>
-                  <li>
-                    <img src={phoneCall} alt='Phone' />
-                    <a href='tel:+10123456789'>+1012 3456 789</a>
-                  </li>
-                  <li>
-                    <img src={sharpEmail} alt='Email' />
-                    <a href='mailto:demo@gmail.com'>demo@gmail.com</a>
-                  </li>
-                  <li>
-                    <img src={locationFilled} alt='Location' />
-                    <a
-                      href='https://maps.app.goo.gl/XP3n3AsamR8oAZ7n9'
-                      target='_blank'
-                    >
-                      132 Dartmouth Street Boston, Massachusetts 02156 United
-                      States
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className='contact__inner-card-info-social'>
-                <a href='https://twitter.com/' target='_blank'>
-                  <Twitter />
-                </a>
-                <a href='https://www.instagram.com/' target='_blank'>
-                  <Instagram />
-                </a>
-                <a href='https://discord.com/' target='_blank'>
-                  <Discord />
-                </a>
-              </div>
             </div>
-            <div className='contact__inner-card-form'>
-              <form>
-                <div className='form-input-inner'>
-                  <Input label={'First Name'} />
-                  <Input label={'Last Name'} />
+            <div className="contact-wrapper" id="contact">
+                <div className="container">
+                    <div className="contact">
+                        <div className="contact-info">
+                            <h2>контакти</h2>
+                            <div className="contact-info-list">
+                                <div className="contact-info-list-item">
+                                    <h3>Відділ продажу</h3>
+                                    <ul>
+                                        <li>
+                                            {" "}
+                                            Центральний відділ продажу – вул.
+                                            Листопадова, 1/3
+                                        </li>
+                                        <li>
+                                            <a href="tel:381708742">
+                                                +38(067)-170-87-42
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="mailto:kreatorbudternopil@gmail.com">
+                                                kreatorbudternopil@gmail.com
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="contact-info-list-item">
+                                    <h3>Графік роботи</h3>
+                                    <ul>
+                                        <li> Пн. - Пт.: з 08:00 до 17:00</li>
+                                        <li> Сб. - Нд.: вихідні дні</li>
+                                    </ul>
+                                </div>
+                                <div className="contact-info-list-item">
+                                    <h3>Розташування комплексу</h3>
+                                    <ul>
+                                        <li> вул. Білецька, 30</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="#" className="btn">
+                                ЗАПИСАТИСЬ НА ОГЛЯД
+                            </a>
+                        </div>
+                        <div className="map">
+                            {/* <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3415.115508626325!2d25.587865226307486!3d49.556747161835105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47303135a5e8f5b5%3A0xbe7454d8aa3bac08!2z0J_QsNGA0Log0LjQvNC10L3QuCDQotCw0YDQsNGB0LAg0KjQtdCy0YfQtdC90LrQvg!5e0!3m2!1sru!2sua!4v1770389476451!5m2!1sru!2sua"
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe> */}
+                            <Map />
+                        </div>
+                    </div>
                 </div>
-                <div className='form-input-inner'>
-                  <Input label={'Email'} type={'email'} />
-                  <Input label={'Phone Number'} type={'tel'} />
-                </div>
-                <div className='form-checkbox'>
-                  <div className='form-checkbox-title'>Select Subject?</div>
-                  <div className='form-checkbox-inner'>
-                    <div className='checkbox-item'>
-                      <input
-                        className='checkbox-radio'
-                        id='generalInquiry1'
-                        type='checkbox'
-                        defaultChecked
-                      />
-                      <label htmlFor='generalInquiry1'>General Inquiry</label>
-                    </div>
-                    <div className='checkbox-item'>
-                      <input
-                        className='checkbox-radio'
-                        id='generalInquiry2'
-                        type='checkbox'
-                      />
-                      <label htmlFor='generalInquiry2'>General Inquiry</label>
-                    </div>
-                    <div className='checkbox-item'>
-                      <input
-                        className='checkbox-radio'
-                        id='generalInquiry3'
-                        type='checkbox'
-                      />
-                      <label htmlFor='generalInquiry3'>General Inquiry</label>
-                    </div>
-                    <div className='checkbox-item'>
-                      <input
-                        className='checkbox-radio'
-                        id='generalInquiry4'
-                        type='checkbox'
-                      />
-                      <label htmlFor='generalInquiry4'>General Inquiry</label>
-                    </div>
-                  </div>
-                </div>
-                <Textarea label={'Message'} />
-                <button className='btn'>Send Message</button>
-              </form>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+        </>
+    );
 }
 
-export { ContactPage }
+export { ContactPage };
