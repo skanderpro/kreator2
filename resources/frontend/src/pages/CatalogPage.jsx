@@ -190,11 +190,11 @@ function CatalogPage() {
                   <label>Площа</label>
                   <div className="card-apartments-filter-col">
                     <div className="filter-input">
-                      <input type="text" placeholder="від" />
+                      <input type="text" placeholder="від: 45,81" />
                       <span>м²</span>
                     </div>
                     <div className="filter-input">
-                      <input type="text" placeholder="до" />
+                      <input type="text" placeholder="до: 65,47" />
                       <span>м²</span>
                     </div>
                   </div>
@@ -203,11 +203,11 @@ function CatalogPage() {
                   <label>Ціна</label>
                   <div className="card-apartments-filter-col">
                     <div className="filter-input">
-                      <input type="text" placeholder="від" />
+                      <input type="text" placeholder="від: 2 748 552,80" />
                       <span>грн.</span>
                     </div>
                     <div className="filter-input">
-                      <input type="text" placeholder="до" />
+                      <input type="text" placeholder="до: 3 258 256,50" />
                       <span>грн.</span>
                     </div>
                   </div>

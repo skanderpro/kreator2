@@ -130,7 +130,7 @@ function Header() {
                   <a onClick={() => handleScroll("about")}>Про Нас</a>
                 </li>
                 <li className="nav-list-item">
-                  <a onClick={() => handleScroll("contact")}>Контакти</a>
+                  <NavLink to={'/contact'}>Контакти</NavLink>
                 </li>
               </ul>
             </nav>
