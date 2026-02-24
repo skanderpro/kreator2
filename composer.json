@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "backpack/ckeditor-field": "^1.0",
         "backpack/crud": "^7.0",
         "backpack/logmanager": "^5.1",
         "backpack/settings": "^3.2",

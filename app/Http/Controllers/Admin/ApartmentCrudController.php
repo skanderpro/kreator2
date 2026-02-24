@@ -21,7 +21,7 @@ class ApartmentCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -33,7 +33,7 @@ class ApartmentCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -49,24 +49,31 @@ class ApartmentCrudController extends CrudController
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ApartmentRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('title')->type('text');
+        CRUD::field('living_area')->type('number');
+        CRUD::field('rooms')->type('number');
+        CRUD::field('building')->type('number');
+        CRUD::field('section')->type('text');
+        CRUD::field('floor')->type('number');
+        CRUD::field('price')->type('number');
+        CRUD::field('price_for_meter')->type('number');
+        CRUD::field('plan')->type('upload')->withFiles();
+        CRUD::field('floor_plan')->type('upload')->withFiles();
+        CRUD::field('gen_plan')->type('upload')->withFiles();
+        CRUD::field('created_at')->type('date');
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
