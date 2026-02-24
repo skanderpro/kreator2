@@ -17,7 +17,7 @@ class GalleryItemResource extends JsonResource
         return [
             'id' => $this->id,
             'created_at' => $this->created_at,
-            'image' => $this->image,
+            'image' => !empty($this->image) ? Storage::url($this->image) : null,
         ];
     }
 }

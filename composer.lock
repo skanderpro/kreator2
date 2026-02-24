@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96e042eb9ff9c919ed40cf81e6b96551",
+    "content-hash": "975d664dc404407e66b8d577ff219d21",
     "packages": [
         {
             "name": "backpack/basset",
@@ -79,6 +79,51 @@
                 "source": "https://github.com/Laravel-Backpack/basset/tree/2.0.2"
             },
             "time": "2026-01-09T11:20:05+00:00"
+        },
+        {
+            "name": "backpack/ckeditor-field",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Laravel-Backpack/ckeditor-field.git",
+                "reference": "434c16e1d1cf0839386d9b4e80c587dc57e22e49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Laravel-Backpack/ckeditor-field/zipball/434c16e1d1cf0839386d9b4e80c587dc57e22e49",
+                "reference": "434c16e1d1cf0839386d9b4e80c587dc57e22e49",
+                "shasum": ""
+            },
+            "require": {
+                "backpack/crud": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Backpack\\CkeditorField\\BackpackCkeditorFieldProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Backpack\\CkeditorField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "CKEditor field for Backpack",
+            "keywords": [
+                "backpack",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/Laravel-Backpack/ckeditor-field/issues",
+                "source": "https://github.com/Laravel-Backpack/ckeditor-field/tree/1.0.0"
+            },
+            "time": "2025-11-19T12:01:01+00:00"
         },
         {
             "name": "backpack/crud",
@@ -10177,5 +10222,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

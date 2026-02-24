@@ -25,9 +25,9 @@ class ApartmentResource extends JsonResource
             'floor' => $this->floor,
             'price' => $this->price,
             'price_for_meter' => $this->price_for_meter,
-            'plan' =>  $this->plan,
-            'floor_plan' => $this->floor_plan,
-            'gen_plan' => $this->gen_plan,
+            'plan' =>  !empty($this->plan) ? Storage::url($this->plan) : null,
+            'floor_plan' => !empty($this->floor_plan) ? Storage::url($this->floor_plan) : null,
+            'gen_plan' => !empty($this->gen_plan) ? Storage::url($this->gen_plan) : null,
             'created_at' => $this->created_at,
         ];
     }
