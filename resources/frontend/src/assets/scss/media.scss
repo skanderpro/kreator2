@@ -517,6 +517,16 @@
     .footer .footer__inner .footer-right {
         margin-left: auto;
     }
+    .menu-modal-img {
+        display: none;
+    }
+    .menu-modal-list {
+        max-width: 100%;
+    }
+    .menu-modal-close {
+        top: 20px;
+        right: 20px;
+    }
 }
 @media (max-width: 600px) {
     h2 {
@@ -639,5 +649,14 @@
         gap: 20px;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+    .menu-modal-list-box ul {
+        gap: 20px;
+    }
+    .menu-modal-list-box {
+        gap: 30px;
+    }
+    .menu-modal-list-box ul li a {
+        font-size: 16px;
     }
 }
