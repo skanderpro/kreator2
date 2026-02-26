@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -14,11 +14,13 @@ import lgZoom from "lightgallery/plugins/zoom";
 import headBanner from "../assets/img/head-banner.jpg";
 import aboutImg from "../assets/img/house.jpg";
 import Arrow from "../assets/svg/arrow.svg?react";
+import Airplane from "../assets/svg/airplane.svg?react";
 import Сamera from "../assets/svg/camera.svg?react";
 import ArrowLeft from "../assets/svg/arrowLeft.svg?react";
 import Download from "../assets/svg/download.svg?react";
 import { NavLink } from "react-router-dom";
 import { Map } from "../components/Map";
+import Popup from "../components/Popup";
 
 function HomePage() {
     const lightboxRef = useRef(null);
@@ -172,6 +174,9 @@ function HomePage() {
         },
     ];
 
+    const [popupConsultations, setPopupConsultations] = useState(false);
+    const [popupTy, setPopupTy] = useState(false);
+
     return (
         <>
             <div className="head-banner">
@@ -240,6 +245,19 @@ function HomePage() {
                         </div>
                         <div className="card-apartments-filter">
                             <div className="card-apartments-filter-item">
+                                <label>Тип нерухомості:</label>
+                                <div className="card-apartments-filter-inner">
+                                    <div className="list-tab list-tab-wfc">
+                                        <div className="list-tab-item">
+                                            Квартира
+                                        </div>
+                                        <div className="list-tab-item">
+                                            Паркомісце
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-apartments-filter-item">
                                 <label>К-ть кімнат</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="list-tab">
@@ -248,20 +266,7 @@ function HomePage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-apartments-filter-item">
-                                <label>Оберіть будинок</label>
-                                <div className="card-apartments-filter-inner">
-                                    <select
-                                        name=""
-                                        id=""
-                                        className="filter-select"
-                                    >
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div className="card-apartments-filter-item">
                                 <label>Ціна</label>
                                 <div className="card-apartments-filter-inner">
@@ -799,6 +804,63 @@ function HomePage() {
                     </div>
                 </div>
             </div>
+
+            {popupConsultations && (
+                <Popup
+                    statePopup={popupConsultations}
+                    closePopup={setPopupConsultations}
+                >
+                    <div className="questions__inner">
+                        <div className="questions-header">
+                            <h2>Замовити консультацію</h2>
+                            <p>
+                                Наші менеджери зв’яжуться з вами та нададуть всю
+                                необхідну інформаці, яка вас цікавитиме.
+                            </p>
+                        </div>
+                        <form action="" className="questions-form">
+                            <div className="g-input">
+                                <label>Ваше ім'я</label>
+                                <input type="text" placeholder="Ваше ім’я" />
+                            </div>
+                            <div className="g-input">
+                                <label>Телефон</label>
+                                <input
+                                    type="text"
+                                    placeholder="+38 (___) ___-__-__"
+                                />
+                            </div>
+                            <button className="btn">
+                                Отримати консультацію
+                            </button>
+                        </form>
+                    </div>
+                </Popup>
+            )}
+            {popupTy && (
+                <Popup statePopup={popupTy} closePopup={setPopupTy}>
+                    <div className="modal-ty">
+                        <div className="modal-ty-icon">
+                            <Airplane />
+                        </div>
+                        <div className="modal-ty-info">
+                            <h2>Дякуємо!</h2>
+                            <p>
+                                Найближчим часом наш спеціалість звяжеться з
+                                Вами!
+                            </p>
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setPopupTy(false);
+                                }}
+                            >
+                                Повернутись на головну
+                            </button>
+                        </div>
+                    </div>
+                </Popup>
+            )}
         </>
     );
 }

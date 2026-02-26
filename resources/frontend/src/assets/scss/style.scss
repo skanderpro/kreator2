@@ -103,6 +103,15 @@
         }
     }
 }
+.header-burger-btn {
+    svg {
+        transition: all 0.3s ease;
+    }
+
+    &:hover svg {
+        opacity: 0.5;
+    }
+}
 .header__inner-link {
     display: flex;
     align-items: center;
@@ -422,6 +431,11 @@
             color: vars.$white;
         }
     }
+}
+.list-tab.list-tab-wfc .list-tab-item {
+    min-width: 48px;
+    width: auto;
+    padding: 13.5px 15px;
 }
 .advantages {
     display: flex;
@@ -1143,6 +1157,10 @@
             padding-left: 10px;
         }
     }
+    &-info.catalog-list-item-info--parking {
+        justify-content: flex-start;
+        gap: 30px;
+    }
     &-price {
         font-weight: 700;
         margin-bottom: 13px;
@@ -1435,6 +1453,64 @@
 
     padding-bottom: 95px;
 }
+
+.popup {
+    .questions-header p {
+        margin-top: auto;
+        text-align: right;
+        max-width: 285px;
+    }
+
+    @media (max-width: 768px) {
+        .questions-form .btn {
+            white-space: normal;
+        }
+    }
+}
+.modal-ty {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+
+    &-info{
+        position: relative;
+    }
+    h2 {
+        margin-bottom: 45px;
+    }
+    p {
+        max-width: 310px;
+        margin-bottom: 55px;
+    }
+    button {
+    }
+    &-icon {
+        position: absolute;
+        right: 100px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        z-index: 0;
+    }
+
+    @media (max-width: 1024px) {
+        .modal-ty-icon {
+            width: 300px;
+            right: 50px;
+        }
+    }
+    @media (max-width: 768px) {
+        .modal-ty-icon {
+            width: 200px;
+            right: 0px;
+            top: unset;
+            bottom: 0;
+            transform: unset;
+        }
+    }
+}
+
 .footer {
     .container {
         max-width: 1320px;
