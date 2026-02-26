@@ -20,159 +20,90 @@ import ArrowLeft from "../assets/svg/arrowLeft.svg?react";
 import Download from "../assets/svg/download.svg?react";
 import { NavLink } from "react-router-dom";
 import { Map } from "../components/Map";
+
 import Popup from "../components/Popup";
+
+import { useGallery } from "../api/gallery";
+import { useNews } from "../api/news";
+import { formatDate } from "../formatters/date";
+import {useApartmentsMinMaxArea, useApartmentsMinMaxPrice} from "../api/apartments.js";
+import {useBuildSteps} from "../api/build-step.js";
+
+const advantagesList = [
+    {
+        imgUrl: "advantages-1.jpg",
+        description:
+            "Дитячий та спортивний майданчики з м’яким безпечним покриттям",
+    },
+    {
+        imgUrl: "advantages-2.jpg",
+        description: "Краєвид з вікон на Тернопільський став",
+    },
+    {
+        imgUrl: "advantages-3.jpg",
+        description: "Дворівневий підземно-наземний паркінг",
+    },
+    {
+        imgUrl: "advantages-4.jpg",
+        description: "Засклені балкони та лоджії з панорамними вікнами",
+    },
+    {
+        imgUrl: "advantages-5.jpg",
+        description: "Краєвид на парк імені Тараса Шевченка",
+    },
+    {
+        imgUrl: "advantages-6.jpg",
+        description: "Стіни з ефективним зовнішнім утепленням",
+    },
+];
+const technologiesList = [
+    {
+        imgUrl: "icon-1.svg",
+        title: "Монолітно-каркасна технологія",
+        description:
+            "Забезпечує високу міцність і довговічність будівель, а також дозволяє створювати вільні планування без несучих внутрішніх стін. Крім того, вона дає більше гнучкості в дизайні, краще витримує сейсмічні навантаження та прискорює процес зведення.",
+    },
+    {
+        imgUrl: "icon-2.svg",
+        title: "Утеплення стін - мінеральна вата",
+        description:
+            "Утеплення стін мінеральною ватою забезпечує надійну тепло- та звукоізоляцію, зберігаючи комфортний мікроклімат у приміщенні в будь-яку пору року. Матеріал є негорючим, паропроникним і довговічним, що робить його безпечним та ефективним рішенням.",
+    },
+    {
+        imgUrl: "icon-3.svg",
+        title: "Зовнішні, міжквартирні та міжкімнатні стіни - керамоблок",
+        description:
+            "Стіни з керамоблоку забезпечують високу міцність будівлі, ефективну тепло- та звукоізоляцію, а також комфортний мікроклімат у приміщеннях. Керамоблок є екологічним матеріалом із хорошою паропроникністю, що сприяє довговічності та енергоефективності будинку.",
+    },
+    {
+        imgUrl: "icon-4.svg",
+        title: "Висота стелі житлової частини: 2,7 - 4,2 метрів",
+        description:
+            "Висота стелі  створює відчуття простору та наповнює приміщення світлом і повітрям. Такі пропорції забезпечують комфортне проживання та відкривають більше можливостей для індивідуальних дизайнерських рішень.",
+    },
+    {
+        imgUrl: "icon-5.svg",
+        title: "Паркінг - Підземний з ліфтом",
+        description:
+            "Підземний паркінг з ліфтом забезпечує зручний та безпечний доступ до житлових поверхів безпосередньо з рівня паркування. Таке рішення підвищує комфорт мешканців і дозволяє зберегти простір та естетику прибудинкової території.",
+    },
+    {
+        imgUrl: "icon-6.svg",
+        title: "Поверховість ЖК - 5 – 12",
+        description:
+            "Поєднує затишок невеликих будинків із сучасними міськими стандартами комфорту. Така висотність дозволяє забезпечити оптимальне освітлення квартир і просторі громадські зони.",
+    },
+];
+
 
 function HomePage() {
     const lightboxRef = useRef(null);
-    const advantagesList = [
-        {
-            imgUrl: "advantages-1.jpg",
-            description:
-                "Дитячий та спортивний майданчики з м’яким безпечним покриттям",
-        },
-        {
-            imgUrl: "advantages-2.jpg",
-            description: "Краєвид з вікон на Тернопільський став",
-        },
-        {
-            imgUrl: "advantages-3.jpg",
-            description: "Дворівневий підземно-наземний паркінг",
-        },
-        {
-            imgUrl: "advantages-4.jpg",
-            description: "Засклені балкони та лоджії з панорамними вікнами",
-        },
-        {
-            imgUrl: "advantages-5.jpg",
-            description: "Краєвид на парк імені Тараса Шевченка",
-        },
-        {
-            imgUrl: "advantages-6.jpg",
-            description: "Стіни з ефективним зовнішнім утепленням",
-        },
-    ];
-    const technologiesList = [
-        {
-            imgUrl: "icon-1.svg",
-            title: "Монолітно-каркасна технологія",
-            description:
-                "Забезпечує високу міцність і довговічність будівель, а також дозволяє створювати вільні планування без несучих внутрішніх стін. Крім того, вона дає більше гнучкості в дизайні, краще витримує сейсмічні навантаження та прискорює процес зведення.",
-        },
-        {
-            imgUrl: "icon-2.svg",
-            title: "Утеплення стін - мінеральна вата",
-            description:
-                "Утеплення стін мінеральною ватою забезпечує надійну тепло- та звукоізоляцію, зберігаючи комфортний мікроклімат у приміщенні в будь-яку пору року. Матеріал є негорючим, паропроникним і довговічним, що робить його безпечним та ефективним рішенням.",
-        },
-        {
-            imgUrl: "icon-3.svg",
-            title: "Зовнішні, міжквартирні та міжкімнатні стіни - керамоблок",
-            description:
-                "Стіни з керамоблоку забезпечують високу міцність будівлі, ефективну тепло- та звукоізоляцію, а також комфортний мікроклімат у приміщеннях. Керамоблок є екологічним матеріалом із хорошою паропроникністю, що сприяє довговічності та енергоефективності будинку.",
-        },
-        {
-            imgUrl: "icon-4.svg",
-            title: "Висота стелі житлової частини: 2,7 - 4,2 метрів",
-            description:
-                "Висота стелі  створює відчуття простору та наповнює приміщення світлом і повітрям. Такі пропорції забезпечують комфортне проживання та відкривають більше можливостей для індивідуальних дизайнерських рішень.",
-        },
-        {
-            imgUrl: "icon-5.svg",
-            title: "Паркінг - Підземний з ліфтом",
-            description:
-                "Підземний паркінг з ліфтом забезпечує зручний та безпечний доступ до житлових поверхів безпосередньо з рівня паркування. Таке рішення підвищує комфорт мешканців і дозволяє зберегти простір та естетику прибудинкової території.",
-        },
-        {
-            imgUrl: "icon-6.svg",
-            title: "Поверховість ЖК - 5 – 12",
-            description:
-                "Поєднує затишок невеликих будинків із сучасними міськими стандартами комфорту. Така висотність дозволяє забезпечити оптимальне освітлення квартир і просторі громадські зони.",
-        },
-    ];
 
-    const constructionSwiperList = [
-        {
-            imgUrl: "swiper-construction-1.jpg",
-            date: "Січень 2026",
-        },
-        {
-            imgUrl: "swiper-construction-1.jpg",
-            date: "Грудень 2025",
-        },
-        {
-            imgUrl: "swiper-construction-1.jpg",
-            date: "Листопад 2026",
-        },
-        {
-            imgUrl: "swiper-construction-1.jpg",
-            date: "Листопад 2026",
-        },
-    ];
-    const newsSwiperList = [
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-    ];
+    const gallery = useGallery();
+    const news = useNews();
+    const apartmentsMinMaxPrice = useApartmentsMinMaxPrice();
+    const apartmentsMinMaxArea = useApartmentsMinMaxArea();
+    const buildSteps = useBuildSteps();
 
     const [popupConsultations, setPopupConsultations] = useState(false);
     const [popupTy, setPopupTy] = useState(false);
@@ -215,7 +146,7 @@ function HomePage() {
                         <div className="price-con">
                             <label>Ціна від:</label>
                             <div className="price-title">
-                                <div className="price-label">51 846</div>
+                                <div className="price-label">{apartmentsMinMaxPrice.data.min}</div>
                                 <span>грн/м.кв</span>
                             </div>
                         </div>
@@ -223,7 +154,7 @@ function HomePage() {
                         <div className="price-con">
                             <label>Площі:</label>
                             <div className="price-title">
-                                <div className="price-label">30,21-80,56</div>
+                                <div className="price-label">{apartmentsMinMaxArea.data.min}-{apartmentsMinMaxArea.data.max}</div>
                                 <span>м.кв</span>
                             </div>
                         </div>
@@ -352,7 +283,7 @@ function HomePage() {
                                 }}
                                 className="mySwiper"
                             >
-                                {newsSwiperList.map((items, index) => {
+                                {gallery.data.data.map((item, index) => {
                                     return (
                                         <SwiperSlide
                                             className="gallery-swiper-item"
@@ -360,12 +291,7 @@ function HomePage() {
                                         >
                                             <img
                                                 className="gallery-swiper-item-img"
-                                                src={
-                                                    new URL(
-                                                        `/src/assets/img/swiper-news/${items.imgUrl}`,
-                                                        import.meta.url,
-                                                    ).href
-                                                }
+                                                src={item.image}
                                                 alt=""
                                             />
                                         </SwiperSlide>
@@ -526,7 +452,7 @@ function HomePage() {
                                 }}
                                 className="mySwiper"
                             >
-                                {constructionSwiperList.map((items, index) => {
+                                {buildSteps.data.data.map((item, index) => {
                                     return (
                                         <SwiperSlide
                                             className="construction-swiper-item"
@@ -534,28 +460,18 @@ function HomePage() {
                                         >
                                             <div className="construction-swiper-item-img">
                                                 <img
-                                                    src={
-                                                        new URL(
-                                                            `/src/assets/img/swiper-construction/${items.imgUrl}`,
-                                                            import.meta.url,
-                                                        ).href
-                                                    }
+                                                    src={item.image}
                                                     alt=""
                                                 />
                                                 <div className="construction-swiper-item-box"></div>
                                                 <a
-                                                    data-src={
-                                                        new URL(
-                                                            `/src/assets/img/swiper-construction/${items.imgUrl}`,
-                                                            import.meta.url,
-                                                        ).href
-                                                    }
+                                                    data-src={item.image}
                                                 >
                                                     <Сamera />
                                                 </a>
                                             </div>
 
-                                            <span>{items.date}</span>
+                                            <span>{item.title}</span>
                                         </SwiperSlide>
                                     );
                                 })}
@@ -633,7 +549,7 @@ function HomePage() {
                             }}
                             className="mySwiper"
                         >
-                            {newsSwiperList.map((items, index) => {
+                            {news.data.data.map((item, index) => {
                                 return (
                                     <SwiperSlide
                                         className="news-swiper-item"
@@ -642,26 +558,19 @@ function HomePage() {
                                         <NavLink to="news" />
                                         <img
                                             className="news-swiper-item-img"
-                                            src={
-                                                new URL(
-                                                    `/src/assets/img/swiper-news/${items.imgUrl}`,
-                                                    import.meta.url,
-                                                ).href
-                                            }
+                                            src={item.image}
                                             alt=""
                                         />
 
                                         <div className="news-swiper-item-box"></div>
                                         <div className="news-swiper-date">
-                                            {items.date}
+                                            {formatDate(item.created_at)}
                                         </div>
                                         <div className="news-swiper-info">
                                             <div className="news-swiper-info-text">
-                                                {items.text}
+                                                {item.title}
                                             </div>
-                                            <div className="news-swiper-info-description">
-                                                {items.description}
-                                            </div>
+                                            <div className="news-swiper-info-description" dangerouslySetInnerHTML={{ __html: item.excerpt }} />
                                         </div>
                                     </SwiperSlide>
                                 );
