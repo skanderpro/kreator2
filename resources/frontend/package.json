@@ -13,6 +13,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.20.8",
     "@tanstack/react-query": "^5.90.21",
+    "formik": "^2.4.9",
     "lightgallery": "^2.9.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

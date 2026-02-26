@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('type');
             $table->float('area');
             $table->float('living_area');
             $table->integer('rooms');
+            $table->integer('parking_count')->nullable();
             $table->integer('building');
             $table->integer('section');
             $table->integer('floor');

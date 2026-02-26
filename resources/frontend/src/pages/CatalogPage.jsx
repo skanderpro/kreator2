@@ -1,36 +1,42 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 import Filter from "../assets/svg/filter.svg?react";
 import Close from "../assets/svg/close.svg?react";
+import {useApartments} from "../api/apartments.js";
+import {useFormik} from "formik";
 function CatalogPage() {
     const [catalogfilterToggle, setCatalogFilterToggle] = useState(false);
+    const apartments = useApartments();
 
-    const catalogList = [
-        {
-            imgUrl: "catalog-2.jpg",
-            title: "1.20",
-            area: "12,5",
-            priceArea: "51 846",
-            price: "642 170, 80",
-            type: "Parking",
+    const formik = useFormik({
+        initialValues: {
+            priceFrom: "",
+            priceTo: "",
+            areaFrom: "",
+            areaTo: "",
+            rooms: "",
+            floor: "",
+            type: "",
+            parking: "",
+            order: "",
+            sold: "",
+            building: "",
+            parking_count: "",
         },
-        {
-            imgUrl: "catalog-1.jpg",
-            title: "101",
-            area: "45,80",
-            room: "1",
-            floor: "10",
-            priceArea: "51 846",
-            price: "2 374 546, 80",
-            type: "Apartment",
-        },
-    ];
+        onSubmit: (values) => {
+            console.log(values);
+        }
+    });
 
-    if (catalogfilterToggle) {
-        document.body.classList.add("hiden");
-    } else {
-        document.body.classList.remove("hiden");
-    }
+    useEffect(() => {
+        if (catalogfilterToggle) {
+            document.body.classList.add("hiden");
+        } else {
+            document.body.classList.remove("hiden");
+        }
+    }, [catalogfilterToggle]);
+
+
 
     return (
         <>
@@ -58,7 +64,7 @@ function CatalogPage() {
                             <h2>каталог</h2>
                             <div className="catalog-header-sort">
                                 <label>Сортувати за</label>
-                                <select name="" id="" className="filter-select">
+                                <select name="" id="" className="filter-select" onChange={formik.handleChange} value={formik.values.order}>
                                     <option value="">
                                         Від дешевих до дорогих
                                     </option>
@@ -78,6 +84,7 @@ function CatalogPage() {
                         <div className="catalog-filter-btn">
                             <button
                                 className="btn"
+                                type="button"
                                 onClick={() => {
                                     setCatalogFilterToggle(true);
                                 }}
@@ -93,6 +100,7 @@ function CatalogPage() {
                                 <div className="catalog-filter-btn">
                                     <button
                                         className="btn"
+                                        type="button"
                                         onClick={() => {
                                             setCatalogFilterToggle(false);
                                         }}
@@ -104,10 +112,10 @@ function CatalogPage() {
                                     <label>Тип нерухомості</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('type', 'apartment')}>
                                                 Квартира
                                             </div>
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('type', 'parking')}>
                                                 Паркомісце
                                             </div>
                                         </div>
@@ -117,9 +125,11 @@ function CatalogPage() {
                                     <label>Оберіть будинок</label>
                                     <div className="card-apartments-filter-inner">
                                         <select
-                                            name=""
+                                            name="building"
                                             id=""
                                             className="filter-select"
+                                            onChange={formik.handleChange}
+                                            value={formik.values.building}
                                         >
                                             <option value="">1</option>
                                         </select>
@@ -129,9 +139,11 @@ function CatalogPage() {
                                     <label>Паркомісця</label>
                                     <div className="card-apartments-filter-inner">
                                         <select
-                                            name=""
+                                            name="parking_count"
                                             id=""
                                             className="filter-select"
+                                            onChange={formik.handleChange}
+                                            value={formik.values.parking_count}
                                         >
                                             <option value="">1</option>
                                             <option value="">2</option>
@@ -142,10 +154,10 @@ function CatalogPage() {
                                     <label>К-ть кімнат</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('rooms', '1')}>
                                                 1
                                             </div>
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('rooms', '2')}>
                                                 2
                                             </div>
                                         </div>
@@ -157,7 +169,9 @@ function CatalogPage() {
                                         <div className="filter-input">
                                             <input
                                                 type="text"
+                                                onChange={(e) => formik.setFieldValue('areaFrom', e.target.value)}
                                                 placeholder="від: 45,81"
+                                                value={formik.values.areaFrom}
                                             />
                                             <span>м²</span>
                                         </div>
@@ -165,6 +179,8 @@ function CatalogPage() {
                                             <input
                                                 type="text"
                                                 placeholder="до: 65,47"
+                                                onChange={(e) => formik.setFieldValue('areaTo', e.target.value)}
+                                                value={formik.values.areaTo}
                                             />
                                             <span>м²</span>
                                         </div>
@@ -177,6 +193,8 @@ function CatalogPage() {
                                             <input
                                                 type="text"
                                                 placeholder="від: 2 748 552,80"
+                                                onChange={(e) => formik.setFieldValue('priceFrom', e.target.value)}
+                                                value={formik.values.priceFrom}
                                             />
                                             <span>грн.</span>
                                         </div>
@@ -184,6 +202,8 @@ function CatalogPage() {
                                             <input
                                                 type="text"
                                                 placeholder="до: 3 258 256,50"
+                                                onChange={(e) => formik.setFieldValue('priceTo', e.target.value)}
+                                                value={formik.values.priceTo}
                                             />
                                             <span>грн.</span>
                                         </div>
@@ -193,10 +213,10 @@ function CatalogPage() {
                                     <label>Відображати продані</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('sold', '1')}>
                                                 Так
                                             </div>
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('sold', '0')}>
                                                 Ні
                                             </div>
                                         </div>
@@ -206,63 +226,59 @@ function CatalogPage() {
                                     <label>Спеціальні умови</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('features', 'promotion')}>
                                                 Акція
                                             </div>
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('features', 'credit')}>
                                                 Кредит
                                             </div>
-                                            <div className="list-tab-item">
+                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('features', 'installment')}>
                                                 Розстрочка
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button className="btn btn-primary">
+                                <button className="btn btn-primary" type="button" onClick={formik.resetForm}>
                                     ОЧИСТИТИ
                                 </button>
-                                <button className="btn ">ПІДБІР КВАРТИР</button>
+                                <button className="btn " type="button" onClick={formik.handleSubmit}>ПІДБІР КВАРТИР</button>
                             </div>
                             <div className="catalog-box">
                                 <div className="catalog-list">
-                                    {catalogList.map((item, index) => {
+                                    {apartments.data.data.map((item, index) => {
+                                        const isApartment = item.type === "apartment";
+
                                         return (
                                             <NavLink
                                                 className="catalog-list-item"
                                                 key={index}
-                                                to={"/catalog-detail"}
+                                                to={"/catalog-detail/" + item.id}
                                             >
                                                 <div className="catalog-list-item-title">
-                                                    {item.type === "Apartment"
+                                                    {isApartment
                                                         ? "Квартира"
                                                         : "Паркомісце"}{" "}
                                                     {item.title}
                                                 </div>
                                                 <div className="catalog-list-item-img">
                                                     <img
-                                                        src={
-                                                            new URL(
-                                                                `/src/assets/img/catalog/${item.imgUrl}`,
-                                                                import.meta.url,
-                                                            ).href
-                                                        }
+                                                        src={item.plan}
+                                                        alt={item.title}
                                                     />
                                                 </div>
                                                 <div
                                                     className={`catalog-list-item-info ${
-                                                        item.type ===
-                                                        "Apartment" ? '': 'catalog-list-item-info--parking'
+                                                        isApartment ? '': 'catalog-list-item-info--parking'
                                                     }`}
                                                 >
                                                     <div className="catalog-list-item-info-item">
                                                         {item.area}{" "}
                                                         <span>м.кв</span>
                                                     </div>
-                                                    {item.type ===
-                                                    "Apartment" ? (
+                                                    {isApartment ? (
                                                         <>
                                                             <div className="catalog-list-item-info-item">
-                                                                {item.room}{" "}
+                                                                {item.rooms}{" "}
                                                                 <span>
                                                                     кімната
                                                                 </span>
@@ -286,7 +302,7 @@ function CatalogPage() {
                                                     )}
                                                 </div>
                                                 <div className="catalog-list-item-price">
-                                                    {item.priceArea}{" "}
+                                                    {item.price_for_meter}{" "}
                                                     <span>грн/м.кв</span>
                                                 </div>
                                                 <div className="catalog-list-item-link">

@@ -58,6 +58,14 @@ class ApartmentCrudController extends CrudController
         CRUD::setValidation(ApartmentRequest::class);
 
         CRUD::field('title')->type('text');
+        CRUD::field([
+            'name'        => 'type',
+            'label'       => "Type",
+            'type'        => 'select_from_array',
+            'options'     => ['apartment' => 'Apartment', 'parking' => 'Parking'],
+            'allows_null' => false,
+            'default'     => 'apartment',
+        ]);
         CRUD::field('living_area')->type('number');
         CRUD::field('rooms')->type('number');
         CRUD::field('building')->type('number');
