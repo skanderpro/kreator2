@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {useNews} from "../api/news.js";
+import {formatDate} from "../formatters/date.js";
 function NewsPage() {
     const newsSwiperList = [
         {
@@ -66,6 +68,9 @@ function NewsPage() {
                 "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
         },
     ];
+
+    const news = useNews();
+
     return (
         <>
             <div className="breadcrumbs">
@@ -94,83 +99,48 @@ function NewsPage() {
                             <div className="news-swiper-item">
                                 <img
                                     className="news-swiper-item-img"
-                                    src={
-                                        new URL(
-                                            `/src/assets/img/swiper-news/swiper-news-1.jpg`,
-                                            import.meta.url,
-                                        ).href
-                                    }
+                                    src={news.data.data[0]?.image}
                                     alt=""
                                 />
 
                                 <div className="news-swiper-item-box"></div>
                                 <div className="news-swiper-date">
-                                    25.12.2025
+                                    {formatDate(news.data.data[0]?.created_at)}
                                 </div>
                             </div>
                             <div className="news-page-banner-item">
                                 <NavLink
                                     className="news-page-banner-item-text"
-                                    to="/"
+                                    to={"/news-detail/" + news.data.data[0]?.id}
                                 >
-                                    ЖК «Набережна Вежа» – це комплекс бізнес
-                                    класу, головною перевагою якого є місце
-                                    розташування. Комплекс зводиться в
-                                    екологічно чистому районі, поруч
-                                    Тернопільського ставу.
+                                    {news.data.data[0]?.title}
                                 </NavLink>
-                                <p>
-                                    Унікальність ЖК «Набережна Вежа» у тому, що
-                                    з його вікон проглядається одна з
-                                    найкрасивіших панорам Тернополя. 80
-                                    відсотків квартир матимуть розкішний вигляд
-                                    на Тернопільську набережну. Поруч комплексу
-                                    розташований Парк Шевченка, тому ранкові
-                                    пробіжки біля озера чи вечірні прогулянки
-                                    велосипедами з сім’єю парковою оазою – це
-                                    мрія, яка стане реальністю для кожного
-                                    мешканця комплексу.
-                                </p>
-                                <p>
-                                    Комплекс віддалений від шумних магістралей,
-                                    тут спокій, свіже повітря, можливість
-                                    відпочинку у найкрасивішому місці обласного
-                                    центру, де щовечора своєю красою вражають
-                                    розмаїті фонтани і вражаючі колоритністю
-                                    сквери.
-                                </p>
+                                <div dangerouslySetInnerHTML={{__html: news.data.data[0]?.excerpt}} />
                             </div>
                         </div>
                         <div className="news-page-items">
-                            {newsSwiperList.map((items, index) => {
+                            {news.data.data.slice(1)?.map((item, index) => {
                                 return (
                                     <NavLink
                                         className="news-swiper-item"
                                         key={index}
-                                        to={"/news-detail"}
+                                        to={"/news-detail/" + item.id}
                                     >
                                         <img
                                             className="news-swiper-item-img"
-                                            src={
-                                                new URL(
-                                                    `/src/assets/img/swiper-news/${items.imgUrl}`,
-                                                    import.meta.url,
-                                                ).href
-                                            }
+                                            src={item.image}
                                             alt=""
                                         />
 
                                         <div className="news-swiper-item-box"></div>
                                         <div className="news-swiper-date">
-                                            {items.date}
+                                            {formatDate(item.created_at)}
                                         </div>
                                         <div className="news-swiper-info">
                                             <div className="news-swiper-info-text">
-                                                {items.text}
+                                                {item.title}
                                             </div>
-                                            <div className="news-swiper-info-description">
-                                                {items.description}
-                                            </div>
+                                            <div className="news-swiper-info-description" dangerouslySetInnerHTML={{__html: item.excerpt}} />
                                         </div>
                                     </NavLink>
                                 );

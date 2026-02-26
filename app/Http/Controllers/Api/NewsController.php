@@ -15,4 +15,9 @@ class NewsController extends Controller
 
         return NewsResource::collection($news);
     }
+
+    public function show(News $news)
+    {
+        return NewsResource::make($news);
+    }
 }
