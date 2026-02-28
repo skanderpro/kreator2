@@ -58,6 +58,7 @@ class ApartmentCrudController extends CrudController
         CRUD::setValidation(ApartmentRequest::class);
 
         CRUD::field('title')->type('text');
+        CRUD::field('planing_type')->type('text');
         CRUD::field([
             'name'        => 'type',
             'label'       => "Type",
@@ -69,8 +70,9 @@ class ApartmentCrudController extends CrudController
         CRUD::field('living_area')->type('number');
         CRUD::field('rooms')->type('number');
         CRUD::field('building')->type('number');
-        CRUD::field('section')->type('text');
+        CRUD::field('section')->type('number');
         CRUD::field('floor')->type('number');
+        CRUD::field('area')->type('number');
         CRUD::field('price')->type('number');
         CRUD::field('price_for_meter')->type('number');
         CRUD::field('plan')->type('upload')->withFiles();

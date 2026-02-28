@@ -9,11 +9,31 @@ use App\Http\Resources\ApartmentResource;
 
 class ApartmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $apartments = Apartment::query()->orderBy('created_at', 'DESC')->paginate();
+        $apartments = Apartment::query();
 
-        return ApartmentResource::collection($apartments);
+        switch ($request->input('order')) {
+            case 'price_desc':
+                $apartments->orderBy('price', 'desc');
+                break;
+            case 'area_asc':
+                $apartments->orderBy('area', 'asc');
+                break;
+            case 'area_desc':
+                $apartments->orderBy('area', 'desc');
+                break;
+            default:
+                $apartments->orderBy('price', 'asc');
+                break;
+        }
+
+        return ApartmentResource::collection($apartments->paginate());
+    }
+
+    public function show(Apartment $apartment)
+    {
+        return ApartmentResource::make($apartment);
     }
 
     public function minMaxPrice()

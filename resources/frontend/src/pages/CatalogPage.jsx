@@ -6,7 +6,8 @@ import {useApartments} from "../api/apartments.js";
 import {useFormik} from "formik";
 function CatalogPage() {
     const [catalogfilterToggle, setCatalogFilterToggle] = useState(false);
-    const apartments = useApartments();
+    const [filter, setFilter] = useState({})
+    const apartments = useApartments(filter);
 
     const formik = useFormik({
         initialValues: {
@@ -22,9 +23,10 @@ function CatalogPage() {
             sold: "",
             building: "",
             parking_count: "",
+            page: 1
         },
         onSubmit: (values) => {
-            console.log(values);
+            setFilter(values);
         }
     });
 
@@ -36,7 +38,15 @@ function CatalogPage() {
         }
     }, [catalogfilterToggle]);
 
+    const loadMoreClickHandler = () => {
+        formik.setFieldValue('page', formik.values.page + 1);
+        formik.handleSubmit();
+    };
 
+    const orderChangeHandler = (e) => {
+        formik.handleChange(e);
+        formik.handleSubmit();
+    }
 
     return (
         <>
@@ -64,17 +74,17 @@ function CatalogPage() {
                             <h2>каталог</h2>
                             <div className="catalog-header-sort">
                                 <label>Сортувати за</label>
-                                <select name="" id="" className="filter-select" onChange={formik.handleChange} value={formik.values.order}>
-                                    <option value="">
+                                <select name="order" id="" className="filter-select" onChange={orderChangeHandler} value={formik.values.order}>
+                                    <option value="price_asc">
                                         Від дешевих до дорогих
                                     </option>
-                                    <option value="">
+                                    <option value="price_desc">
                                         Від дорогих до дешевих
                                     </option>
-                                    <option value="">
+                                    <option value="area_asc">
                                         Від малих до великих
                                     </option>
-                                    <option value="">
+                                    <option value="area_desc">
                                         Від великих до малих
                                     </option>
                                 </select>
@@ -334,7 +344,10 @@ function CatalogPage() {
                                         );
                                     })}
                                 </div>
-                                <button className="btn">ПОКАЗАТИ БІЛЬШЕ</button>
+                                {apartments.data.data.length < apartments.data.meta.total && (
+                                    (apartments.isLoading || apartments.isFetching) ? <div>Loading...</div> : <button className="btn" onClick={loadMoreClickHandler}>ПОКАЗАТИ БІЛЬШЕ</button>
+                                )}
+
                             </div>
                         </div>
                     </div>

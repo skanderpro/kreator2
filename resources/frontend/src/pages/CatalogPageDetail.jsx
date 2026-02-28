@@ -1,89 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
+import {useSingleApartment} from "../api/apartments.js";
 function CatalogPageDetail() {
-  const catalogList = [
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-    {
-      imgUrl: "catalog-1.jpg",
-      title: "101",
-      area: "45,80",
-      room: "1",
-      floor: "10",
-      priceArea: "51 846",
-      price: "2 374 546, 80",
-    },
-  ];
+  const { id } = useParams();
+  const apartment = useSingleApartment(id);
+
+  if (apartment.isLoading || apartment.isFetching) {
+      return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className="breadcrumbs">
@@ -93,56 +18,56 @@ function CatalogPageDetail() {
               <img src={new URL(`/src/assets/svg/mini-logo.svg`, import.meta.url).href} />
             </NavLink>
             <NavLink to="/catalog">Підбір квартир та паркомісць</NavLink>
-            <span>КВАРТИРА 101</span>
+            <span>{apartment.data.data?.title}</span>
           </div>
         </div>
       </div>
       <div className="catalog-detail">
         <div className="container">
           <div className="catalog-detail__inner">
-            <h2>КВАРТИРА 101</h2>
+            <h2>{apartment.data.data?.title}</h2>
             <div className="catalog-detail-header">
               <div className="catalog-detail-header-items">
                 <div className="catalog-detail-header-item">
                   <img src={new URL(`/src/assets/svg/catalog-icon/icon-1.svg`, import.meta.url).href} />
                   Площа
-                  <span>45,85 м2</span>
+                  <span>{apartment.data.data?.area} м2</span>
                 </div>
                 <div className="catalog-detail-header-item">
                   <img src={new URL(`/src/assets/svg/catalog-icon/icon-2.svg`, import.meta.url).href} />
                   Житлова площа
-                  <span>18,25 м2</span>
+                  <span>{apartment.data.data?.living_area} м2</span>
                 </div>
                 <div className="catalog-detail-header-item">
                   <img src={new URL(`/src/assets/svg/catalog-icon/icon-3.svg`, import.meta.url).href} />
                   Будинок
-                  <span>1</span>
+                  <span>{apartment.data.data?.building}</span>
                 </div>
                 <div className="catalog-detail-header-item">
                   <img src={new URL(`/src/assets/svg/catalog-icon/icon-4.svg`, import.meta.url).href} />
                   Секція
-                  <span>Секція 1</span>
+                  <span>Секція {apartment.data.data?.section}</span>
                 </div>
                 <div className="catalog-detail-header-item">
                   <img src={new URL(`/src/assets/svg/catalog-icon/icon-5.svg`, import.meta.url).href} />
                   Поверх
-                  <span>10</span>
+                  <span>{apartment.data.data?.floor}</span>
                 </div>
                 <div className="catalog-detail-header-item">
                   <img src={new URL(`/src/assets/svg/catalog-icon/icon-6.svg`, import.meta.url).href} />
                   Тип планування
-                  <span>Квартира 86</span>
+                  <span>{apartment.data.data?.planing_type}</span>
                 </div>
               </div>
               <div className="catalog-detail-header-info">
                 <div className="catalog-detail-header-info-text">
-                  Ціна за м2: <span>51 846 грн/м2</span>
+                  Ціна за м2: <span>{apartment.data.data?.price_for_meter} грн/м2</span>
                 </div>
                 <div className="catalog-detail-header-info-price">
                   Вартість квартири
                   <span>
                     {" "}
-                    2 374 546, 80 <b>грн</b>
+                      {apartment.data.data?.price} <b>грн</b>
                   </span>
                 </div>
                 <NavLink className={"btn"} to={"/"}>
@@ -158,7 +83,7 @@ function CatalogPageDetail() {
               </ul>
               <div className="catalog-detail-tab-gallery">
                 <div className="catalog-detail-tab-gallery-item div1">
-                  <img src={new URL(`/src/assets/img/catalog/gallery-1.png`, import.meta.url).href} />
+                  <img src={apartment.data.data?.plan} />
                   <svg
                     width="70"
                     height="68"
@@ -181,10 +106,10 @@ function CatalogPageDetail() {
                   </svg>
                 </div>
                 <div className="catalog-detail-tab-gallery-item div2">
-                  <img src={new URL(`/src/assets/img/catalog/gallery-2.png`, import.meta.url).href} />
+                  <img src={apartment.data.data?.floor_plan} />
                 </div>
                 <div className="catalog-detail-tab-gallery-item div3">
-                  <img src={new URL(`/src/assets/img/catalog/gallery-3.png`, import.meta.url).href} />
+                  <img src={apartment.data.data?.gen_plan} />
                 </div>
               </div>
             </div>
