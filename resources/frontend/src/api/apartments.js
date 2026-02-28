@@ -1,13 +1,25 @@
-import { useQuery } from '@tanstack/react-query'
+import {useQuery} from '@tanstack/react-query'
 
-export const useApartments = () => useQuery({
-    queryKey: ['apartments'],
+export const useApartments = (filters) => useQuery({
+    queryKey: ['apartments', filters],
     queryFn: async () => {
-         const response = await fetch('/api/apartments');
+        const queryString = new URLSearchParams(filters).toString();
 
-         return response.json();
+        const response = await fetch(`/api/apartments?${queryString}`);
+
+        return response.json();
     },
-    placeholderData: { data: []},
+    placeholderData: {data: [], meta: {total: 0}},
+});
+
+export const useSingleApartment = (id) => useQuery({
+    queryKey: ['apartment', id],
+    queryFn: async () => {
+        const response = await fetch(`/api/apartments/${id}`);
+
+        return response.json();
+    },
+    placeholderData: {data: null},
 });
 
 export const useApartmentsMinMaxPrice = () => useQuery({
@@ -17,7 +29,7 @@ export const useApartmentsMinMaxPrice = () => useQuery({
 
         return response.json();
     },
-    placeholderData: { min: 0, max: 0},
+    placeholderData: {min: 0, max: 0},
 });
 
 export const useApartmentsMinMaxArea = () => useQuery({
@@ -27,5 +39,5 @@ export const useApartmentsMinMaxArea = () => useQuery({
 
         return response.json();
     },
-    placeholderData: { min: 0, max: 0},
+    placeholderData: {min: 0, max: 0},
 });

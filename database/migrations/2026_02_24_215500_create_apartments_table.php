@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('type');
+            $table->string('planing_type');
             $table->float('area');
             $table->float('living_area');
             $table->integer('rooms');

@@ -22,6 +22,7 @@ Route::name('build-step.')->prefix('/build-steps')->group(function () {
 
 Route::name('apartments.')->prefix('/apartments')->group(function () {
     Route::get('', [ApartmentController::class, 'index'])->name('index');
+    Route::get('/{apartment}', [ApartmentController::class, 'show'])->name('show');
     Route::get('/min-max-price', [ApartmentController::class, 'minMaxPrice'])->name('minMaxPrice');
     Route::get('/min-max-area', [ApartmentController::class, 'minMaxArea'])->name('minMaxArea');
 });

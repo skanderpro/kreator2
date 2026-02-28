@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentResource extends JsonResource
 {
@@ -26,6 +27,7 @@ class ApartmentResource extends JsonResource
             'type' => $this->type,
             'floor' => $this->floor,
             'price' => $this->price,
+            'planing_type' => $this->planing_type,
             'price_for_meter' => $this->price_for_meter,
             'plan' =>  !empty($this->plan) ? Storage::url($this->plan) : null,
             'floor_plan' => !empty($this->floor_plan) ? Storage::url($this->floor_plan) : null,
