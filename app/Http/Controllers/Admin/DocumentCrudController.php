@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ApartmentRequest;
+use App\Http\Requests\DocumentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class ApartmentCrudController
+ * Class DocumentCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class ApartmentCrudController extends CrudController
+class DocumentCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class ApartmentCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Apartment::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/apartment');
-        CRUD::setEntityNameStrings('apartment', 'apartments');
+        CRUD::setModel(\App\Models\Document::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/document');
+        CRUD::setEntityNameStrings('document', 'documents');
     }
 
     /**
@@ -55,43 +55,10 @@ class ApartmentCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ApartmentRequest::class);
-
+        CRUD::setValidation(DocumentRequest::class);
         CRUD::field('title')->type('text');
-        CRUD::field('planing_type')->type('text');
-        CRUD::field([
-            'name'        => 'type',
-            'label'       => "Type",
-            'type'        => 'select_from_array',
-            'options'     => ['apartment' => 'Apartment', 'parking' => 'Parking'],
-            'allows_null' => false,
-            'default'     => 'apartment',
-        ]);
-        CRUD::field('living_area')->type('number');
-        CRUD::field('rooms')->type('number');
-        CRUD::field('building')->type('number');
-        CRUD::field('section')->type('number');
-        CRUD::field('floor')->type('number');
-        CRUD::field('area')->type('number');
-        CRUD::field('price')->type('number');
-        CRUD::field('price_for_meter')->type('number');
-        CRUD::field('plan')->type('upload')->withFiles();
-        CRUD::field('floor_plan')->type('upload')->withFiles();
-        CRUD::field('gen_plan')->type('upload')->withFiles();
+        CRUD::field('image')->type('upload')->withFiles();
         CRUD::field('created_at')->type('date');
-        CRUD::field('sold')->type('switch');
-        CRUD::field([
-            'name'        => 'features',
-            'label'       => "Features",
-            'type'        => 'select_from_array',
-            'options'     => [
-                'promotion' => 'Promotion',
-                'credit' => 'Credit',
-                'installment' => 'Installment',
-            ],
-            'allows_null' => true,
-            'allows_multiple' => true,
-        ]);
     }
 
     /**

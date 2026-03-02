@@ -21,6 +21,8 @@ Route::group([
     Route::crud('gallery-item', 'GalleryItemCrudController');
     Route::crud('news', 'NewsCrudController');
     Route::crud('user', 'UserCrudController');
+    Route::crud('document', 'DocumentCrudController');
+    Route::crud('feature', 'FeatureCrudController');
 }); // this should be the absolute last line of this file
 
 /**

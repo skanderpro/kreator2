@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('plan');
             $table->string('floor_plan');
             $table->string('gen_plan');
+            $table->boolean('sold')->default(false);
+            $table->json('features')->nullable();
             $table->timestamps();
         });
     }
