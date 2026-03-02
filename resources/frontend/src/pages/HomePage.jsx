@@ -26,8 +26,10 @@ import Popup from "../components/Popup";
 import { useGallery } from "../api/gallery";
 import { useNews } from "../api/news";
 import { formatDate } from "../formatters/date";
-import {useApartmentsMinMaxArea, useApartmentsMinMaxPrice} from "../api/apartments.js";
+import {useApartmentsMinMaxArea, useApartmentsMinMaxPrice, useApartmentsUnsoldCount} from "../api/apartments.js";
 import {useBuildSteps} from "../api/build-step.js";
+import {useFeatures} from "../api/features.js";
+import {useDocuments} from "../api/documents.js";
 
 const advantagesList = [
     {
@@ -104,6 +106,9 @@ function HomePage() {
     const apartmentsMinMaxPrice = useApartmentsMinMaxPrice();
     const apartmentsMinMaxArea = useApartmentsMinMaxArea();
     const buildSteps = useBuildSteps();
+    const features = useFeatures();
+    const documents = useDocuments();
+    const apartmentCount = useApartmentsUnsoldCount();
 
     const [popupConsultations, setPopupConsultations] = useState(false);
     const [popupTy, setPopupTy] = useState(false);
@@ -170,7 +175,7 @@ function HomePage() {
                             <div className="card-apartments-header-right">
                                 <p>За вашими параметрами ми знайшли для вас:</p>
                                 <div className="card-apartments-text">
-                                    13 <span>квартир</span>
+                                    {apartmentCount.data?.count} <span>квартир</span>
                                 </div>
                             </div>
                         </div>
@@ -315,21 +320,16 @@ function HomePage() {
                         </p>
                     </div>
                     <div className="advantages-list">
-                        {advantagesList.map((item, index) => {
+                        {features.data.data.map((item, index) => {
                             return (
                                 <div
                                     className="advantages-list-item"
                                     key={index}
                                 >
                                     <img
-                                        src={
-                                            new URL(
-                                                `/src/assets/img/advantages/${item.imgUrl}`,
-                                                import.meta.url,
-                                            ).href
-                                        }
+                                        src={item.image}
                                     />
-                                    <p>{item.description}</p>
+                                    <p>{item.title}</p>
                                 </div>
                             );
                         })}
@@ -584,23 +584,16 @@ function HomePage() {
                     <div className="documents">
                         <h2>документи</h2>
                         <div className="documents-items">
-                            <div className="documents-item ">
-                                <p>Дозвіл на виконання будівельних робіт</p>
-                                <a className="icon-arrow">
-                                    <Download />
-                                </a>
-                            </div>
-                            <div className="documents-item">
-                                <p>
-                                    Ліцензія на ведення господарської діяльності
-                                    з будівництва об'єктів, що за класом
-                                    наслідків (відповідальності) належать до
-                                    об'єктів з середніми та значними наслідками
-                                </p>
-                                <a className="icon-arrow">
-                                    <Download />
-                                </a>
-                            </div>
+                            {documents.data.data.map((item, index) => {
+                                return (
+                                    <div className="documents-item " key={`document-${index}`}>
+                                        <p>{item.title}</p>
+                                        <a className="icon-arrow" href={item.image} download>
+                                            <Download />
+                                        </a>
+                                    </div>
+                                );
+                            })}
                         </div>
                         <div className="documents-info">
                             <h4>Юридична інформація</h4>

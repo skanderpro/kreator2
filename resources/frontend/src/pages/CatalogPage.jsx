@@ -48,6 +48,16 @@ function CatalogPage() {
         formik.handleSubmit();
     }
 
+    const handleMultipleValues = (name, value) => () => {
+        const values = formik.values[name];
+        if (values.includes(value)) {
+            const newValues = values.filter((val) => val !== value);
+            formik.setFieldValue(name, newValues);
+        } else {
+            formik.setFieldValue(name, [...values, value]);
+        }
+    };
+
     return (
         <>
             <div className="breadcrumbs">
@@ -122,10 +132,10 @@ function CatalogPage() {
                                     <label>Тип нерухомості</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('type', 'apartment')}>
+                                            <div className="list-tab-item" onClick={handleMultipleValues('type', 'apartment')}>
                                                 Квартира
                                             </div>
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('type', 'parking')}>
+                                            <div className="list-tab-item" onClick={handleMultipleValues('type', 'parking')}>
                                                 Паркомісце
                                             </div>
                                         </div>
@@ -164,10 +174,10 @@ function CatalogPage() {
                                     <label>К-ть кімнат</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('rooms', '1')}>
+                                            <div className="list-tab-item" onClick={handleMultipleValues('rooms', 1)}>
                                                 1
                                             </div>
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('rooms', '2')}>
+                                            <div className="list-tab-item" onClick={handleMultipleValues('rooms', 2)}>
                                                 2
                                             </div>
                                         </div>
@@ -236,13 +246,13 @@ function CatalogPage() {
                                     <label>Спеціальні умови</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('features', 'promotion')}>
+                                            <div className="list-tab-item" onClick={handleMultipleValues('features', 'promotion')}>
                                                 Акція
                                             </div>
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('features', 'credit')}>
+                                            <div className="list-tab-item" onClick={handleMultipleValues('features', 'credit')}>
                                                 Кредит
                                             </div>
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('features', 'installment')}>
+                                            <div className="list-tab-item" onClick={handleMultipleValues('features', 'installment')}>
                                                 Розстрочка
                                             </div>
                                         </div>

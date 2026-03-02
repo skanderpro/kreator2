@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Apartment extends Model
 {
     use CrudTrait;
-    protected $fillable = ['title', 'type', 'parking_count', 'area', 'living_area', 'rooms', 'building', 'section', 'floor', 'price', 'price_for_meter', 'plan', 'floor_plan', 'gen_plan'];
+    protected $fillable = ['title', 'type', 'sold', 'features', 'parking_count', 'area', 'living_area', 'rooms', 'building', 'section', 'floor', 'price', 'price_for_meter', 'plan', 'floor_plan', 'gen_plan'];
 }

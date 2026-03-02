@@ -32,6 +32,16 @@ export const useApartmentsMinMaxPrice = () => useQuery({
     placeholderData: {min: 0, max: 0},
 });
 
+export const useApartmentsUnsoldCount = () => useQuery({
+    queryKey: ['apartments-unsold-count'],
+    queryFn: async () => {
+        const response = await fetch('/api/apartments/unsold-count');
+
+        return response.json();
+    },
+    placeholderData: {count: 0},
+});
+
 export const useApartmentsMinMaxArea = () => useQuery({
     queryKey: ['apartments-min-max-area'],
     queryFn: async () => {

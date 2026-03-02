@@ -51,4 +51,11 @@ class ApartmentController extends Controller
 
         return response()->json(['min' => $minArea, 'max' => $maxArea]);
     }
+
+    public function unsoldCount()
+    {
+        $count = Apartment::query()->count();
+
+        return response()->json(['count' => $count]);
+    }
 }

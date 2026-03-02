@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\ApartmentController;
 use App\Http\Controllers\Api\BuildStepController;
+use App\Http\Controllers\Api\DocumentController;
+use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\GalleryItemsController;
 use App\Http\Controllers\Api\NewsController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +24,17 @@ Route::name('build-step.')->prefix('/build-steps')->group(function () {
 
 Route::name('apartments.')->prefix('/apartments')->group(function () {
     Route::get('', [ApartmentController::class, 'index'])->name('index');
-    Route::get('/{apartment}', [ApartmentController::class, 'show'])->name('show');
+
     Route::get('/min-max-price', [ApartmentController::class, 'minMaxPrice'])->name('minMaxPrice');
     Route::get('/min-max-area', [ApartmentController::class, 'minMaxArea'])->name('minMaxArea');
+    Route::get('/unsold-count', [ApartmentController::class, 'unsoldCount'])->name('unsoldCount');
+    Route::get('/{apartment}', [ApartmentController::class, 'show'])->name('show');
+});
+
+Route::name('features.')->prefix('/features')->group(function () {
+    Route::get('', [FeatureController::class, 'index'])->name('index');
+});
+
+Route::name('documents.')->prefix('/documents')->group(function () {
+    Route::get('', [DocumentController::class, 'index'])->name('index');
 });
