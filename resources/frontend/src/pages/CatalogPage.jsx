@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Filter from "../assets/svg/filter.svg?react";
 import Close from "../assets/svg/close.svg?react";
-import {useApartments} from "../api/apartments.js";
-import {useFormik} from "formik";
+import { useApartments } from "../api/apartments.js";
+import { useFormik } from "formik";
 function CatalogPage() {
     const [catalogfilterToggle, setCatalogFilterToggle] = useState(false);
-    const [filter, setFilter] = useState({})
+    const [filter, setFilter] = useState({});
     const apartments = useApartments(filter);
 
     const formik = useFormik({
@@ -15,19 +15,20 @@ function CatalogPage() {
             priceTo: "",
             areaFrom: "",
             areaTo: "",
-            rooms: "",
+            rooms: [],
             floor: "",
-            type: "",
+            type: [],
             parking: "",
             order: "",
             sold: "",
             building: "",
             parking_count: "",
-            page: 1
+            features: [],
+            page: 1,
         },
         onSubmit: (values) => {
             setFilter(values);
-        }
+        },
     });
 
     useEffect(() => {
@@ -39,14 +40,14 @@ function CatalogPage() {
     }, [catalogfilterToggle]);
 
     const loadMoreClickHandler = () => {
-        formik.setFieldValue('page', formik.values.page + 1);
+        formik.setFieldValue("page", formik.values.page + 1);
         formik.handleSubmit();
     };
 
     const orderChangeHandler = (e) => {
         formik.handleChange(e);
         formik.handleSubmit();
-    }
+    };
 
     const handleMultipleValues = (name, value) => () => {
         const values = formik.values[name];
@@ -56,6 +57,8 @@ function CatalogPage() {
         } else {
             formik.setFieldValue(name, [...values, value]);
         }
+
+        console.log(values);
     };
 
     return (
@@ -84,7 +87,13 @@ function CatalogPage() {
                             <h2>каталог</h2>
                             <div className="catalog-header-sort">
                                 <label>Сортувати за</label>
-                                <select name="order" id="" className="filter-select" onChange={orderChangeHandler} value={formik.values.order}>
+                                <select
+                                    name="order"
+                                    id=""
+                                    className="filter-select"
+                                    onChange={orderChangeHandler}
+                                    value={formik.values.order}
+                                >
                                     <option value="price_asc">
                                         Від дешевих до дорогих
                                     </option>
@@ -132,10 +141,34 @@ function CatalogPage() {
                                     <label>Тип нерухомості</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item" onClick={handleMultipleValues('type', 'apartment')}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.type.includes(
+                                                        "apartment",
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "type",
+                                                    "apartment",
+                                                )}
+                                            >
                                                 Квартира
                                             </div>
-                                            <div className="list-tab-item" onClick={handleMultipleValues('type', 'parking')}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.type.includes(
+                                                        "parking",
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "type",
+                                                    "parking",
+                                                )}
+                                            >
                                                 Паркомісце
                                             </div>
                                         </div>
@@ -174,10 +207,34 @@ function CatalogPage() {
                                     <label>К-ть кімнат</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item" onClick={handleMultipleValues('rooms', 1)}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.rooms.includes(
+                                                        1,
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "rooms",
+                                                    1,
+                                                )}
+                                            >
                                                 1
                                             </div>
-                                            <div className="list-tab-item" onClick={handleMultipleValues('rooms', 2)}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.rooms.includes(
+                                                        2,
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "rooms",
+                                                    2,
+                                                )}
+                                            >
                                                 2
                                             </div>
                                         </div>
@@ -189,7 +246,12 @@ function CatalogPage() {
                                         <div className="filter-input">
                                             <input
                                                 type="text"
-                                                onChange={(e) => formik.setFieldValue('areaFrom', e.target.value)}
+                                                onChange={(e) =>
+                                                    formik.setFieldValue(
+                                                        "areaFrom",
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 placeholder="від: 45,81"
                                                 value={formik.values.areaFrom}
                                             />
@@ -199,7 +261,12 @@ function CatalogPage() {
                                             <input
                                                 type="text"
                                                 placeholder="до: 65,47"
-                                                onChange={(e) => formik.setFieldValue('areaTo', e.target.value)}
+                                                onChange={(e) =>
+                                                    formik.setFieldValue(
+                                                        "areaTo",
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 value={formik.values.areaTo}
                                             />
                                             <span>м²</span>
@@ -213,7 +280,12 @@ function CatalogPage() {
                                             <input
                                                 type="text"
                                                 placeholder="від: 2 748 552,80"
-                                                onChange={(e) => formik.setFieldValue('priceFrom', e.target.value)}
+                                                onChange={(e) =>
+                                                    formik.setFieldValue(
+                                                        "priceFrom",
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 value={formik.values.priceFrom}
                                             />
                                             <span>грн.</span>
@@ -222,7 +294,12 @@ function CatalogPage() {
                                             <input
                                                 type="text"
                                                 placeholder="до: 3 258 256,50"
-                                                onChange={(e) => formik.setFieldValue('priceTo', e.target.value)}
+                                                onChange={(e) =>
+                                                    formik.setFieldValue(
+                                                        "priceTo",
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 value={formik.values.priceTo}
                                             />
                                             <span>грн.</span>
@@ -233,10 +310,34 @@ function CatalogPage() {
                                     <label>Відображати продані</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('sold', '1')}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.sold === "1"
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={() =>
+                                                    formik.setFieldValue(
+                                                        "sold",
+                                                        "1",
+                                                    )
+                                                }
+                                            >
                                                 Так
                                             </div>
-                                            <div className="list-tab-item" onClick={() => formik.setFieldValue('sold', '0')}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.sold === "0"
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={() =>
+                                                    formik.setFieldValue(
+                                                        "sold",
+                                                        "0",
+                                                    )
+                                                }
+                                            >
                                                 Ні
                                             </div>
                                         </div>
@@ -246,33 +347,82 @@ function CatalogPage() {
                                     <label>Спеціальні умови</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div className="list-tab-item" onClick={handleMultipleValues('features', 'promotion')}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.features.includes(
+                                                        "promotion",
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "features",
+                                                    "promotion",
+                                                )}
+                                            >
                                                 Акція
                                             </div>
-                                            <div className="list-tab-item" onClick={handleMultipleValues('features', 'credit')}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.features.includes(
+                                                        "credit",
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "features",
+                                                    "credit",
+                                                )}
+                                            >
                                                 Кредит
                                             </div>
-                                            <div className="list-tab-item" onClick={handleMultipleValues('features', 'installment')}>
+                                            <div
+                                                className={`list-tab-item ${
+                                                    formik.values.features.includes(
+                                                        "installment",
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "features",
+                                                    "installment",
+                                                )}
+                                            >
                                                 Розстрочка
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button className="btn btn-primary" type="button" onClick={formik.resetForm}>
+                                <button
+                                    className="btn btn-primary"
+                                    type="button"
+                                    onClick={formik.resetForm}
+                                >
                                     ОЧИСТИТИ
                                 </button>
-                                <button className="btn " type="button" onClick={formik.handleSubmit}>ПІДБІР КВАРТИР</button>
+                                <button
+                                    className="btn "
+                                    type="button"
+                                    onClick={formik.handleSubmit}
+                                >
+                                    ПІДБІР КВАРТИР
+                                </button>
                             </div>
                             <div className="catalog-box">
                                 <div className="catalog-list">
                                     {apartments.data.data.map((item, index) => {
-                                        const isApartment = item.type === "apartment";
+                                        const isApartment =
+                                            item.type === "apartment";
 
                                         return (
                                             <NavLink
                                                 className="catalog-list-item"
                                                 key={index}
-                                                to={"/catalog-detail/" + item.id}
+                                                to={
+                                                    "/catalog-detail/" + item.id
+                                                }
                                             >
                                                 <div className="catalog-list-item-title">
                                                     {isApartment
@@ -288,7 +438,9 @@ function CatalogPage() {
                                                 </div>
                                                 <div
                                                     className={`catalog-list-item-info ${
-                                                        isApartment ? '': 'catalog-list-item-info--parking'
+                                                        isApartment
+                                                            ? ""
+                                                            : "catalog-list-item-info--parking"
                                                     }`}
                                                 >
                                                     <div className="catalog-list-item-info-item">
@@ -354,10 +506,19 @@ function CatalogPage() {
                                         );
                                     })}
                                 </div>
-                                {apartments.data.data.length < apartments.data.meta.total && (
-                                    (apartments.isLoading || apartments.isFetching) ? <div>Loading...</div> : <button className="btn" onClick={loadMoreClickHandler}>ПОКАЗАТИ БІЛЬШЕ</button>
-                                )}
-
+                                {apartments.data.data.length <
+                                    apartments.data.meta.total &&
+                                    (apartments.isLoading ||
+                                    apartments.isFetching ? (
+                                        <div>Loading...</div>
+                                    ) : (
+                                        <button
+                                            className="btn"
+                                            onClick={loadMoreClickHandler}
+                                        >
+                                            ПОКАЗАТИ БІЛЬШЕ
+                                        </button>
+                                    ))}
                             </div>
                         </div>
                     </div>

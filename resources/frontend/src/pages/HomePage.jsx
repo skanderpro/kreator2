@@ -26,10 +26,14 @@ import Popup from "../components/Popup";
 import { useGallery } from "../api/gallery";
 import { useNews } from "../api/news";
 import { formatDate } from "../formatters/date";
-import {useApartmentsMinMaxArea, useApartmentsMinMaxPrice, useApartmentsUnsoldCount} from "../api/apartments.js";
-import {useBuildSteps} from "../api/build-step.js";
-import {useFeatures} from "../api/features.js";
-import {useDocuments} from "../api/documents.js";
+import {
+    useApartmentsMinMaxArea,
+    useApartmentsMinMaxPrice,
+    useApartmentsUnsoldCount,
+} from "../api/apartments.js";
+import { useBuildSteps } from "../api/build-step.js";
+import { useFeatures } from "../api/features.js";
+import { useDocuments } from "../api/documents.js";
 
 const advantagesList = [
     {
@@ -97,7 +101,6 @@ const technologiesList = [
     },
 ];
 
-
 function HomePage() {
     const lightboxRef = useRef(null);
 
@@ -151,7 +154,9 @@ function HomePage() {
                         <div className="price-con">
                             <label>Ціна від:</label>
                             <div className="price-title">
-                                <div className="price-label">{apartmentsMinMaxPrice.data.min}</div>
+                                <div className="price-label">
+                                    {apartmentsMinMaxPrice.data.min}
+                                </div>
                                 <span>грн/м.кв</span>
                             </div>
                         </div>
@@ -159,7 +164,10 @@ function HomePage() {
                         <div className="price-con">
                             <label>Площі:</label>
                             <div className="price-title">
-                                <div className="price-label">{apartmentsMinMaxArea.data.min}-{apartmentsMinMaxArea.data.max}</div>
+                                <div className="price-label">
+                                    {apartmentsMinMaxArea.data.min}-
+                                    {apartmentsMinMaxArea.data.max}
+                                </div>
                                 <span>м.кв</span>
                             </div>
                         </div>
@@ -175,7 +183,8 @@ function HomePage() {
                             <div className="card-apartments-header-right">
                                 <p>За вашими параметрами ми знайшли для вас:</p>
                                 <div className="card-apartments-text">
-                                    {apartmentCount.data?.count} <span>квартир</span>
+                                    {apartmentCount.data?.count}{" "}
+                                    <span>квартир</span>
                                 </div>
                             </div>
                         </div>
@@ -326,9 +335,7 @@ function HomePage() {
                                     className="advantages-list-item"
                                     key={index}
                                 >
-                                    <img
-                                        src={item.image}
-                                    />
+                                    <img src={item.image} />
                                     <p>{item.title}</p>
                                 </div>
                             );
@@ -459,14 +466,9 @@ function HomePage() {
                                             key={index}
                                         >
                                             <div className="construction-swiper-item-img">
-                                                <img
-                                                    src={item.image}
-                                                    alt=""
-                                                />
+                                                <img src={item.image} alt="" />
                                                 <div className="construction-swiper-item-box"></div>
-                                                <a
-                                                    data-src={item.image}
-                                                >
+                                                <a data-src={item.image}>
                                                     <Сamera />
                                                 </a>
                                             </div>
@@ -570,7 +572,12 @@ function HomePage() {
                                             <div className="news-swiper-info-text">
                                                 {item.title}
                                             </div>
-                                            <div className="news-swiper-info-description" dangerouslySetInnerHTML={{ __html: item.excerpt }} />
+                                            <div
+                                                className="news-swiper-info-description"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: item.excerpt,
+                                                }}
+                                            />
                                         </div>
                                     </SwiperSlide>
                                 );
@@ -586,9 +593,16 @@ function HomePage() {
                         <div className="documents-items">
                             {documents.data.data.map((item, index) => {
                                 return (
-                                    <div className="documents-item " key={`document-${index}`}>
+                                    <div
+                                        className="documents-item "
+                                        key={`document-${index}`}
+                                    >
                                         <p>{item.title}</p>
-                                        <a className="icon-arrow" href={item.image} download>
+                                        <a
+                                            className="icon-arrow"
+                                            href={item.image}
+                                            download
+                                        >
                                             <Download />
                                         </a>
                                     </div>
