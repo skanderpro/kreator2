@@ -31,6 +31,7 @@ class BuildStepSeeder extends Seeder
         ];
 
         $image = 'swiper-construction-1.jpg';
+        BuildStep::query()->delete();
 
         copy(resource_path('frontend/src/assets/img/swiper-construction/' . $image), public_path('storage/' . $image));
         foreach ($items as $item) {

@@ -26,7 +26,7 @@ class DocumentsSeeder extends Seeder
             ],
         ];
 
-
+        Document::query()->delete();
 
         foreach ($items as $item) {
             copy(resource_path('frontend/src/assets/img/advantages/' . $item['image']), public_path('storage/' . $item['image']));

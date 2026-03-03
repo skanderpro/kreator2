@@ -65,6 +65,8 @@ class NewsSeeder extends Seeder
 
         ];
 
+        News::query()->delete();
+
         copy(resource_path('frontend/src/assets/img/swiper-news/' . $image), public_path('storage/' . $image));
 
         foreach ($items as $item) {

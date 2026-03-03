@@ -41,6 +41,8 @@ class AdvantagesSeeder extends Seeder
             ],
         ];
 
+        Feature::query()->delete();
+
 
 
         foreach ($items as $item) {
