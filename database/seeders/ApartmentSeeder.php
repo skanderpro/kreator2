@@ -278,7 +278,7 @@ class ApartmentSeeder extends Seeder
 
         ];
 
-
+        Apartment::query()->delete();
 
         foreach ($items as $item) {
             Apartment::create($item);

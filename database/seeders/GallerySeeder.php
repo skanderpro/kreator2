@@ -20,6 +20,8 @@ class GallerySeeder extends Seeder
             'swiper-news-1.jpg',
         ];
 
+        GalleryItem::query()->delete();
+
         copy(resource_path('frontend/src/assets/img/swiper-news/' . $items[0]), public_path('storage/' . $items[0]));
 
         foreach ($items as $item) {
