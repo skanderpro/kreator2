@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\DocumentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\Settings\app\Models\Setting;
 
 /**
  * Class DocumentCrudController
@@ -40,6 +41,8 @@ class DocumentCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
+
+        dd(Setting::get('facebook_url'));
 
         /**
          * Columns can be defined using the fluent syntax:
