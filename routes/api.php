@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\GalleryItemsController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\SettingsController;
+use App\Http\Controllers\Api\TechnologyController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('news.')->prefix('/news')->group(function () {
@@ -25,7 +27,7 @@ Route::name('build-step.')->prefix('/build-steps')->group(function () {
 Route::name('apartments.')->prefix('/apartments')->group(function () {
     Route::get('', [ApartmentController::class, 'index'])->name('index');
 
-    Route::get('/min-max-price', [ApartmentController::class, 'minMaxPrice'])->name('minMaxPrice');
+    Route::get('/meta', [ApartmentController::class, 'getMeta'])->name('getMeta');
     Route::get('/min-max-area', [ApartmentController::class, 'minMaxArea'])->name('minMaxArea');
     Route::get('/unsold-count', [ApartmentController::class, 'unsoldCount'])->name('unsoldCount');
     Route::get('/{apartment}', [ApartmentController::class, 'show'])->name('show');
@@ -37,4 +39,12 @@ Route::name('features.')->prefix('/features')->group(function () {
 
 Route::name('documents.')->prefix('/documents')->group(function () {
     Route::get('', [DocumentController::class, 'index'])->name('index');
+});
+
+Route::name('settings.')->prefix('/settings')->group(function () {
+    Route::get('', [SettingsController::class, 'index'])->name('index');
+});
+
+Route::name('technology.')->prefix('/technology')->group(function () {
+    Route::get('', [TechnologyController::class, 'index'])->name('index');
 });

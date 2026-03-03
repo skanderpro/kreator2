@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             DocumentsSeeder::class,
             ApartmentSeeder::class,
             SettingsSeeder::class,
+            UserSeeder::class,
+            TechnologySeeder::class,
         ]);
     }
 }

@@ -18,7 +18,7 @@ import Airplane from "../assets/svg/airplane.svg?react";
 import Сamera from "../assets/svg/camera.svg?react";
 import ArrowLeft from "../assets/svg/arrowLeft.svg?react";
 import Download from "../assets/svg/download.svg?react";
-import { NavLink } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import { Map } from "../components/Map";
 
 import Popup from "../components/Popup";
@@ -27,91 +27,70 @@ import { useGallery } from "../api/gallery";
 import { useNews } from "../api/news";
 import { formatDate } from "../formatters/date";
 import {
-    useApartmentsMinMaxArea,
-    useApartmentsMinMaxPrice,
+    useApartmentsMeta,
     useApartmentsUnsoldCount,
 } from "../api/apartments.js";
 import { useBuildSteps } from "../api/build-step.js";
 import { useFeatures } from "../api/features.js";
 import { useDocuments } from "../api/documents.js";
+import {useFormik} from "formik";
+import {useTechnologies} from "../api/technology.js";
+import {useSettings} from "../api/settings.js";
 
-const advantagesList = [
-    {
-        imgUrl: "advantages-1.jpg",
-        description:
-            "Дитячий та спортивний майданчики з м’яким безпечним покриттям",
-    },
-    {
-        imgUrl: "advantages-2.jpg",
-        description: "Краєвид з вікон на Тернопільський став",
-    },
-    {
-        imgUrl: "advantages-3.jpg",
-        description: "Дворівневий підземно-наземний паркінг",
-    },
-    {
-        imgUrl: "advantages-4.jpg",
-        description: "Засклені балкони та лоджії з панорамними вікнами",
-    },
-    {
-        imgUrl: "advantages-5.jpg",
-        description: "Краєвид на парк імені Тараса Шевченка",
-    },
-    {
-        imgUrl: "advantages-6.jpg",
-        description: "Стіни з ефективним зовнішнім утепленням",
-    },
-];
-const technologiesList = [
-    {
-        imgUrl: "icon-1.svg",
-        title: "Монолітно-каркасна технологія",
-        description:
-            "Забезпечує високу міцність і довговічність будівель, а також дозволяє створювати вільні планування без несучих внутрішніх стін. Крім того, вона дає більше гнучкості в дизайні, краще витримує сейсмічні навантаження та прискорює процес зведення.",
-    },
-    {
-        imgUrl: "icon-2.svg",
-        title: "Утеплення стін - мінеральна вата",
-        description:
-            "Утеплення стін мінеральною ватою забезпечує надійну тепло- та звукоізоляцію, зберігаючи комфортний мікроклімат у приміщенні в будь-яку пору року. Матеріал є негорючим, паропроникним і довговічним, що робить його безпечним та ефективним рішенням.",
-    },
-    {
-        imgUrl: "icon-3.svg",
-        title: "Зовнішні, міжквартирні та міжкімнатні стіни - керамоблок",
-        description:
-            "Стіни з керамоблоку забезпечують високу міцність будівлі, ефективну тепло- та звукоізоляцію, а також комфортний мікроклімат у приміщеннях. Керамоблок є екологічним матеріалом із хорошою паропроникністю, що сприяє довговічності та енергоефективності будинку.",
-    },
-    {
-        imgUrl: "icon-4.svg",
-        title: "Висота стелі житлової частини: 2,7 - 4,2 метрів",
-        description:
-            "Висота стелі  створює відчуття простору та наповнює приміщення світлом і повітрям. Такі пропорції забезпечують комфортне проживання та відкривають більше можливостей для індивідуальних дизайнерських рішень.",
-    },
-    {
-        imgUrl: "icon-5.svg",
-        title: "Паркінг - Підземний з ліфтом",
-        description:
-            "Підземний паркінг з ліфтом забезпечує зручний та безпечний доступ до житлових поверхів безпосередньо з рівня паркування. Таке рішення підвищує комфорт мешканців і дозволяє зберегти простір та естетику прибудинкової території.",
-    },
-    {
-        imgUrl: "icon-6.svg",
-        title: "Поверховість ЖК - 5 – 12",
-        description:
-            "Поєднує затишок невеликих будинків із сучасними міськими стандартами комфорту. Така висотність дозволяє забезпечити оптимальне освітлення квартир і просторі громадські зони.",
-    },
-];
 
 function HomePage() {
     const lightboxRef = useRef(null);
+    const navigate = useNavigate();
 
     const gallery = useGallery();
     const news = useNews();
-    const apartmentsMinMaxPrice = useApartmentsMinMaxPrice();
-    const apartmentsMinMaxArea = useApartmentsMinMaxArea();
+    const apartmentsMeta = useApartmentsMeta();
     const buildSteps = useBuildSteps();
     const features = useFeatures();
     const documents = useDocuments();
     const apartmentCount = useApartmentsUnsoldCount();
+    const technologies = useTechnologies();
+    const settings = useSettings();
+
+    const formik = useFormik({
+        initialValues: {
+            type: [],
+            rooms: [],
+            priceFrom: "",
+            priceTo: "",
+            areaFrom: "",
+            areaTo: "",
+        },
+        onSubmit: (values) => {
+            const query = [...Object.entries(values)].reduce((acc, [key, value]) => {
+                if (Array.isArray(value)) {
+                    key = `${key}[]`;
+                }
+
+                if (Array.isArray(value)) {
+                    value.forEach(item => acc.append(key, item));
+                } else if (value) {
+                    acc.append(key, value);
+                }
+                return acc;
+            }, new URLSearchParams());
+
+            navigate(`/catalog?${query.toString()}`);
+        },
+    });
+
+    const handleMultipleValues = (name, value) => () => {
+        const values = formik.values[name];
+        if (values.includes(value)) {
+            const newValues = values.filter((val) => val !== value);
+            formik.setFieldValue(name, newValues);
+        } else {
+            formik.setFieldValue(name, [...values, value]);
+        }
+
+        console.log(values);
+    };
+
 
     const [popupConsultations, setPopupConsultations] = useState(false);
     const [popupTy, setPopupTy] = useState(false);
@@ -138,10 +117,10 @@ function HomePage() {
                                 ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                             </a>
                             <div className="head-banner__location">
-                                <span>м. Тернопіль, вул. Білецька, 30</span>
-                                <div className="icon-arrow icon-arrow--right">
+                                <span>{settings.data.address_building}</span>
+                                <a href={settings.data.hero_url} className="icon-arrow icon-arrow--right">
                                     <Arrow />
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -155,7 +134,7 @@ function HomePage() {
                             <label>Ціна від:</label>
                             <div className="price-title">
                                 <div className="price-label">
-                                    {apartmentsMinMaxPrice.data.min}
+                                    {apartmentsMeta.data.price.min}
                                 </div>
                                 <span>грн/м.кв</span>
                             </div>
@@ -165,8 +144,8 @@ function HomePage() {
                             <label>Площі:</label>
                             <div className="price-title">
                                 <div className="price-label">
-                                    {apartmentsMinMaxArea.data.min}-
-                                    {apartmentsMinMaxArea.data.max}
+                                    {apartmentsMeta.data.area.min}-
+                                    {apartmentsMeta.data.area.max}
                                 </div>
                                 <span>м.кв</span>
                             </div>
@@ -193,10 +172,34 @@ function HomePage() {
                                 <label>Тип нерухомості:</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="list-tab list-tab-wfc">
-                                        <div className="list-tab-item">
+                                        <div
+                                            className={`list-tab-item ${
+                                                formik.values.type.includes(
+                                                    "apartment",
+                                                )
+                                                    ? "active"
+                                                    : ""
+                                            }`}
+                                            onClick={handleMultipleValues(
+                                                "type",
+                                                "apartment",
+                                            )}
+                                        >
                                             Квартира
                                         </div>
-                                        <div className="list-tab-item">
+                                        <div
+                                            className={`list-tab-item ${
+                                                formik.values.type.includes(
+                                                    "parking",
+                                                )
+                                                    ? "active"
+                                                    : ""
+                                            }`}
+                                            onClick={handleMultipleValues(
+                                                "type",
+                                                "parking",
+                                            )}
+                                        >
                                             Паркомісце
                                         </div>
                                     </div>
@@ -206,8 +209,24 @@ function HomePage() {
                                 <label>К-ть кімнат</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="list-tab">
-                                        <div className="list-tab-item">1</div>
-                                        <div className="list-tab-item">2</div>
+                                        {apartmentsMeta.data.rooms.map((room) => (
+                                            <div
+                                                key={`room-${room}`}
+                                                className={`list-tab-item ${
+                                                    formik.values.rooms.includes(
+                                                        room,
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={handleMultipleValues(
+                                                    "rooms",
+                                                    room,
+                                                )}
+                                            >
+                                                {room}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -218,14 +237,28 @@ function HomePage() {
                                     <div className="filter-input">
                                         <input
                                             type="text"
-                                            placeholder="від: 2 748 552,80"
+                                            placeholder={`від: ${apartmentsMeta.data.price.min}`}
+                                            onChange={(e) =>
+                                                formik.setFieldValue(
+                                                    "priceFrom",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            value={formik.values.priceFrom}
                                         />
                                         <span>грн.</span>
                                     </div>
                                     <div className="filter-input">
                                         <input
                                             type="text"
-                                            placeholder="до: 3 258 256,50"
+                                            placeholder={`до: ${apartmentsMeta.data.price.max}`}
+                                            onChange={(e) =>
+                                                formik.setFieldValue(
+                                                    "priceTo",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            value={formik.values.priceTo}
                                         />
                                         <span>грн.</span>
                                     </div>
@@ -237,14 +270,28 @@ function HomePage() {
                                     <div className="filter-input">
                                         <input
                                             type="text"
-                                            placeholder="від: 45,81"
+                                            placeholder={`від: ${apartmentsMeta.data.area.min}`}
+                                            onChange={(e) =>
+                                                formik.setFieldValue(
+                                                    "areaFrom",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            value={formik.values.areaFrom}
                                         />
                                         <span>м²</span>
                                     </div>
                                     <div className="filter-input">
                                         <input
                                             type="text"
-                                            placeholder="до: 65,47"
+                                            placeholder={`до: ${apartmentsMeta.data.area.max}`}
+                                            onChange={(e) =>
+                                                formik.setFieldValue(
+                                                    "areaTo",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            value={formik.values.areaTo}
                                         />
                                         <span>м²</span>
                                     </div>
@@ -252,9 +299,9 @@ function HomePage() {
                             </div>
                         </div>
 
-                        <a href="#" className="btn">
+                        <button type="button" onClick={formik.handleSubmit} className="btn">
                             ПЕРЕГЛЯНУТИ ВАРІАНТИ
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -347,19 +394,14 @@ function HomePage() {
                     <h2>ТЕХНОЛОГІЇ</h2>
 
                     <div className="technologies-list">
-                        {technologiesList.map((item, index) => {
+                        {technologies.data.data.map((item, index) => {
                             return (
                                 <div
                                     className="technologies-list-item"
                                     key={index}
                                 >
                                     <img
-                                        src={
-                                            new URL(
-                                                `/src/assets/img/technologies-icon/${item.imgUrl}`,
-                                                import.meta.url,
-                                            ).href
-                                        }
+                                        src={item.image}
                                     />
                                     <h3>{item.title}</h3>
                                     <p>{item.description}</p>
@@ -676,16 +718,16 @@ function HomePage() {
                                         <li>
                                             {" "}
                                             Центральний відділ продажу – вул.
-                                            Листопадова, 1/3
+                                            {settings.data.address_sell_department}
                                         </li>
                                         <li>
-                                            <a href="tel:381708742">
-                                                +38(067)-170-87-42
+                                            <a href={`tel:${settings.data.phone?.replaceAll(/\D/g, '')}`}>
+                                                {settings.data.phone}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="mailto:kreatorbudternopil@gmail.com">
-                                                kreatorbudternopil@gmail.com
+                                            <a href={`mailto:${settings.data.email}`}>
+                                                {settings.data.email}
                                             </a>
                                         </li>
                                     </ul>
@@ -700,7 +742,7 @@ function HomePage() {
                                 <div className="contact-info-list-item">
                                     <h3>Розташування комплексу</h3>
                                     <ul>
-                                        <li> вул. Білецька, 30</li>
+                                        <li> {settings.data.address_building}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -708,14 +750,14 @@ function HomePage() {
                                 ЗАПИСАТИСЬ НА ОГЛЯД
                             </a>
                         </div>
-                        <div className="map">
+                        <div className="map" id="map">
                             {/* <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3415.115508626325!2d25.587865226307486!3d49.556747161835105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47303135a5e8f5b5%3A0xbe7454d8aa3bac08!2z0J_QsNGA0Log0LjQvNC10L3QuCDQotCw0YDQsNGB0LAg0KjQtdCy0YfQtdC90LrQvg!5e0!3m2!1sru!2sua!4v1770389476451!5m2!1sru!2sua"
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe> */}
-                            <Map />
+                            {Boolean(settings.data.map_api_key) && <Map/>}
                         </div>
                     </div>
                 </div>
