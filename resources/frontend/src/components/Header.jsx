@@ -11,12 +11,15 @@ import HeaderArrow from "../assets/svg/header-arrow.svg?react";
 import UserIcon from "../assets/svg/user.svg?react";
 import CartIcon from "../assets/svg/cart.svg?react";
 import BurgerMenu from "../assets/svg/burger-menu-icon.svg?react";
+import {useSettings} from "../api/settings.js";
 
 function Header({ toggleMenuBtn }) {
     const [isActiveMenuBtn, setActiveMenuBtn] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
+    const settings = useSettings();
+
     const handleScroll = (id) => {
         setActiveMenuBtn(false);
         if (location.pathname !== "/") {
@@ -80,12 +83,12 @@ function Header({ toggleMenuBtn }) {
                         </nav>
                         <div className="header__left-menu">
                             <div className="header__inner-link">
-                                <NavLink to="/">
+                                <a href={`mailto:${settings.data.email}`}>
                                     <UserIcon />
-                                </NavLink>
-                                <NavLink to="/">
+                                </a>
+                                <a href={`tel:${settings.data.phone?.replaceAll(/\D/g, '')}`}>
                                     <CartIcon />
-                                </NavLink>
+                                </a>
                             </div>
                             {/* <div
                                 className={`header__menu-btn ${isActiveMenuBtn ? "open" : ""}`}

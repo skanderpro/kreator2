@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, useSearchParams} from "react-router-dom";
 import Filter from "../assets/svg/filter.svg?react";
 import Close from "../assets/svg/close.svg?react";
-import { useApartments } from "../api/apartments.js";
+import {useApartments, useApartmentsMeta} from "../api/apartments.js";
 import { useFormik } from "formik";
 function CatalogPage() {
     const [catalogfilterToggle, setCatalogFilterToggle] = useState(false);
     const [filter, setFilter] = useState({});
     const apartments = useApartments(filter);
+    const apartmentsMeta = useApartmentsMeta();
+    const [searchParams] = useSearchParams();
 
     const formik = useFormik({
         initialValues: {
-            priceFrom: "",
-            priceTo: "",
-            areaFrom: "",
-            areaTo: "",
-            rooms: [],
+            priceFrom: searchParams.get('priceFrom') ||  "",
+            priceTo: searchParams.get('priceTo') ||  "",
+            areaFrom: searchParams.get('areaFrom') || "",
+            areaTo: searchParams.get('areaTo') || "",
+            rooms: searchParams.getAll('rooms[]') ||  [],
             floor: "",
-            type: [],
+            type: searchParams.getAll('type[]') || [],
             parking: "",
-            order: "",
+            order: "price_asc",
             sold: "",
             building: "",
             parking_count: "",
@@ -30,6 +32,12 @@ function CatalogPage() {
             setFilter(values);
         },
     });
+
+    useEffect(() => {
+        if ([...searchParams.keys()].length > 0) {
+            formik.handleSubmit();
+        }
+    }, []); // deps must be empty
 
     useEffect(() => {
         if (catalogfilterToggle) {
@@ -184,7 +192,11 @@ function CatalogPage() {
                                             onChange={formik.handleChange}
                                             value={formik.values.building}
                                         >
-                                            <option value="">1</option>
+                                            {apartmentsMeta.data.buildings.map((building) => (
+                                                <option key={`building-${building}`} value={building}>
+                                                    {building}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
@@ -198,8 +210,11 @@ function CatalogPage() {
                                             onChange={formik.handleChange}
                                             value={formik.values.parking_count}
                                         >
-                                            <option value="">1</option>
-                                            <option value="">2</option>
+                                            {apartmentsMeta.data.parking_count.map((parking_count) => (
+                                                <option key={`parking_count-${parking_count}`} value={parking_count}>
+                                                    {parking_count}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
@@ -207,36 +222,26 @@ function CatalogPage() {
                                     <label>К-ть кімнат</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            <div
-                                                className={`list-tab-item ${
-                                                    formik.values.rooms.includes(
-                                                        1,
-                                                    )
-                                                        ? "active"
-                                                        : ""
-                                                }`}
-                                                onClick={handleMultipleValues(
-                                                    "rooms",
-                                                    1,
-                                                )}
-                                            >
-                                                1
-                                            </div>
-                                            <div
-                                                className={`list-tab-item ${
-                                                    formik.values.rooms.includes(
-                                                        2,
-                                                    )
-                                                        ? "active"
-                                                        : ""
-                                                }`}
-                                                onClick={handleMultipleValues(
-                                                    "rooms",
-                                                    2,
-                                                )}
-                                            >
-                                                2
-                                            </div>
+                                            {apartmentsMeta.data.rooms.map((room) => (
+                                                <div
+                                                    key={`room-${room}`}
+                                                    className={`list-tab-item ${
+                                                        formik.values.rooms.includes(
+                                                            room,
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    onClick={handleMultipleValues(
+                                                        "rooms",
+                                                        room,
+                                                    )}
+                                                >
+                                                    {room}
+                                                </div>
+                                            ))}
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -252,7 +257,7 @@ function CatalogPage() {
                                                         e.target.value,
                                                     )
                                                 }
-                                                placeholder="від: 45,81"
+                                                placeholder={`від: ${apartmentsMeta.data.area.min}`}
                                                 value={formik.values.areaFrom}
                                             />
                                             <span>м²</span>
@@ -260,7 +265,7 @@ function CatalogPage() {
                                         <div className="filter-input">
                                             <input
                                                 type="text"
-                                                placeholder="до: 65,47"
+                                                placeholder={`до: ${apartmentsMeta.data.area.max}`}
                                                 onChange={(e) =>
                                                     formik.setFieldValue(
                                                         "areaTo",
@@ -279,7 +284,7 @@ function CatalogPage() {
                                         <div className="filter-input">
                                             <input
                                                 type="text"
-                                                placeholder="від: 2 748 552,80"
+                                                placeholder={`від: ${apartmentsMeta.data.price.min}`}
                                                 onChange={(e) =>
                                                     formik.setFieldValue(
                                                         "priceFrom",
@@ -293,7 +298,7 @@ function CatalogPage() {
                                         <div className="filter-input">
                                             <input
                                                 type="text"
-                                                placeholder="до: 3 258 256,50"
+                                                placeholder={`до: ${apartmentsMeta.data.price.max}`}
                                                 onChange={(e) =>
                                                     formik.setFieldValue(
                                                         "priceTo",

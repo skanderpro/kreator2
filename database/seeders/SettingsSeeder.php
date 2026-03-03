@@ -16,6 +16,17 @@ class SettingsSeeder extends Seeder
     {
         Setting::query()->delete();
         Setting::create([
+            'key' => 'hero_url',
+            'name' => 'Hero URL',
+            'value' => '#map',
+            'field' => json_encode([
+                'name'        => 'value',
+                'label'       => "Hero URL",
+                'type'        => 'text',
+            ]),
+            'active' => 1,
+        ]);
+        Setting::create([
             'key' => 'facebook_url',
             'name' => 'Facebook URL',
             'value' => '#',
@@ -99,6 +110,17 @@ class SettingsSeeder extends Seeder
             'field' => json_encode([
                 'name'        => 'value',
                 'label'       => "Map longitude",
+                'type'        => 'text',
+            ]),
+            'active' => 1,
+        ]);
+        Setting::create([
+            'key' => 'map_api_key',
+            'name' => 'Map API key',
+            'value' => '',
+            'field' => json_encode([
+                'name'        => 'value',
+                'label'       => "Map API key",
                 'type'        => 'text',
             ]),
             'active' => 1,
