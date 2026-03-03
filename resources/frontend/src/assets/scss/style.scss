@@ -430,6 +430,10 @@
             background-color: vars.$primary;
             color: vars.$white;
         }
+        &.active {
+            background-color: vars.$primary;
+            color: vars.$white;
+        }
     }
 }
 .list-tab.list-tab-wfc .list-tab-item {
@@ -1473,7 +1477,7 @@
     position: relative;
     width: 100%;
 
-    &-info{
+    &-info {
         position: relative;
     }
     h2 {
