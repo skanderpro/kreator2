@@ -7,7 +7,6 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
  */
 
 import Logo from "../assets/svg/logo.svg?react";
-import HeaderArrow from "../assets/svg/header-arrow.svg?react";
 import MailIcon from "../assets/svg/user.svg?react";
 import TelIcon from "../assets/svg/cart.svg?react";
 import BurgerMenu from "../assets/svg/burger-menu-icon.svg?react";
@@ -15,7 +14,6 @@ import {useSettings} from "../api/settings.js";
 import { AppContext } from "../context/AppContext";
 
 function Header() {
-
     const navigate = useNavigate();
     const location = useLocation();
     const settings = useSettings();

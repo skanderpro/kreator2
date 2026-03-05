@@ -2,13 +2,16 @@ import React from "react";
 import Logo from "../assets/svg/logo.svg?react";
 import Facebook from "../assets/svg/facebook.svg?react";
 import Instagram from "../assets/svg/instagram.svg?react";
-import {useSettings} from "../api/settings.js";
 
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import {useSettings} from "../api/settings.js";
+
 function Footer() {
+    const settings = useSettings();
     const navigate = useNavigate();
     const location = useLocation();
-    const settings = useSettings();
+
+
 
     const handleScroll = (id) => {
         if (location.pathname !== "/") {

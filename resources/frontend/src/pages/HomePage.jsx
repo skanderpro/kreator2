@@ -33,12 +33,10 @@ import { useBuildSteps } from "../api/build-step.js";
 import { useFeatures } from "../api/features.js";
 import { useDocuments } from "../api/documents.js";
 
+import { AppContext } from "../context/AppContext";
 import {useFormik} from "formik";
 import {useTechnologies} from "../api/technology.js";
 import {useSettings} from "../api/settings.js";
-
-import { AppContext } from "../context/AppContext";
-
 
 function HomePage() {
     const lightboxRef = useRef(null);
@@ -116,7 +114,6 @@ function HomePage() {
                             </p>
 
                             <button
-                                href="#"
                                 className="btn"
                                 onClick={() => {
                                     setPopupConsultations(true);
