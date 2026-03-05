@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../assets/svg/logo.svg?react";
 import CloseG from "../assets/svg/close-g.svg?react";
 import menuBanner from "../assets/img/menu-banner.jpg";
 import { NavLink } from "react-router-dom";
-function Menu({ toggleMenuBtn, stateMenuBtn }) {
+
+import { AppContext } from "../context/AppContext";
+
+function Menu() {
+    const { isActiveMenuBtn, setActiveMenuBtn } = useContext(AppContext);
     return (
-        <div className={`menu-modal ${stateMenuBtn ? "active" : ""}`}>
+        <div className={`menu-modal ${isActiveMenuBtn ? "active" : ""}`}>
             <button
                 className="menu-modal-close"
                 onClick={() => {
-                    toggleMenuBtn(false);
+                    setActiveMenuBtn(false);
                 }}
             >
                 <CloseG />

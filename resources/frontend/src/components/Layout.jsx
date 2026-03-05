@@ -5,16 +5,6 @@ import { Footer } from "./Footer";
 import { Menu } from "./Menu";
 
 function Layout() {
-    const [isActiveMenuBtn, setActiveMenuBtn] = useState(false);
-
-    useEffect(() => {
-        if (isActiveMenuBtn) {
-            document.body.classList.add("hiden");
-        } else {
-            document.body.classList.remove("hiden");
-        }
-    }, [isActiveMenuBtn]);
-
     return (
         /**
          * Markup to render only the content of pages, and elements that are repeated on each page are loaded only once
@@ -22,12 +12,9 @@ function Layout() {
          * This markup is also used to attach a footer to the bottom
          */
         <div className="wrapper">
-            <Header toggleMenuBtn={setActiveMenuBtn} />
+            <Header />
 
-            <Menu
-                toggleMenuBtn={setActiveMenuBtn}
-                stateMenuBtn={isActiveMenuBtn}
-            />
+            <Menu />
 
             <main className="main">
                 <Outlet />

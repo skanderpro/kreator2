@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -21,7 +21,7 @@ import Download from "../assets/svg/download.svg?react";
 import { NavLink } from "react-router-dom";
 import { Map } from "../components/Map";
 
-import Popup from "../components/Popup";
+import Popup from "../components/popup/Popup.jsx";
 
 import { useGallery } from "../api/gallery";
 import { useNews } from "../api/news";
@@ -34,7 +34,7 @@ import {
 import { useBuildSteps } from "../api/build-step.js";
 import { useFeatures } from "../api/features.js";
 import { useDocuments } from "../api/documents.js";
-
+import { AppContext } from "../context/AppContext";
 const advantagesList = [
     {
         imgUrl: "advantages-1.jpg",
@@ -113,8 +113,8 @@ function HomePage() {
     const documents = useDocuments();
     const apartmentCount = useApartmentsUnsoldCount();
 
-    const [popupConsultations, setPopupConsultations] = useState(false);
-    const [popupTy, setPopupTy] = useState(false);
+    const { popupConsultations, setPopupConsultations, popupTy, setPopupTy } =
+        useContext(AppContext);
 
     return (
         <>
@@ -134,14 +134,24 @@ function HomePage() {
                                 Ваш простір спокою
                             </p>
 
-                            <a href="#" className="btn">
+                            <button
+                                href="#"
+                                className="btn"
+                                onClick={() => {
+                                    setPopupConsultations(true);
+                                }}
+                            >
                                 ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
-                            </a>
+                            </button>
                             <div className="head-banner__location">
                                 <span>м. Тернопіль, вул. Білецька, 30</span>
-                                <div className="icon-arrow icon-arrow--right">
+                                <a
+                                    className="icon-arrow icon-arrow--right"
+                                    href="https://maps.app.goo.gl/XHsg8cMveimm1dAT9"
+                                    target="_blank"
+                                >
                                     <Arrow />
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -213,26 +223,24 @@ function HomePage() {
                             </div>
 
                             <div className="card-apartments-filter-item">
-                                <label>Ціна</label>
+                                <label>Ціна, грн</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="filter-input">
                                         <input
                                             type="text"
                                             placeholder="від: 2 748 552,80"
                                         />
-                                        <span>грн.</span>
                                     </div>
                                     <div className="filter-input">
                                         <input
                                             type="text"
                                             placeholder="до: 3 258 256,50"
                                         />
-                                        <span>грн.</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="card-apartments-filter-item">
-                                <label>Площа</label>
+                                <label>Площа, грн</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="filter-input">
                                         <input
@@ -369,7 +377,7 @@ function HomePage() {
                     </div>
                 </div>
 
-                <div className="construction">
+                <div className="construction" id="construction">
                     <h2>Терміни будівництва</h2>
                     <div className="construction-timeline">
                         <div className="construction-timeline-line">
@@ -512,9 +520,14 @@ function HomePage() {
                             своєю красою вражають розмаїті фонтани і вражаючі
                             колоритністю сквери.
                         </p>
-                        <a href="#" className="btn">
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                setPopupConsultations(true);
+                            }}
+                        >
                             ЗАПИСАТИСЬ НА ОГЛЯД
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -704,9 +717,14 @@ function HomePage() {
                                     </ul>
                                 </div>
                             </div>
-                            <a href="#" className="btn">
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setPopupConsultations(true);
+                                }}
+                            >
                                 ЗАПИСАТИСЬ НА ОГЛЯД
-                            </a>
+                            </button>
                         </div>
                         <div className="map">
                             {/* <iframe

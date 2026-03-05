@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
@@ -8,12 +8,12 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
 import Logo from "../assets/svg/logo.svg?react";
 import HeaderArrow from "../assets/svg/header-arrow.svg?react";
-import UserIcon from "../assets/svg/user.svg?react";
-import CartIcon from "../assets/svg/cart.svg?react";
+import MailIcon from "../assets/svg/user.svg?react";
+import TelIcon from "../assets/svg/cart.svg?react";
 import BurgerMenu from "../assets/svg/burger-menu-icon.svg?react";
-
-function Header({ toggleMenuBtn }) {
-    const [isActiveMenuBtn, setActiveMenuBtn] = useState(false);
+import { AppContext } from "../context/AppContext";
+function Header() {
+    
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -35,12 +35,15 @@ function Header({ toggleMenuBtn }) {
         }
     };
 
+    const { setActiveMenuBtn, setPopupConsultations } =
+        useContext(AppContext);
+
     return (
         <>
             <header className="header">
                 <div className="container">
                     <div
-                        className={`header__inner ${isActiveMenuBtn ? "active" : ""}`}
+                        className={`header__inner `}
                     >
                         <div className="header__inner-logo">
                             <NavLink to="/">
@@ -48,7 +51,7 @@ function Header({ toggleMenuBtn }) {
                             </NavLink>
                         </div>
                         <nav
-                            className={`header__inner-nav ${isActiveMenuBtn ? "active" : ""}`}
+                            className={`header__inner-nav `}
                         >
                             <ul className="nav-list">
                                 <li className="nav-list-item">
@@ -80,12 +83,20 @@ function Header({ toggleMenuBtn }) {
                         </nav>
                         <div className="header__left-menu">
                             <div className="header__inner-link">
-                                <NavLink to="/">
-                                    <UserIcon />
-                                </NavLink>
-                                <NavLink to="/">
-                                    <CartIcon />
-                                </NavLink>
+                                <button
+                                    className={"header__inner-link-item"}
+                                    onClick={() => {
+                                        setPopupConsultations(true);
+                                    }}
+                                >
+                                    <MailIcon />
+                                </button>
+                                <a
+                                    href="tel:380671708742"
+                                    className={"header__inner-link-item"}
+                                >
+                                    <TelIcon />
+                                </a>
                             </div>
                             {/* <div
                                 className={`header__menu-btn ${isActiveMenuBtn ? "open" : ""}`}
@@ -99,7 +110,7 @@ function Header({ toggleMenuBtn }) {
                             <button
                                 className="header-burger-btn"
                                 onClick={() => {
-                                    toggleMenuBtn(true);
+                                    setActiveMenuBtn(true);
                                 }}
                             >
                                 <BurgerMenu />

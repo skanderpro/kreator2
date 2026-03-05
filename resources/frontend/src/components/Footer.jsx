@@ -1,11 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
 import Logo from "../assets/svg/logo.svg?react";
 import Facebook from "../assets/svg/facebook.svg?react";
 import Instagram from "../assets/svg/instagram.svg?react";
-
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 function Footer() {
+    const navigate = useNavigate();
+    const location = useLocation();
     const handleScroll = (id) => {
         if (location.pathname !== "/") {
             navigate("/");
@@ -66,7 +66,7 @@ function Footer() {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/">Хід будівництва</NavLink>
+                                <a onClick={() => handleScroll("construction")}>Хід будівництва</a>
                             </li>
                             <li>
                                 <a onClick={() => handleScroll("about")}>
@@ -86,20 +86,28 @@ function Footer() {
 
                     <div className="footer-right">
                         <div className="footer-social">
-                            <NavLink to="/">
+                            <a
+                                href="https://www.facebook.com/profile.php?id=61563935854644
+"
+                                target="_blank"
+                            >
                                 <Facebook />
-                            </NavLink>
-                            <NavLink to="/">
+                            </a>
+                            <a
+                                href="https://www.instagram.com/kreatorbud.te"
+                                target="_blank"
+                            >
                                 <Instagram />
-                            </NavLink>
+                            </a>
                         </div>
                         <div className="footer-center">
                             <span>© Kreatorbud</span>
                             <div className="footer-center-text">
-                                <NavLink to="/">
+                                <NavLink to="/privacy-policy">
                                     Політика конфіденційності
                                 </NavLink>
-                                <NavLink to="/">Умови використання</NavLink>
+                                <NavLink to="/terms-of-use">Умови використання</NavLink>
+                                <a href="https://www.prbaza.com">Розробка сайту PRBAZA</a>
                             </div>
                         </div>
                     </div>
