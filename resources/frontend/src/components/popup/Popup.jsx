@@ -1,5 +1,5 @@
 import React from "react";
-import CloseG from "../assets/svg/close-g.svg?react";
+import CloseG from "../../assets/svg/close-g.svg?react";
 
 export default function Popup({ children, closePopup, statePopup }) {
     return (

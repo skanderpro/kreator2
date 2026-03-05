@@ -24,7 +24,7 @@ function CatalogPage() {
             order: "price_asc",
             sold: "",
             building: "",
-            parking_count: "",
+
             features: [],
             page: 1,
         },
@@ -200,24 +200,7 @@ function CatalogPage() {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="card-apartments-filter-item">
-                                    <label>Паркомісця</label>
-                                    <div className="card-apartments-filter-inner">
-                                        <select
-                                            name="parking_count"
-                                            id=""
-                                            className="filter-select"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.parking_count}
-                                        >
-                                            {apartmentsMeta.data.parking_count.map((parking_count) => (
-                                                <option key={`parking_count-${parking_count}`} value={parking_count}>
-                                                    {parking_count}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div className="card-apartments-filter-item">
                                     <label>К-ть кімнат</label>
                                     <div className="card-apartments-filter-inner">
@@ -246,7 +229,7 @@ function CatalogPage() {
                                     </div>
                                 </div>
                                 <div className="card-apartments-filter-item">
-                                    <label>Площа</label>
+                                    <label>Площа, грн</label>
                                     <div className="card-apartments-filter-col">
                                         <div className="filter-input">
                                             <input
@@ -279,7 +262,7 @@ function CatalogPage() {
                                     </div>
                                 </div>
                                 <div className="card-apartments-filter-item">
-                                    <label>Ціна</label>
+                                    <label>Ціна, грн</label>
                                     <div className="card-apartments-filter-col">
                                         <div className="filter-input">
                                             <input
@@ -293,7 +276,7 @@ function CatalogPage() {
                                                 }
                                                 value={formik.values.priceFrom}
                                             />
-                                            <span>грн.</span>
+
                                         </div>
                                         <div className="filter-input">
                                             <input
@@ -307,7 +290,7 @@ function CatalogPage() {
                                                 }
                                                 value={formik.values.priceTo}
                                             />
-                                            <span>грн.</span>
+
                                         </div>
                                     </div>
                                 </div>
