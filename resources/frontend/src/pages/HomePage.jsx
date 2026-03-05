@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -15,13 +15,12 @@ import headBanner from "../assets/img/head-banner.jpg";
 import aboutImg from "../assets/img/house.jpg";
 import Arrow from "../assets/svg/arrow.svg?react";
 import Airplane from "../assets/svg/airplane.svg?react";
-import Сamera from "../assets/svg/camera.svg?react";
 import ArrowLeft from "../assets/svg/arrowLeft.svg?react";
 import Download from "../assets/svg/download.svg?react";
 import {NavLink, useNavigate} from "react-router-dom";
 import { Map } from "../components/Map";
 
-import Popup from "../components/Popup";
+import Popup from "../components/popup/Popup.jsx";
 
 import { useGallery } from "../api/gallery";
 import { useNews } from "../api/news";
@@ -33,9 +32,12 @@ import {
 import { useBuildSteps } from "../api/build-step.js";
 import { useFeatures } from "../api/features.js";
 import { useDocuments } from "../api/documents.js";
+
 import {useFormik} from "formik";
 import {useTechnologies} from "../api/technology.js";
 import {useSettings} from "../api/settings.js";
+
+import { AppContext } from "../context/AppContext";
 
 
 function HomePage() {
@@ -92,8 +94,8 @@ function HomePage() {
     };
 
 
-    const [popupConsultations, setPopupConsultations] = useState(false);
-    const [popupTy, setPopupTy] = useState(false);
+    const { popupConsultations, setPopupConsultations, popupTy, setPopupTy } =
+        useContext(AppContext);
 
     return (
         <>
@@ -113,12 +115,19 @@ function HomePage() {
                                 Ваш простір спокою
                             </p>
 
-                            <a href="#" className="btn">
+                            <button
+                                href="#"
+                                className="btn"
+                                onClick={() => {
+                                    setPopupConsultations(true);
+                                }}
+                            >
                                 ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
-                            </a>
+                            </button>
                             <div className="head-banner__location">
+
                                 <span>{settings.data.address_building}</span>
-                                <a href={settings.data.hero_url} className="icon-arrow icon-arrow--right">
+                                <a href={settings.data.hero_url} target="_blank" className="icon-arrow icon-arrow--right">
                                     <Arrow />
                                 </a>
                             </div>
@@ -232,7 +241,7 @@ function HomePage() {
                             </div>
 
                             <div className="card-apartments-filter-item">
-                                <label>Ціна</label>
+                                <label>Ціна, грн</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="filter-input">
                                         <input
@@ -246,7 +255,6 @@ function HomePage() {
                                             }
                                             value={formik.values.priceFrom}
                                         />
-                                        <span>грн.</span>
                                     </div>
                                     <div className="filter-input">
                                         <input
@@ -260,12 +268,11 @@ function HomePage() {
                                             }
                                             value={formik.values.priceTo}
                                         />
-                                        <span>грн.</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="card-apartments-filter-item">
-                                <label>Площа</label>
+                                <label>Площа, грн</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="filter-input">
                                         <input
@@ -411,7 +418,7 @@ function HomePage() {
                     </div>
                 </div>
 
-                <div className="construction">
+                <div className="construction" id="construction">
                     <h2>Терміни будівництва</h2>
                     <div className="construction-timeline">
                         <div className="construction-timeline-line">
@@ -554,9 +561,14 @@ function HomePage() {
                             своєю красою вражають розмаїті фонтани і вражаючі
                             колоритністю сквери.
                         </p>
-                        <a href="#" className="btn">
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                setPopupConsultations(true);
+                            }}
+                        >
                             ЗАПИСАТИСЬ НА ОГЛЯД
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -746,9 +758,14 @@ function HomePage() {
                                     </ul>
                                 </div>
                             </div>
-                            <a href="#" className="btn">
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setPopupConsultations(true);
+                                }}
+                            >
                                 ЗАПИСАТИСЬ НА ОГЛЯД
-                            </a>
+                            </button>
                         </div>
                         <div className="map" id="map">
                             {/* <iframe
