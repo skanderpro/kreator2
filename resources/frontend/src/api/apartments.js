@@ -3,9 +3,20 @@ import {useQuery} from '@tanstack/react-query'
 export const useApartments = (filters) => useQuery({
     queryKey: ['apartments', filters],
     queryFn: async () => {
-        const queryString = new URLSearchParams(filters).toString();
+        const query = [...Object.entries(filters)].reduce((acc, [key, value]) => {
+            if (Array.isArray(value)) {
+                key = `${key}[]`;
+            }
 
-        const response = await fetch(`/api/apartments?${queryString}`);
+            if (Array.isArray(value)) {
+                value.forEach(item => acc.append(key, item));
+            } else if (value) {
+                acc.append(key, value);
+            }
+            return acc;
+        }, new URLSearchParams());
+
+        const response = await fetch(`/api/apartments?${query.toString()}`);
 
         return response.json();
     },
@@ -22,14 +33,27 @@ export const useSingleApartment = (id) => useQuery({
     placeholderData: {data: null},
 });
 
-export const useApartmentsMinMaxPrice = () => useQuery({
-    queryKey: ['apartments-min-max-price'],
+export const useApartmentsMeta = () => useQuery({
+    queryKey: ['apartments-meta'],
     queryFn: async () => {
-        const response = await fetch('/api/apartments/min-max-price');
+        const response = await fetch('/api/apartments/meta');
 
         return response.json();
     },
-    placeholderData: {min: 0, max: 0},
+    placeholderData: {
+        'price': {
+            'min': 0,
+            'max': 0,
+        },
+        'area': {
+            'min': 0,
+            'max': 0,
+        },
+        'rooms': [],
+        'buildings': [],
+        'sections': [],
+        'parking_count': [],
+    },
 });
 
 export const useApartmentsUnsoldCount = () => useQuery({
@@ -42,12 +66,3 @@ export const useApartmentsUnsoldCount = () => useQuery({
     placeholderData: {count: 0},
 });
 
-export const useApartmentsMinMaxArea = () => useQuery({
-    queryKey: ['apartments-min-max-area'],
-    queryFn: async () => {
-        const response = await fetch('/api/apartments/min-max-area');
-
-        return response.json();
-    },
-    placeholderData: {min: 0, max: 0},
-});

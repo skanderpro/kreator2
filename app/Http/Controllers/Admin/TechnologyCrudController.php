@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\DocumentRequest;
+use App\Http\Requests\TechnologyRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\Settings\app\Models\Setting;
 
 /**
- * Class DocumentCrudController
+ * Class TechnologyCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class DocumentCrudController extends CrudController
+class TechnologyCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -27,9 +26,9 @@ class DocumentCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Document::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/document');
-        CRUD::setEntityNameStrings('document', 'documents');
+        CRUD::setModel(\App\Models\Technology::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/technology');
+        CRUD::setEntityNameStrings('technology', 'technologies');
     }
 
     /**
@@ -56,8 +55,9 @@ class DocumentCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(DocumentRequest::class);
+        CRUD::setValidation(TechnologyRequest::class);
         CRUD::field('title')->type('text');
+        CRUD::field('description')->type('ckeditor');
         CRUD::field('image')->type('upload')->withFiles();
         CRUD::field('created_at')->type('date');
     }

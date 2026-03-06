@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
@@ -7,16 +7,17 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
  */
 
 import Logo from "../assets/svg/logo.svg?react";
-import HeaderArrow from "../assets/svg/header-arrow.svg?react";
 import MailIcon from "../assets/svg/user.svg?react";
 import TelIcon from "../assets/svg/cart.svg?react";
 import BurgerMenu from "../assets/svg/burger-menu-icon.svg?react";
+import {useSettings} from "../api/settings.js";
 import { AppContext } from "../context/AppContext";
-function Header() {
-    
 
+function Header() {
     const navigate = useNavigate();
     const location = useLocation();
+    const settings = useSettings();
+
     const handleScroll = (id) => {
         setActiveMenuBtn(false);
         if (location.pathname !== "/") {
@@ -92,7 +93,7 @@ function Header() {
                                     <MailIcon />
                                 </button>
                                 <a
-                                    href="tel:380671708742"
+                                    href={`tel:${settings.data.phone?.replaceAll(/\D/g, '')}`}
                                     className={"header__inner-link-item"}
                                 >
                                     <TelIcon />

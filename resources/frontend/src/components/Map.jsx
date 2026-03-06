@@ -1,7 +1,10 @@
 import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import {useSettings} from "../api/settings.js";
 
 function Map() {
+  const settings = useSettings();
+
   const exampleMapStyles = [
     {
       featureType: "all",
@@ -120,21 +123,22 @@ function Map() {
   ];
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDi0At-fZMJLMy-A3N6Dgswma59o48g5YY", // <-- встав сюди ключ
+    // googleMapsApiKey: "AIzaSyDi0At-fZMJLMy-A3N6Dgswma59o48g5YY", // <-- встав сюди ключ
+    googleMapsApiKey: settings.data.map_api_key,
   });
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <>
       <GoogleMap
-        center={{ lat: 49.554967501134946, lng: 25.588667591023178 }}
+        center={{ lat: parseFloat(settings.data.map_lat), lng: parseFloat(settings.data.map_lng) }}
         zoom={15}
         options={{
           styles: exampleMapStyles,
         }}
       >
         <Marker
-          position={{ lat: 49.554967501134946, lng: 25.588667591023178 }}
+          position={{ lat: parseFloat(settings.data.map_lat), lng: parseFloat(settings.data.map_lng) }}
         />
       </GoogleMap>
     </>

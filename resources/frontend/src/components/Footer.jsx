@@ -2,10 +2,17 @@ import React from "react";
 import Logo from "../assets/svg/logo.svg?react";
 import Facebook from "../assets/svg/facebook.svg?react";
 import Instagram from "../assets/svg/instagram.svg?react";
+
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import {useSettings} from "../api/settings.js";
+
 function Footer() {
+    const settings = useSettings();
     const navigate = useNavigate();
     const location = useLocation();
+
+
+
     const handleScroll = (id) => {
         if (location.pathname !== "/") {
             navigate("/");
@@ -36,14 +43,14 @@ function Footer() {
                             <span>Контакти</span>
                             <ul>
                                 <li>
-                                    <a href="tel:380671708742">
+                                    <a href={`tel:${settings.data.phone?.replaceAll(/\D/g, '')}`}>
                                         {" "}
-                                        +38(067)-170-87-42{" "}
+                                        {settings.data.phone}{" "}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="mailto:kreatorbudternopil@gmail.com">
-                                        kreatorbudternopil@gmail.com
+                                    <a href={`mailto:${settings.data.email}`}>
+                                        {settings.data.email}
                                     </a>
                                 </li>
                             </ul>
@@ -53,7 +60,7 @@ function Footer() {
                             <ul>
                                 <li>
                                     Центральний відділ продажу – вул.
-                                    Листопадова, 1/3
+                                    {settings.data.address_building}
                                 </li>
                             </ul>
                         </div>
@@ -87,14 +94,13 @@ function Footer() {
                     <div className="footer-right">
                         <div className="footer-social">
                             <a
-                                href="https://www.facebook.com/profile.php?id=61563935854644
-"
+                                href={settings.data.facebook_url}
                                 target="_blank"
                             >
                                 <Facebook />
                             </a>
                             <a
-                                href="https://www.instagram.com/kreatorbud.te"
+                                href={settings.data.instagram_url}
                                 target="_blank"
                             >
                                 <Instagram />
