@@ -18,7 +18,7 @@ import Airplane from "../assets/svg/airplane.svg?react";
 import ArrowLeft from "../assets/svg/arrowLeft.svg?react";
 import Сamera from "../assets/svg/camera.svg?react";
 import Download from "../assets/svg/download.svg?react";
-import {NavLink, useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Map } from "../components/Map";
 
 import Popup from "../components/popup/Popup.jsx";
@@ -35,9 +35,9 @@ import { useFeatures } from "../api/features.js";
 import { useDocuments } from "../api/documents.js";
 
 import { AppContext } from "../context/AppContext";
-import {useFormik} from "formik";
-import {useTechnologies} from "../api/technology.js";
-import {useSettings} from "../api/settings.js";
+import { useFormik } from "formik";
+import { useTechnologies } from "../api/technology.js";
+import { useSettings } from "../api/settings.js";
 
 function HomePage() {
     const lightboxRef = useRef(null);
@@ -63,18 +63,21 @@ function HomePage() {
             areaTo: "",
         },
         onSubmit: (values) => {
-            const query = [...Object.entries(values)].reduce((acc, [key, value]) => {
-                if (Array.isArray(value)) {
-                    key = `${key}[]`;
-                }
+            const query = [...Object.entries(values)].reduce(
+                (acc, [key, value]) => {
+                    if (Array.isArray(value)) {
+                        key = `${key}[]`;
+                    }
 
-                if (Array.isArray(value)) {
-                    value.forEach(item => acc.append(key, item));
-                } else if (value) {
-                    acc.append(key, value);
-                }
-                return acc;
-            }, new URLSearchParams());
+                    if (Array.isArray(value)) {
+                        value.forEach((item) => acc.append(key, item));
+                    } else if (value) {
+                        acc.append(key, value);
+                    }
+                    return acc;
+                },
+                new URLSearchParams(),
+            );
 
             navigate(`/catalog?${query.toString()}`);
         },
@@ -92,9 +95,7 @@ function HomePage() {
         console.log(values);
     };
 
-
-    const { popupConsultations, setPopupConsultations, popupTy, setPopupTy } =
-        useContext(AppContext);
+    const { setPopupConsultations } = useContext(AppContext);
 
     return (
         <>
@@ -123,9 +124,12 @@ function HomePage() {
                                 ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                             </button>
                             <div className="head-banner__location">
-
                                 <span>{settings.data.address_building}</span>
-                                <a href={settings.data.hero_url} target="_blank" className="icon-arrow icon-arrow--right">
+                                <a
+                                    href={settings.data.hero_url}
+                                    target="_blank"
+                                    className="icon-arrow icon-arrow--right"
+                                >
                                     <Arrow />
                                 </a>
                             </div>
@@ -216,24 +220,26 @@ function HomePage() {
                                 <label>К-ть кімнат</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="list-tab">
-                                        {apartmentsMeta.data.rooms.map((room) => (
-                                            <div
-                                                key={`room-${room}`}
-                                                className={`list-tab-item ${
-                                                    formik.values.rooms.includes(
+                                        {apartmentsMeta.data.rooms.map(
+                                            (room) => (
+                                                <div
+                                                    key={`room-${room}`}
+                                                    className={`list-tab-item ${
+                                                        formik.values.rooms.includes(
+                                                            room,
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    onClick={handleMultipleValues(
+                                                        "rooms",
                                                         room,
-                                                    )
-                                                        ? "active"
-                                                        : ""
-                                                }`}
-                                                onClick={handleMultipleValues(
-                                                    "rooms",
-                                                    room,
-                                                )}
-                                            >
-                                                {room}
-                                            </div>
-                                        ))}
+                                                    )}
+                                                >
+                                                    {room}
+                                                </div>
+                                            ),
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -304,73 +310,80 @@ function HomePage() {
                             </div>
                         </div>
 
-                        <button type="button" onClick={formik.handleSubmit} className="btn">
+                        <button
+                            type="button"
+                            onClick={formik.handleSubmit}
+                            className="btn"
+                        >
                             ПЕРЕГЛЯНУТИ ВАРІАНТИ
                         </button>
                     </div>
                 </div>
             </div>
-            <div className="gallery-wrapper">
-                <div className="container">
-                    <div className="gallery">
-                        <div className="gallery-text">
-                            <h2>галерея</h2>
-                            <p>
-                                ЖК «Набережна Вежа» – це комплекс бізнес класу,
-                                головною перевагою якого є місце розташування.
-                            </p>
-                        </div>
-                        <div className="gallery-swiper">
-                            <div className="swiper-header-btns">
-                                <div className="icon-arrow prev3">
-                                    <ArrowLeft />
-                                </div>
-                                <div className="icon-arrow next3">
-                                    <Arrow />
-                                </div>
+            <div className="gallery-wrapper-con" id={"gallery-wrapper"}>
+                <div className="gallery-wrapper">
+                    <div className="container">
+                        <div className="gallery">
+                            <div className="gallery-text">
+                                <h2>галерея</h2>
+                                <p>
+                                    ЖК «Набережна Вежа» – це комплекс бізнес
+                                    класу, головною перевагою якого є місце
+                                    розташування.
+                                </p>
                             </div>
-                            <Swiper
-                                slidesPerView={1}
-                                spaceBetween={20}
-                                modules={[Navigation, EffectFade]}
-                                navigation={{
-                                    prevEl: ".prev3",
-                                    nextEl: ".next3",
-                                }}
-                                breakpoints={{
-                                    500: {
-                                        // width: 576,
-                                        slidesPerView: 2,
-                                    },
-                                    768: {
-                                        // width: 768,
-                                        slidesPerView: 3,
-                                    },
-                                }}
-                                className="mySwiper"
-                            >
-                                {gallery.data.data.map((item, index) => {
-                                    return (
-                                        <SwiperSlide
-                                            className="gallery-swiper-item"
-                                            key={index}
-                                        >
-                                            <img
-                                                className="gallery-swiper-item-img"
-                                                src={item.image}
-                                                alt=""
-                                            />
-                                        </SwiperSlide>
-                                    );
-                                })}
-                            </Swiper>
+                            <div className="gallery-swiper">
+                                <div className="swiper-header-btns">
+                                    <div className="icon-arrow prev3">
+                                        <ArrowLeft />
+                                    </div>
+                                    <div className="icon-arrow next3">
+                                        <Arrow />
+                                    </div>
+                                </div>
+                                <Swiper
+                                    slidesPerView={1}
+                                    spaceBetween={20}
+                                    modules={[Navigation, EffectFade]}
+                                    navigation={{
+                                        prevEl: ".prev3",
+                                        nextEl: ".next3",
+                                    }}
+                                    breakpoints={{
+                                        500: {
+                                            // width: 576,
+                                            slidesPerView: 2,
+                                        },
+                                        768: {
+                                            // width: 768,
+                                            slidesPerView: 3,
+                                        },
+                                    }}
+                                    className="mySwiper"
+                                >
+                                    {gallery.data.data.map((item, index) => {
+                                        return (
+                                            <SwiperSlide
+                                                className="gallery-swiper-item"
+                                                key={index}
+                                            >
+                                                <img
+                                                    className="gallery-swiper-item-img"
+                                                    src={item.image}
+                                                    alt=""
+                                                />
+                                            </SwiperSlide>
+                                        );
+                                    })}
+                                </Swiper>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="container">
-                <div className="advantages">
+                <div className="advantages" id={"advantages"}>
                     <div className="advantages-header">
                         <h2>переваги</h2>
                         <p>
@@ -395,7 +408,7 @@ function HomePage() {
                     </div>
                 </div>
 
-                <div className="technologies">
+                <div className="technologies" id={"technologies"}>
                     <h2>ТЕХНОЛОГІЇ</h2>
 
                     <div className="technologies-list">
@@ -405,9 +418,7 @@ function HomePage() {
                                     className="technologies-list-item"
                                     key={index}
                                 >
-                                    <img
-                                        src={item.image}
-                                    />
+                                    <img src={item.image} />
                                     <h3>{item.title}</h3>
                                     <p>{item.description}</p>
                                 </div>
@@ -416,116 +427,131 @@ function HomePage() {
                     </div>
                 </div>
 
-                <div className="construction" id="construction">
-                    <h2>Терміни будівництва</h2>
-                    <div className="construction-timeline">
-                        <div className="construction-timeline-line">
-                            <svg
-                                width="40"
-                                height="40"
-                                viewBox="0 0 40 40"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <circle cx="20" cy="20" r="20" fill="#FFD299" />
-                                <path
-                                    d="M10 19.4909C16.3064 26.2982 17.883 28 17.883 28L29 16"
-                                    stroke="#311B00"
-                                    strokeWidth="2"
-                                />
-                            </svg>
-                            <div
-                                className="timeline"
-                                style={{ width: "80%" }}
-                            ></div>
-                            <div className="line"></div>
-                            <svg
-                                width="40"
-                                height="40"
-                                viewBox="0 0 40 40"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <circle cx="20" cy="20" r="20" fill="white" />
-                                <circle
-                                    cx="19.5"
-                                    cy="19.5"
-                                    r="4.5"
-                                    fill="#311B00"
-                                />
-                            </svg>
-                        </div>
-                        <div className="construction-timeline-text">
-                            <div className="construction-timeline-text-item">
-                                <label>Початок будівництва</label>
-                                <span>Січень 2024 р</span>
+                <div className="construction-wrapper" id="construction">
+                    <div className="construction">
+                        <h2>Терміни будівництва</h2>
+                        <div className="construction-timeline">
+                            <div className="construction-timeline-line">
+                                <svg
+                                    width="40"
+                                    height="40"
+                                    viewBox="0 0 40 40"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle
+                                        cx="20"
+                                        cy="20"
+                                        r="20"
+                                        fill="#FFD299"
+                                    />
+                                    <path
+                                        d="M10 19.4909C16.3064 26.2982 17.883 28 17.883 28L29 16"
+                                        stroke="#311B00"
+                                        strokeWidth="2"
+                                    />
+                                </svg>
+                                <div
+                                    className="timeline"
+                                    style={{ width: "80%" }}
+                                ></div>
+                                <div className="line"></div>
+                                <svg
+                                    width="40"
+                                    height="40"
+                                    viewBox="0 0 40 40"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle
+                                        cx="20"
+                                        cy="20"
+                                        r="20"
+                                        fill="white"
+                                    />
+                                    <circle
+                                        cx="19.5"
+                                        cy="19.5"
+                                        r="4.5"
+                                        fill="#311B00"
+                                    />
+                                </svg>
                             </div>
-                            <div className="construction-timeline-text-item">
-                                <label>Здача будинку</label>
-                                <span>2 квартал 2026 р.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="construction-swiper">
-                        <div className="construction-swiper-header">
-                            <h2>хід будівництва</h2>
-                            <div className="swiper-header-btns">
-                                <div className="icon-arrow prev">
-                                    <ArrowLeft />
+                            <div className="construction-timeline-text">
+                                <div className="construction-timeline-text-item">
+                                    <label>Початок будівництва</label>
+                                    <span>Січень 2024 р</span>
                                 </div>
-                                <div className="icon-arrow next">
-                                    <Arrow />
+                                <div className="construction-timeline-text-item">
+                                    <label>Здача будинку</label>
+                                    <span>2 квартал 2026 р.</span>
                                 </div>
                             </div>
                         </div>
-                        <LightGallery
-                            onInit={(ref) =>
-                                (lightboxRef.current = ref.instance)
-                            }
-                            speed={500}
-                            plugins={[lgZoom]}
-                            selector="[data-src]"
-                        >
-                            <Swiper
-                                slidesPerView={1}
-                                spaceBetween={20}
-                                modules={[Navigation]}
-                                navigation={{
-                                    prevEl: ".prev",
-                                    nextEl: ".next",
-                                }}
-                                breakpoints={{
-                                    500: {
-                                        // width: 576,
-                                        slidesPerView: 2,
-                                    },
-                                    768: {
-                                        // width: 768,
-                                        slidesPerView: 3,
-                                    },
-                                }}
-                                className="mySwiper"
+                        <div className="construction-swiper">
+                            <div className="construction-swiper-header">
+                                <h2>хід будівництва</h2>
+                                <div className="swiper-header-btns">
+                                    <div className="icon-arrow prev">
+                                        <ArrowLeft />
+                                    </div>
+                                    <div className="icon-arrow next">
+                                        <Arrow />
+                                    </div>
+                                </div>
+                            </div>
+                            <LightGallery
+                                onInit={(ref) =>
+                                    (lightboxRef.current = ref.instance)
+                                }
+                                speed={500}
+                                plugins={[lgZoom]}
+                                selector="[data-src]"
                             >
-                                {buildSteps.data.data.map((item, index) => {
-                                    return (
-                                        <SwiperSlide
-                                            className="construction-swiper-item"
-                                            key={index}
-                                        >
-                                            <div className="construction-swiper-item-img">
-                                                <img src={item.image} alt="" />
-                                                <div className="construction-swiper-item-box"></div>
-                                                <a data-src={item.image}>
-                                                    <Сamera />
-                                                </a>
-                                            </div>
+                                <Swiper
+                                    slidesPerView={1}
+                                    spaceBetween={20}
+                                    modules={[Navigation]}
+                                    navigation={{
+                                        prevEl: ".prev",
+                                        nextEl: ".next",
+                                    }}
+                                    breakpoints={{
+                                        500: {
+                                            // width: 576,
+                                            slidesPerView: 2,
+                                        },
+                                        768: {
+                                            // width: 768,
+                                            slidesPerView: 3,
+                                        },
+                                    }}
+                                    className="mySwiper"
+                                >
+                                    {buildSteps.data.data.map((item, index) => {
+                                        return (
+                                            <SwiperSlide
+                                                className="construction-swiper-item"
+                                                key={index}
+                                            >
+                                                <div className="construction-swiper-item-img">
+                                                    <img
+                                                        src={item.image}
+                                                        alt=""
+                                                    />
+                                                    <div className="construction-swiper-item-box"></div>
+                                                    <a data-src={item.image}>
+                                                        <Сamera />
+                                                    </a>
+                                                </div>
 
-                                            <span>{item.title}</span>
-                                        </SwiperSlide>
-                                    );
-                                })}
-                            </Swiper>
-                        </LightGallery>
+                                                <span>{item.title}</span>
+                                            </SwiperSlide>
+                                        );
+                                    })}
+                                </Swiper>
+                            </LightGallery>
+                        </div>
                     </div>
                 </div>
 
@@ -570,7 +596,7 @@ function HomePage() {
                     </div>
                 </div>
 
-                <div className="news">
+                <div className="news" id={"news"}>
                     <div className="news-header">
                         <h2>новини</h2>
                         <div className="swiper-header-btns">
@@ -638,84 +664,91 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-            <div className="documents-wrapper" id="documents">
-                <div className="container">
-                    <div className="documents">
-                        <h2>документи</h2>
-                        <div className="documents-items">
-                            {documents.data.data.map((item, index) => {
-                                return (
-                                    <div
-                                        className="documents-item "
-                                        key={`document-${index}`}
-                                    >
-                                        <p>{item.title}</p>
-                                        <a
-                                            className="icon-arrow"
-                                            href={item.image}
-                                            download
+            <div className="documents-wrapper-con" id="documents">
+                <div className="documents-wrapper">
+                    <div className="container">
+                        <div className="documents">
+                            <h2>документи</h2>
+                            <div className="documents-items">
+                                {documents.data.data.map((item, index) => {
+                                    return (
+                                        <div
+                                            className="documents-item "
+                                            key={`document-${index}`}
                                         >
-                                            <Download />
-                                        </a>
+                                            <p>{item.title}</p>
+                                            <a
+                                                className="icon-arrow"
+                                                href={item.image}
+                                                download
+                                            >
+                                                <Download />
+                                            </a>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="documents-info">
+                                <h4>Юридична інформація</h4>
+                                <div className="documents-info-items">
+                                    <div className="documents-info-item">
+                                        <p>
+                                            Найменування юридичної особи
+                                            <span>
+                                                Приватне підприємство
+                                                «Креатор-Буд»
+                                            </span>
+                                        </p>
+                                        <p>
+                                            Код ЄДРПОУ
+                                            <span>34227060</span>
+                                        </p>
+                                        <p>
+                                            Організаційно-правова форма
+                                            <span>
+                                                Вертикально інтегрований холдинг
+                                                повного циклу
+                                            </span>
+                                        </p>
                                     </div>
-                                );
-                            })}
-                        </div>
-                        <div className="documents-info">
-                            <h4>Юридична інформація</h4>
-                            <div className="documents-info-items">
-                                <div className="documents-info-item">
-                                    <p>
-                                        Найменування юридичної особи
-                                        <span>
-                                            Приватне підприємство «Креатор-Буд»
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Код ЄДРПОУ
-                                        <span>34227060</span>
-                                    </p>
-                                    <p>
-                                        Організаційно-правова форма
-                                        <span>
-                                            Вертикально інтегрований холдинг
-                                            повного циклу
-                                        </span>
-                                    </p>
-                                </div>
-                                <div className="documents-info-item">
-                                    <p>
-                                        Відомості про керівника юридичної особи
-                                        та про інших осіб, які можуть вчиняти
-                                        дії від імені юридичної особи, у тому
-                                        числі підписувати договори, подавати
-                                        документи для державної реєстрації тощо.
-                                        <span>
-                                            Директор Лахита Олег Володимирович.
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Відомості про кінцевого бенефіціарного
-                                        власника (контролера) замовника
-                                        будівництва (девелопера будівництва,
-                                        управителя фонду фінансування
-                                        будівництва): прізвище, ім’я, по
-                                        батькові
-                                        <span>Гуда Ігор Богданович.</span>
-                                    </p>
-                                    <p>
-                                        Місцезнаходження юридичної особи.
-                                        <span>
-                                            Україна, 46001, Тернопільська обл.,
-                                            м. Тернопіль, вул. Листопадова, 1/3.
-                                        </span>
-                                    </p>
+                                    <div className="documents-info-item">
+                                        <p>
+                                            Відомості про керівника юридичної
+                                            особи та про інших осіб, які можуть
+                                            вчиняти дії від імені юридичної
+                                            особи, у тому числі підписувати
+                                            договори, подавати документи для
+                                            державної реєстрації тощо.
+                                            <span>
+                                                Директор Лахита Олег
+                                                Володимирович.
+                                            </span>
+                                        </p>
+                                        <p>
+                                            Відомості про кінцевого
+                                            бенефіціарного власника (контролера)
+                                            замовника будівництва (девелопера
+                                            будівництва, управителя фонду
+                                            фінансування будівництва): прізвище,
+                                            ім’я, по батькові
+                                            <span>Гуда Ігор Богданович.</span>
+                                        </p>
+                                        <p>
+                                            Місцезнаходження юридичної особи.
+                                            <span>
+                                                Україна, 46001, Тернопільська
+                                                обл., м. Тернопіль, вул.
+                                                Листопадова, 1/3.
+                                            </span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div className="contact-wrapper" id="contact">
                 <div className="container">
                     <div className="contact">
@@ -728,15 +761,22 @@ function HomePage() {
                                         <li>
                                             {" "}
                                             Центральний відділ продажу – вул.
-                                            {settings.data.address_sell_department}
+                                            {
+                                                settings.data
+                                                    .address_sell_department
+                                            }
                                         </li>
                                         <li>
-                                            <a href={`tel:${settings.data.phone?.replaceAll(/\D/g, '')}`}>
+                                            <a
+                                                href={`tel:${settings.data.phone?.replaceAll(/\D/g, "")}`}
+                                            >
                                                 {settings.data.phone}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href={`mailto:${settings.data.email}`}>
+                                            <a
+                                                href={`mailto:${settings.data.email}`}
+                                            >
                                                 {settings.data.email}
                                             </a>
                                         </li>
@@ -752,7 +792,10 @@ function HomePage() {
                                 <div className="contact-info-list-item">
                                     <h3>Розташування комплексу</h3>
                                     <ul>
-                                        <li> {settings.data.address_building}</li>
+                                        <li>
+                                            {" "}
+                                            {settings.data.address_building}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -772,68 +815,11 @@ function HomePage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe> */}
-                            {Boolean(settings.data.map_api_key) && <Map/>}
+                            {Boolean(settings.data.map_api_key) && <Map />}
                         </div>
                     </div>
                 </div>
             </div>
-
-            {popupConsultations && (
-                <Popup
-                    statePopup={popupConsultations}
-                    closePopup={setPopupConsultations}
-                >
-                    <div className="questions__inner">
-                        <div className="questions-header">
-                            <h2>Замовити консультацію</h2>
-                            <p>
-                                Наші менеджери зв’яжуться з вами та нададуть всю
-                                необхідну інформаці, яка вас цікавитиме.
-                            </p>
-                        </div>
-                        <form action="" className="questions-form">
-                            <div className="g-input">
-                                <label>Ваше ім'я</label>
-                                <input type="text" placeholder="Ваше ім’я" />
-                            </div>
-                            <div className="g-input">
-                                <label>Телефон</label>
-                                <input
-                                    type="text"
-                                    placeholder="+38 (___) ___-__-__"
-                                />
-                            </div>
-                            <button className="btn">
-                                Отримати консультацію
-                            </button>
-                        </form>
-                    </div>
-                </Popup>
-            )}
-            {popupTy && (
-                <Popup statePopup={popupTy} closePopup={setPopupTy}>
-                    <div className="modal-ty">
-                        <div className="modal-ty-icon">
-                            <Airplane />
-                        </div>
-                        <div className="modal-ty-info">
-                            <h2>Дякуємо!</h2>
-                            <p>
-                                Найближчим часом наш спеціалість звяжеться з
-                                Вами!
-                            </p>
-                            <button
-                                className="btn"
-                                onClick={() => {
-                                    setPopupTy(false);
-                                }}
-                            >
-                                Повернутись на головну
-                            </button>
-                        </div>
-                    </div>
-                </Popup>
-            )}
         </>
     );
 }

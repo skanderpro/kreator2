@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Map } from "../components/Map";
-
+import { AppContext } from "../context/AppContext";
 function ContactPage() {
+    const { setPopupConsultations } = useContext(AppContext);
     return (
         <>
             <div className="breadcrumbs">
@@ -62,9 +63,14 @@ function ContactPage() {
                                     </ul>
                                 </div>
                             </div>
-                            <a href="#" className="btn">
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setPopupConsultations(true);
+                                }}
+                            >
                                 ЗАПИСАТИСЬ НА ОГЛЯД
-                            </a>
+                            </button>
                         </div>
                         <div className="map">
                             {/* <iframe

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
@@ -10,12 +10,13 @@ import Logo from "../assets/svg/logo.svg?react";
 import MailIcon from "../assets/svg/user.svg?react";
 import TelIcon from "../assets/svg/cart.svg?react";
 import BurgerMenu from "../assets/svg/burger-menu-icon.svg?react";
-import {useSettings} from "../api/settings.js";
+import { useSettings } from "../api/settings.js";
 import { AppContext } from "../context/AppContext";
 
 function Header() {
     const navigate = useNavigate();
     const location = useLocation();
+    
     const settings = useSettings();
 
     const handleScroll = (id) => {
@@ -36,24 +37,37 @@ function Header() {
         }
     };
 
-    const { setActiveMenuBtn, setPopupConsultations } =
-        useContext(AppContext);
+    const { setActiveMenuBtn, setPopupConsultations } = useContext(AppContext);
+
+    const [isSticky, setIsSticky] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsSticky(true);
+            } else {
+                setIsSticky(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     return (
         <>
-            <header className="header">
+            <header className={`header ${isSticky ? "sticky" : ""}`}>
                 <div className="container">
-                    <div
-                        className={`header__inner `}
-                    >
+                    <div className={`header__inner `}>
                         <div className="header__inner-logo">
                             <NavLink to="/">
                                 <Logo />
                             </NavLink>
                         </div>
-                        <nav
-                            className={`header__inner-nav `}
-                        >
+                        <nav className={`header__inner-nav `}>
                             <ul className="nav-list">
                                 <li className="nav-list-item">
                                     <NavLink
@@ -93,7 +107,7 @@ function Header() {
                                     <MailIcon />
                                 </button>
                                 <a
-                                    href={`tel:${settings.data.phone?.replaceAll(/\D/g, '')}`}
+                                    href={`tel:${settings.data.phone?.replaceAll(/\D/g, "")}`}
                                     className={"header__inner-link-item"}
                                 >
                                     <TelIcon />
