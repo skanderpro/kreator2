@@ -16,6 +16,7 @@ import aboutImg from "../assets/img/house.jpg";
 import Arrow from "../assets/svg/arrow.svg?react";
 import Airplane from "../assets/svg/airplane.svg?react";
 import ArrowLeft from "../assets/svg/arrowLeft.svg?react";
+import Сamera from "../assets/svg/camera.svg?react";
 import Download from "../assets/svg/download.svg?react";
 import {NavLink, useNavigate} from "react-router-dom";
 import { Map } from "../components/Map";
