@@ -67,14 +67,14 @@ class ApartmentCrudController extends CrudController
             'allows_null' => false,
             'default'     => 'apartment',
         ]);
-        CRUD::field('living_area')->type('number');
+        CRUD::field('living_area')->type('number')->attributes(["step" => "any"]);
         CRUD::field('rooms')->type('number');
         CRUD::field('building')->type('number');
         CRUD::field('section')->type('number');
         CRUD::field('floor')->type('number');
-        CRUD::field('area')->type('number');
-        CRUD::field('price')->type('number');
-        CRUD::field('price_for_meter')->type('number');
+        CRUD::field('area')->type('number')->attributes(["step" => "any"]);
+        CRUD::field('price')->type('number')->attributes(["step" => "any"]);
+        CRUD::field('price_for_meter')->type('number')->attributes(["step" => "any"]);
         CRUD::field('plan')->type('upload')->withFiles();
         CRUD::field('floor_plan')->type('upload')->withFiles();
         CRUD::field('gen_plan')->type('upload')->withFiles();
