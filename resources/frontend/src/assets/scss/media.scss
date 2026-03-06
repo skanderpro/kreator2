@@ -298,9 +298,7 @@
     .card-apartments-filter-item {
         width: 100%;
     }
-    .gallery-wrapper {
-        margin-bottom: 40px;
-    }
+
     .gallery {
         padding: 30px 0px;
         margin-bottom: 0px;
@@ -326,6 +324,7 @@
     }
     .technologies {
         gap: 30px;
+        padding-top: 80px;
     }
     .construction-swiper-item .construction-swiper-item-img {
         height: 250px;
@@ -364,7 +363,7 @@
     .about-us {
         flex-direction: column;
         min-height: unset;
-        margin-bottom: 50px;
+      
     }
     .about-us-img {
         max-width: 100%;
@@ -526,6 +525,9 @@
     .menu-modal-close {
         top: 20px;
         right: 20px;
+    }
+    .wrapper {
+        margin-top: 80px;
     }
 }
 @media (max-width: 600px) {

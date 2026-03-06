@@ -1,15 +1,26 @@
 @use "vars";
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: vars.$bg;
+    z-index: 10;
+}
 .header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     min-height: 120px;
-
+    transition: all 0.3s ease;
     .header__inner-logo {
         position: relative;
         z-index: 3;
         a {
             display: flex;
+            transition: all 0.3s ease;
+            width: 75px;
         }
     }
 }
@@ -144,6 +155,16 @@
     }
 }
 
+.header.sticky {
+    .header__inner {
+        min-height: 80px;
+
+        .header__inner-logo a {
+            width: 60px;
+        }
+    }
+}
+
 .head-banner {
     width: 100%;
     min-height: 640px;
@@ -255,7 +276,7 @@
     flex-direction: column;
 
     border-radius: 30px;
-    padding: 38px 0px 50px;
+    padding: 38px 0px 0px;
 
     .card-apartments-header {
         display: flex;
@@ -286,14 +307,16 @@
         }
     }
 }
+.gallery-wrapper-con {
+    padding-top: 80px;
+    background-color: vars.$white;
+}
 .gallery-wrapper {
     background-color: vars.$primary;
-    margin-bottom: 60px;
 }
 .gallery {
     border-radius: 30px;
     padding: 50px 0px;
-    margin-bottom: 60px;
     position: relative;
     .gallery-text {
         position: absolute;
@@ -445,7 +468,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-bottom: 100px;
+
+    padding-top: 80px;
     .advantages-header {
         display: flex;
         align-items: center;
@@ -511,8 +535,8 @@
     display: flex;
     flex-direction: column;
     gap: 52px;
-    margin-bottom: 85px;
 
+    padding-top: 100px;
     &-list {
         display: flex;
         flex-direction: column;
@@ -535,14 +559,16 @@
         }
     }
 }
-
+.construction-wrapper {
+    padding-top: 80px;
+}
 .construction {
     display: flex;
     flex-direction: column;
     background-color: vars.$primary;
     border-radius: 30px;
     padding: 48px 45px;
-    margin-bottom: 60px;
+
     > h2 {
         margin-bottom: 70px;
         color: vars.$inputs;
@@ -700,7 +726,8 @@
     display: flex;
     gap: 20px;
     min-height: 820px;
-    margin-bottom: 90px;
+
+    padding-top: 80px;
     &-img {
         max-width: 387px;
         width: 100%;
@@ -740,10 +767,10 @@
 }
 
 .news {
-    margin-bottom: 65px;
     display: flex;
     flex-direction: column;
     gap: 52px;
+    padding-top: 90px;
     .news-header {
         display: flex;
         justify-content: space-between;
@@ -862,6 +889,9 @@
         justify-content: center;
         z-index: 3;
     }
+}
+.documents-wrapper-con {
+    padding-top: 80px;
 }
 .documents-wrapper {
     background-color: vars.$primary;
@@ -1256,6 +1286,7 @@
         &-btn {
             display: flex;
             align-items: center;
+            gap: 5px;
             li {
                 cursor: pointer;
                 padding: 0px 16px;

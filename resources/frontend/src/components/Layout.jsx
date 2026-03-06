@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Menu } from "./Menu";
-
+import { AppContext } from "../context/AppContext";
+import Popup from "./popup/Popup";
 function Layout() {
+    const { popupConsultations, setPopupConsultations, popupTy, setPopupTy } =
+        useContext(AppContext);
     return (
         /**
          * Markup to render only the content of pages, and elements that are repeated on each page are loaded only once
@@ -20,6 +23,63 @@ function Layout() {
                 <Outlet />
             </main>
             <Footer />
+
+            {popupConsultations && (
+                <Popup
+                    statePopup={popupConsultations}
+                    closePopup={setPopupConsultations}
+                >
+                    <div className="questions__inner">
+                        <div className="questions-header">
+                            <h2>Замовити консультацію</h2>
+                            <p>
+                                Наші менеджери зв’яжуться з вами та нададуть всю
+                                необхідну інформаці, яка вас цікавитиме.
+                            </p>
+                        </div>
+                        <form action="" className="questions-form">
+                            <div className="g-input">
+                                <label>Ваше ім'я</label>
+                                <input type="text" placeholder="Ваше ім’я" />
+                            </div>
+                            <div className="g-input">
+                                <label>Телефон</label>
+                                <input
+                                    type="text"
+                                    placeholder="+38 (___) ___-__-__"
+                                />
+                            </div>
+                            <button className="btn">
+                                Отримати консультацію
+                            </button>
+                        </form>
+                    </div>
+                </Popup>
+            )}
+            {popupTy && (
+                <Popup statePopup={popupTy} closePopup={setPopupTy}>
+                    <div className="modal-ty">
+                        <div className="modal-ty-icon">
+                            <Airplane />
+                        </div>
+                        <div className="modal-ty-info">
+                            <h2>Дякуємо!</h2>
+                            <p>
+                                Найближчим часом наш спеціалість звяжеться з
+                                Вами!
+                            </p>
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setPopupTy(false);
+                                }}
+                            >
+                                Повернутись на головну
+                            </button>
+                        </div>
+                    </div>
+                </Popup>
+            )}
         </div>
     );
 }

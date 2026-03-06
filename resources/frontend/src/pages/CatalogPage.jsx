@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {NavLink, useSearchParams} from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import Filter from "../assets/svg/filter.svg?react";
 import Close from "../assets/svg/close.svg?react";
-import {useApartments, useApartmentsMeta} from "../api/apartments.js";
+import { useApartments, useApartmentsMeta } from "../api/apartments.js";
 import { useFormik } from "formik";
 function CatalogPage() {
     const [catalogfilterToggle, setCatalogFilterToggle] = useState(false);
@@ -13,13 +13,13 @@ function CatalogPage() {
 
     const formik = useFormik({
         initialValues: {
-            priceFrom: searchParams.get('priceFrom') ||  "",
-            priceTo: searchParams.get('priceTo') ||  "",
-            areaFrom: searchParams.get('areaFrom') || "",
-            areaTo: searchParams.get('areaTo') || "",
-            rooms: searchParams.getAll('rooms[]') ||  [],
+            priceFrom: searchParams.get("priceFrom") || "",
+            priceTo: searchParams.get("priceTo") || "",
+            areaFrom: searchParams.get("areaFrom") || "",
+            areaTo: searchParams.get("areaTo") || "",
+            rooms: searchParams.getAll("rooms[]") || [],
             floor: "",
-            type: searchParams.getAll('type[]') || [],
+            type: searchParams.getAll("type[]") || [],
             parking: "",
             order: "price_asc",
             sold: "",
@@ -68,6 +68,11 @@ function CatalogPage() {
 
         console.log(values);
     };
+
+    const areaFormatter = new Intl.NumberFormat("uk-UA", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
 
     return (
         <>
@@ -192,11 +197,16 @@ function CatalogPage() {
                                             onChange={formik.handleChange}
                                             value={formik.values.building}
                                         >
-                                            {apartmentsMeta.data.buildings.map((building) => (
-                                                <option key={`building-${building}`} value={building}>
-                                                    {building}
-                                                </option>
-                                            ))}
+                                            {apartmentsMeta.data.buildings.map(
+                                                (building) => (
+                                                    <option
+                                                        key={`building-${building}`}
+                                                        value={building}
+                                                    >
+                                                        {building}
+                                                    </option>
+                                                ),
+                                            )}
                                         </select>
                                     </div>
                                 </div>
@@ -205,26 +215,26 @@ function CatalogPage() {
                                     <label>К-ть кімнат</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
-                                            {apartmentsMeta.data.rooms.map((room) => (
-                                                <div
-                                                    key={`room-${room}`}
-                                                    className={`list-tab-item ${
-                                                        formik.values.rooms.includes(
+                                            {apartmentsMeta.data.rooms.map(
+                                                (room) => (
+                                                    <div
+                                                        key={`room-${room}`}
+                                                        className={`list-tab-item ${
+                                                            formik.values.rooms.includes(
+                                                                room,
+                                                            )
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                        onClick={handleMultipleValues(
+                                                            "rooms",
                                                             room,
-                                                        )
-                                                            ? "active"
-                                                            : ""
-                                                    }`}
-                                                    onClick={handleMultipleValues(
-                                                        "rooms",
-                                                        room,
-                                                    )}
-                                                >
-                                                    {room}
-                                                </div>
-                                            ))}
-
-
+                                                        )}
+                                                    >
+                                                        {room}
+                                                    </div>
+                                                ),
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -276,7 +286,6 @@ function CatalogPage() {
                                                 }
                                                 value={formik.values.priceFrom}
                                             />
-
                                         </div>
                                         <div className="filter-input">
                                             <input
@@ -290,7 +299,6 @@ function CatalogPage() {
                                                 }
                                                 value={formik.values.priceTo}
                                             />
-
                                         </div>
                                     </div>
                                 </div>
@@ -413,9 +421,6 @@ function CatalogPage() {
                                                 }
                                             >
                                                 <div className="catalog-list-item-title">
-                                                    {isApartment
-                                                        ? "Квартира"
-                                                        : "Паркомісце"}{" "}
                                                     {item.title}
                                                 </div>
                                                 <div className="catalog-list-item-img">
@@ -432,7 +437,7 @@ function CatalogPage() {
                                                     }`}
                                                 >
                                                     <div className="catalog-list-item-info-item">
-                                                        {item.area}{" "}
+                                                       {areaFormatter.format(item.area)} 
                                                         <span>м.кв</span>
                                                     </div>
                                                     {isApartment ? (
