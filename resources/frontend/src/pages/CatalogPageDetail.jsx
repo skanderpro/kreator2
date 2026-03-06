@@ -38,6 +38,11 @@ function CatalogPageDetail() {
         ...images.filter((_, i) => i !== activeTab),
     ];
 
+    const areaFormatter = new Intl.NumberFormat("uk-UA", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+    
     if (apartment.isLoading || apartment.isFetching) {
         return <div className="container">Loading...</div>;
     }
@@ -79,7 +84,12 @@ function CatalogPageDetail() {
                                         }
                                     />
                                     Площа
-                                    <span>{apartment.data.data?.area} м2</span>
+                                    <span>
+                                        {areaFormatter.format(
+                                            apartment.data.data?.area,
+                                        )}{" "}
+                                         м2
+                                    </span>
                                 </div>
                                 <div className="catalog-detail-header-item">
                                     <img
@@ -92,7 +102,10 @@ function CatalogPageDetail() {
                                     />
                                     Житлова площа
                                     <span>
-                                        {apartment.data.data?.living_area} м2
+                                        {areaFormatter.format(
+                                            apartment.data.data?.living_area,
+                                        )}{" "}
+                                         м2
                                     </span>
                                 </div>
                                 <div className="catalog-detail-header-item">
@@ -152,7 +165,10 @@ function CatalogPageDetail() {
                                 <div className="catalog-detail-header-info-text">
                                     Ціна за м2:{" "}
                                     <span>
-                                        {apartment.data.data?.price_for_meter}{" "}
+                                        {areaFormatter.format(
+                                            apartment.data.data
+                                                ?.price_for_meter,
+                                        )}{" "}
                                         грн/м2
                                     </span>
                                 </div>
@@ -160,7 +176,10 @@ function CatalogPageDetail() {
                                     Вартість квартири
                                     <span>
                                         {" "}
-                                        {apartment.data.data?.price} <b>грн</b>
+                                        {areaFormatter.format(
+                                            apartment.data.data?.price,
+                                        )}{" "}
+                                        <b>грн</b>
                                     </span>
                                 </div>
                                 <button
