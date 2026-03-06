@@ -413,9 +413,6 @@ function CatalogPage() {
                                                 }
                                             >
                                                 <div className="catalog-list-item-title">
-                                                    {isApartment
-                                                        ? "Квартира"
-                                                        : "Паркомісце"}{" "}
                                                     {item.title}
                                                 </div>
                                                 <div className="catalog-list-item-img">
