@@ -43,7 +43,7 @@ function CatalogPageDetail() {
         maximumFractionDigits: 2,
     });
     const isApartment = apartment.data.data?.type === "apartment";
-    console.log(isApartment);
+    
 
     if (apartment.isLoading || apartment.isFetching) {
         return <div className="container">Loading...</div>;
@@ -185,7 +185,7 @@ function CatalogPageDetail() {
                                     </span>
                                 </div>
                                 <div className="catalog-detail-header-info-price">
-                                    Вартість квартири
+                                    Вартість {isApartment ? 'квартири' : 'паркомісця'} 
                                     <span>
                                         {" "}
                                         {areaFormatter.format(
