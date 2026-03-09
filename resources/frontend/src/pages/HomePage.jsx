@@ -127,7 +127,6 @@ function HomePage() {
                                 <span>{settings.data.address_building}</span>
                                 <a
                                     href={settings.data.hero_url}
-                                    target="_blank"
                                     className="icon-arrow icon-arrow--right"
                                 >
                                     <Arrow />

@@ -19,12 +19,13 @@ function CatalogPage() {
             areaTo: searchParams.get("areaTo") || "",
             rooms: searchParams.getAll("rooms[]") || [],
             floor: "",
-            type: searchParams.getAll("type[]") || [],
+            type: searchParams.getAll("type[]").length
+                ? searchParams.getAll("type[]")
+                : ["apartment"],
             parking: "",
             order: "price_asc",
             sold: "",
             building: "",
-
             features: [],
             page: 1,
         },
@@ -32,12 +33,6 @@ function CatalogPage() {
             setFilter(values);
         },
     });
-
-    useEffect(() => {
-        if ([...searchParams.keys()].length > 0) {
-            formik.handleSubmit();
-        }
-    }, []); // deps must be empty
 
     useEffect(() => {
         if (catalogfilterToggle) {
@@ -49,12 +44,12 @@ function CatalogPage() {
 
     const loadMoreClickHandler = () => {
         formik.setFieldValue("page", formik.values.page + 1);
-        formik.handleSubmit();
+      
     };
 
     const orderChangeHandler = (e) => {
         formik.handleChange(e);
-        formik.handleSubmit();
+      
     };
 
     const handleMultipleValues = (name, value) => () => {
@@ -69,10 +64,15 @@ function CatalogPage() {
         console.log(values);
     };
 
+    useEffect(() => {
+        setFilter(formik.values);
+    }, [formik.values]);
+
     const areaFormatter = new Intl.NumberFormat("uk-UA", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });
+
 
     return (
         <>
@@ -398,13 +398,7 @@ function CatalogPage() {
                                 >
                                     ОЧИСТИТИ
                                 </button>
-                                <button
-                                    className="btn "
-                                    type="button"
-                                    onClick={formik.handleSubmit}
-                                >
-                                    ПІДБІР КВАРТИР
-                                </button>
+                                
                             </div>
                             <div className="catalog-box">
                                 <div className="catalog-list">
@@ -437,7 +431,9 @@ function CatalogPage() {
                                                     }`}
                                                 >
                                                     <div className="catalog-list-item-info-item">
-                                                       {areaFormatter.format(item.area)} 
+                                                        {areaFormatter.format(
+                                                            item.area,
+                                                        )}
                                                         <span>м.кв</span>
                                                     </div>
                                                     {isApartment ? (

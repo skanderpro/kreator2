@@ -895,7 +895,6 @@
 }
 .documents-wrapper {
     background-color: vars.$primary;
-    margin-bottom: 85px;
 }
 .documents {
     display: flex;
@@ -903,7 +902,7 @@
     gap: 50px;
 
     border-radius: 30px;
-    margin-bottom: 90px;
+
     padding: 40px 0px;
     h2 {
         color: vars.$white;
@@ -990,6 +989,7 @@
 }
 .contact-wrapper {
     margin-bottom: 100px;
+    padding-top: 80px;
 }
 .contact {
     display: flex;
