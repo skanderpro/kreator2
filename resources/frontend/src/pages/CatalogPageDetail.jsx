@@ -42,7 +42,9 @@ function CatalogPageDetail() {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });
-    
+    const isApartment = apartment.data.data?.type === "apartment";
+    console.log(isApartment);
+
     if (apartment.isLoading || apartment.isFetching) {
         return <div className="container">Loading...</div>;
     }
@@ -91,23 +93,27 @@ function CatalogPageDetail() {
                                          м2
                                     </span>
                                 </div>
-                                <div className="catalog-detail-header-item">
-                                    <img
-                                        src={
-                                            new URL(
-                                                `/src/assets/svg/catalog-icon/icon-2.svg`,
-                                                import.meta.url,
-                                            ).href
-                                        }
-                                    />
-                                    Житлова площа
-                                    <span>
-                                        {areaFormatter.format(
-                                            apartment.data.data?.living_area,
-                                        )}{" "}
-                                         м2
-                                    </span>
-                                </div>
+                                {isApartment && (
+                                    <div className="catalog-detail-header-item">
+                                        <img
+                                            src={
+                                                new URL(
+                                                    `/src/assets/svg/catalog-icon/icon-2.svg`,
+                                                    import.meta.url,
+                                                ).href
+                                            }
+                                        />
+                                        Житлова площа
+                                        <span>
+                                            {areaFormatter.format(
+                                                apartment.data.data
+                                                    ?.living_area,
+                                            )}{" "}
+                                             м2
+                                        </span>
+                                    </div>
+                                )}
+
                                 <div className="catalog-detail-header-item">
                                     <img
                                         src={
@@ -120,20 +126,24 @@ function CatalogPageDetail() {
                                     Будинок
                                     <span>{apartment.data.data?.building}</span>
                                 </div>
-                                <div className="catalog-detail-header-item">
-                                    <img
-                                        src={
-                                            new URL(
-                                                `/src/assets/svg/catalog-icon/icon-4.svg`,
-                                                import.meta.url,
-                                            ).href
-                                        }
-                                    />
-                                    Секція
-                                    <span>
-                                        Секція {apartment.data.data?.section}
-                                    </span>
-                                </div>
+                                {isApartment && (
+                                    <div className="catalog-detail-header-item">
+                                        <img
+                                            src={
+                                                new URL(
+                                                    `/src/assets/svg/catalog-icon/icon-4.svg`,
+                                                    import.meta.url,
+                                                ).href
+                                            }
+                                        />
+                                        Секція
+                                        <span>
+                                            Секція{" "}
+                                            {apartment.data.data?.section}
+                                        </span>
+                                    </div>
+                                )}
+
                                 <div className="catalog-detail-header-item">
                                     <img
                                         src={
@@ -146,20 +156,22 @@ function CatalogPageDetail() {
                                     Поверх
                                     <span>{apartment.data.data?.floor}</span>
                                 </div>
-                                <div className="catalog-detail-header-item">
-                                    <img
-                                        src={
-                                            new URL(
-                                                `/src/assets/svg/catalog-icon/icon-6.svg`,
-                                                import.meta.url,
-                                            ).href
-                                        }
-                                    />
-                                    Тип планування
-                                    <span>
-                                        {apartment.data.data?.planing_type}
-                                    </span>
-                                </div>
+                                {isApartment && (
+                                    <div className="catalog-detail-header-item">
+                                        <img
+                                            src={
+                                                new URL(
+                                                    `/src/assets/svg/catalog-icon/icon-6.svg`,
+                                                    import.meta.url,
+                                                ).href
+                                            }
+                                        />
+                                        Тип планування
+                                        <span>
+                                            {apartment.data.data?.planing_type}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                             <div className="catalog-detail-header-info">
                                 <div className="catalog-detail-header-info-text">
