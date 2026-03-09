@@ -9,6 +9,7 @@ import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 
 import lgZoom from "lightgallery/plugins/zoom";
+import {ContactForm} from "../components/ContactForm.jsx";
 
 function CatalogPageDetail() {
     const { id } = useParams();
@@ -43,7 +44,7 @@ function CatalogPageDetail() {
         maximumFractionDigits: 2,
     });
     const isApartment = apartment.data.data?.type === "apartment";
-    
+
 
     if (apartment.isLoading || apartment.isFetching) {
         return <div className="container">Loading...</div>;
@@ -185,7 +186,7 @@ function CatalogPageDetail() {
                                     </span>
                                 </div>
                                 <div className="catalog-detail-header-info-price">
-                                    Вартість {isApartment ? 'квартири' : 'паркомісця'} 
+                                    Вартість {isApartment ? 'квартири' : 'паркомісця'}
                                     <span>
                                         {" "}
                                         {areaFormatter.format(
@@ -290,22 +291,7 @@ function CatalogPageDetail() {
                                 щомісячних платежів за умови розтермінування.
                             </p>
                         </div>
-                        <form action="" className="questions-form">
-                            <div className="g-input">
-                                <label>Ваше ім'я</label>
-                                <input type="text" placeholder="Ваше ім’я" />
-                            </div>
-                            <div className="g-input">
-                                <label>Телефон</label>
-                                <input
-                                    type="text"
-                                    placeholder="+38 (___) ___-__-__"
-                                />
-                            </div>
-                            <button className="btn">
-                                Отримати консультацію
-                            </button>
-                        </form>
+                        <ContactForm />
                     </div>
                 </div>
             </div>

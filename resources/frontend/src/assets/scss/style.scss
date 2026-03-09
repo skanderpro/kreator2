@@ -231,6 +231,8 @@
     }
 }
 
+
+
 .price {
     display: flex;
     align-items: flex-end;
@@ -1369,6 +1371,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 15px;
     input {
         background-color: vars.$white;
@@ -1379,6 +1382,12 @@
         &::placeholder {
             color: rgba(49, 27, 0, 0.5);
         }
+    }
+
+    .error-message {
+        color: #ef1c1c;
+        position:absolute;
+        top: 105%;
     }
 }
 
