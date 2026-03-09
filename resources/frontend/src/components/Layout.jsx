@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
-import { Outlet } from "react-router-dom";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
-import { Menu } from "./Menu";
-import { AppContext } from "../context/AppContext";
+import React, {useContext} from "react";
+import {Outlet} from "react-router-dom";
+import {Header} from "./Header";
+import {Footer} from "./Footer";
+import {Menu} from "./Menu";
+import {AppContext} from "../context/AppContext";
 import Popup from "./popup/Popup";
+import Airplane from "../assets/svg/airplane.svg?react";
+import {ContactForm} from "./ContactForm.jsx";
+
 function Layout() {
     const { popupConsultations, setPopupConsultations, popupTy, setPopupTy } =
         useContext(AppContext);
+
+
     return (
         /**
          * Markup to render only the content of pages, and elements that are repeated on each page are loaded only once
@@ -37,22 +42,7 @@ function Layout() {
                                 необхідну інформаці, яка вас цікавитиме.
                             </p>
                         </div>
-                        <form action="" className="questions-form">
-                            <div className="g-input">
-                                <label>Ваше ім'я</label>
-                                <input type="text" placeholder="Ваше ім’я" />
-                            </div>
-                            <div className="g-input">
-                                <label>Телефон</label>
-                                <input
-                                    type="text"
-                                    placeholder="+38 (___) ___-__-__"
-                                />
-                            </div>
-                            <button className="btn">
-                                Отримати консультацію
-                            </button>
-                        </form>
+                        <ContactForm />
                     </div>
                 </Popup>
             )}
