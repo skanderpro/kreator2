@@ -146,7 +146,7 @@ function HomePage() {
                                 <div className="price-label">
                                     {apartmentsMeta.data.price.min}
                                 </div>
-                                <span>грн/м.кв</span>
+                                <span>грн/м²</span>
                             </div>
                         </div>
                         <div className="price-line"></div>
@@ -157,7 +157,7 @@ function HomePage() {
                                     {apartmentsMeta.data.area.min}-
                                     {apartmentsMeta.data.area.max}
                                 </div>
-                                <span>м.кв</span>
+                                <span>м²</span>
                             </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@ function HomePage() {
                                 </div>
                             </div>
                             <div className="card-apartments-filter-item">
-                                <label>Площа, грн</label>
+                                <label>Площа, м²</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="filter-input">
                                         <input
