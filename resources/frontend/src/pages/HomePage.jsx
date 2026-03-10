@@ -55,7 +55,7 @@ function HomePage() {
 
     const formik = useFormik({
         initialValues: {
-            type: [],
+            type: "",
             rooms: [],
             priceFrom: "",
             priceTo: "",
@@ -170,11 +170,18 @@ function HomePage() {
                         <div className="card-apartments-header">
                             <h2>підбір квартир та паркомісць</h2>
                             <div className="card-apartments-header-right">
-                                <p>За вашими параметрами ми знайшли для вас:</p>
-                                <div className="card-apartments-text">
-                                    {apartmentCount.data?.count}{" "}
-                                    <span>квартир</span>
-                                </div>
+                                {formik.values?.type?.length > 0 && (
+                                    <>
+                                        <p>За вашими параметрами ми знайшли для вас:</p>
+                                        <div className="card-apartments-text">
+                                            {formik.values.type === "apartment" ? apartmentCount.data?.apartment : apartmentCount.data?.parking}{" "}
+                                            <span>{formik.values.type === "apartment" ? "квартир" : "паркомісць"} </span>
+                                        </div>
+                                    </>
+                                )}
+
+
+
                             </div>
                         </div>
                         <div className="card-apartments-filter">
@@ -184,31 +191,21 @@ function HomePage() {
                                     <div className="list-tab list-tab-wfc">
                                         <div
                                             className={`list-tab-item ${
-                                                formik.values.type.includes(
-                                                    "apartment",
-                                                )
+                                                formik.values.type === "apartment"
                                                     ? "active"
                                                     : ""
                                             }`}
-                                            onClick={handleMultipleValues(
-                                                "type",
-                                                "apartment",
-                                            )}
+                                            onClick={() => formik.setFieldValue("type", "apartment")}
                                         >
                                             Квартира
                                         </div>
                                         <div
                                             className={`list-tab-item ${
-                                                formik.values.type.includes(
-                                                    "parking",
-                                                )
+                                                formik.values.type === "parking"
                                                     ? "active"
                                                     : ""
                                             }`}
-                                            onClick={handleMultipleValues(
-                                                "type",
-                                                "parking",
-                                            )}
+                                            onClick={() => formik.setFieldValue("type", "parking")}
                                         >
                                             Паркомісце
                                         </div>

@@ -63,6 +63,9 @@ export const useApartmentsUnsoldCount = () => useQuery({
 
         return response.json();
     },
-    placeholderData: {count: 0},
+    placeholderData: {
+        apartment: 0,
+        parking: 0,
+    },
 });
 

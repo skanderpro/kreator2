@@ -19,9 +19,9 @@ function CatalogPage() {
             areaTo: searchParams.get("areaTo") || "",
             rooms: searchParams.getAll("rooms[]") || [],
             floor: "",
-            type: searchParams.getAll("type[]").length
-                ? searchParams.getAll("type[]")
-                : ["apartment"],
+            type: searchParams.get("type").length
+                ? searchParams.get("type")
+                : "apartment",
             parking: "",
             order: "price_asc",
             sold: "",
@@ -44,12 +44,12 @@ function CatalogPage() {
 
     const loadMoreClickHandler = () => {
         formik.setFieldValue("page", formik.values.page + 1);
-      
+
     };
 
     const orderChangeHandler = (e) => {
         formik.handleChange(e);
-      
+
     };
 
     const handleMultipleValues = (name, value) => () => {
@@ -156,31 +156,21 @@ function CatalogPage() {
                                         <div className="list-tab">
                                             <div
                                                 className={`list-tab-item ${
-                                                    formik.values.type.includes(
-                                                        "apartment",
-                                                    )
+                                                    formik.values.type === "apartment"
                                                         ? "active"
                                                         : ""
                                                 }`}
-                                                onClick={handleMultipleValues(
-                                                    "type",
-                                                    "apartment",
-                                                )}
+                                                onClick={() => formik.setFieldValue("type", "apartment")}
                                             >
                                                 Квартира
                                             </div>
                                             <div
                                                 className={`list-tab-item ${
-                                                    formik.values.type.includes(
-                                                        "parking",
-                                                    )
+                                                    formik.values.type === "parking"
                                                         ? "active"
                                                         : ""
                                                 }`}
-                                                onClick={handleMultipleValues(
-                                                    "type",
-                                                    "parking",
-                                                )}
+                                                onClick={() => formik.setFieldValue("type", "parking")}
                                             >
                                                 Паркомісце
                                             </div>
@@ -398,7 +388,7 @@ function CatalogPage() {
                                 >
                                     ОЧИСТИТИ
                                 </button>
-                                
+
                             </div>
                             <div className="catalog-box">
                                 <div className="catalog-list">
