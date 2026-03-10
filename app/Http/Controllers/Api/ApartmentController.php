@@ -106,8 +106,12 @@ class ApartmentController extends Controller
 
     public function unsoldCount()
     {
-        $count = Apartment::query()->count();
+        $apartmentCount = Apartment::query()->where('type', 'apartment')->count();
+        $parkingCount = Apartment::query()->where('type', 'parking')->count();
 
-        return response()->json(['count' => $count]);
+        return response()->json([
+            'apartment' => $apartmentCount,
+            'parking' => $parkingCount,
+        ]);
     }
 }
