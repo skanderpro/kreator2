@@ -275,7 +275,7 @@ function HomePage() {
                                 </div>
                             </div>
                             <div className="card-apartments-filter-item">
-                                <label>Площа, грн</label>
+                                <label>Площа, м²</label>
                                 <div className="card-apartments-filter-inner">
                                     <div className="filter-input">
                                         <input
