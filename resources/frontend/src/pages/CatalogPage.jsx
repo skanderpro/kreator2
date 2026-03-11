@@ -19,9 +19,7 @@ function CatalogPage() {
             areaTo: searchParams.get("areaTo") || "",
             rooms: searchParams.getAll("rooms[]") || [],
             floor: "",
-            type: searchParams.get("type").length
-                ? searchParams.get("type")
-                : "apartment",
+            type: searchParams.get("type") ||  "apartment",
             parking: "",
             order: "price_asc",
             sold: "",
