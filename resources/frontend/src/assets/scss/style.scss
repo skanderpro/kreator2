@@ -171,40 +171,38 @@
     position: relative;
     margin-bottom: 65px;
     display: flex;
+    background-color: vars.$primary;
     &__inner {
         height: 100%;
         display: flex;
     }
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(#2a1802, 0.5);
-        z-index: 1;
-    }
+
     > img {
         position: absolute;
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        z-index: -1;
+        object-fit: contain;
+        object-position: right;
+        z-index: 0;
     }
     .head-banner_inner {
         z-index: 1;
         position: relative;
-        padding: 60px 53px 38px;
+        padding: 60px 0px 38px;
         display: flex;
         flex-direction: column;
         width: 100%;
+
+        > svg {
+            margin-bottom: 80px;
+        }
         .head-banner__title {
-            font-weight: 600;
-            font-size: 97px;
-            line-height: 103%;
+            font-weight: 900;
+            font-size: 69px;
+            line-height: 123%;
             text-transform: uppercase;
             color: vars.$white;
+            margin-bottom: 20px;
         }
         .head-banner__subtitle {
             font-weight: 400;
@@ -213,14 +211,12 @@
             color: vars.$secondary;
             font-family: "Great Vibes", sans-serif;
         }
-        .btn {
-            margin-top: auto;
-        }
+
         .head-banner__location {
             display: flex;
             align-items: center;
             gap: 35px;
-            margin-top: 67px;
+            margin-top: auto;
             span {
                 font-family: "Golos Text", sans-serif;
                 font-size: 18px;
@@ -229,9 +225,13 @@
             }
         }
     }
+    .icon-arrow {
+        background-color: vars.$secondary;
+        svg path {
+            fill: vars.$primary;
+        }
+    }
 }
-
-
 
 .price {
     display: flex;
@@ -451,7 +451,7 @@
         font-size: 18px;
         color: #000;
         transition: all 0.3s ease;
-       
+
         &.active {
             background-color: vars.$primary;
             color: vars.$white;
@@ -509,8 +509,8 @@
             height: 100%;
             background: linear-gradient(
                 180deg,
-                rgba(49, 27, 0, 0) 40.87%,
-                #311b00 98.56%
+                rgba(28, 48, 39, 0) 40.87%,
+                #1c3027 98.56%
             );
             z-index: 1;
         }
@@ -737,6 +737,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: left;
         }
     }
     &-info {
@@ -804,8 +805,8 @@
         z-index: 1;
         background: linear-gradient(
             180deg,
-            rgba(49, 27, 0, 0) 0%,
-            #311b00 86.87%
+            rgba(28, 48, 39, 0) 40.87%,
+            #1c3027 98.56%
         );
     }
     .news-swiper-date {
@@ -1383,7 +1384,7 @@
 
     .error-message {
         color: #ef1c1c;
-        position:absolute;
+        position: absolute;
         top: 105%;
     }
 }
