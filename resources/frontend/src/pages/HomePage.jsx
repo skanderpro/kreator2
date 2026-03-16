@@ -172,16 +172,24 @@ function HomePage() {
                             <div className="card-apartments-header-right">
                                 {formik.values?.type?.length > 0 && (
                                     <>
-                                        <p>За вашими параметрами ми знайшли для вас:</p>
+                                        <p>
+                                            За вашими параметрами ми знайшли для
+                                            вас:
+                                        </p>
                                         <div className="card-apartments-text">
-                                            {formik.values.type === "apartment" ? apartmentCount.data?.apartment : apartmentCount.data?.parking}{" "}
-                                            <span>{formik.values.type === "apartment" ? "квартир" : "паркомісць"} </span>
+                                            {formik.values.type === "apartment"
+                                                ? apartmentCount.data?.apartment
+                                                : apartmentCount.data
+                                                      ?.parking}{" "}
+                                            <span>
+                                                {formik.values.type ===
+                                                "apartment"
+                                                    ? "квартир"
+                                                    : "паркомісць"}{" "}
+                                            </span>
                                         </div>
                                     </>
                                 )}
-
-
-
                             </div>
                         </div>
                         <div className="card-apartments-filter">
@@ -191,11 +199,17 @@ function HomePage() {
                                     <div className="list-tab list-tab-wfc">
                                         <div
                                             className={`list-tab-item ${
-                                                formik.values.type === "apartment"
+                                                formik.values.type ===
+                                                "apartment"
                                                     ? "active"
                                                     : ""
                                             }`}
-                                            onClick={() => formik.setFieldValue("type", "apartment")}
+                                            onClick={() =>
+                                                formik.setFieldValue(
+                                                    "type",
+                                                    "apartment",
+                                                )
+                                            }
                                         >
                                             Квартира
                                         </div>
@@ -205,7 +219,12 @@ function HomePage() {
                                                     ? "active"
                                                     : ""
                                             }`}
-                                            onClick={() => formik.setFieldValue("type", "parking")}
+                                            onClick={() =>
+                                                formik.setFieldValue(
+                                                    "type",
+                                                    "parking",
+                                                )
+                                            }
                                         >
                                             Паркомісце
                                         </div>
@@ -286,7 +305,6 @@ function HomePage() {
                                             }
                                             value={formik.values.areaFrom}
                                         />
-                                        <span>м²</span>
                                     </div>
                                     <div className="filter-input">
                                         <input
@@ -300,7 +318,6 @@ function HomePage() {
                                             }
                                             value={formik.values.areaTo}
                                         />
-                                        <span>м²</span>
                                     </div>
                                 </div>
                             </div>
@@ -337,41 +354,58 @@ function HomePage() {
                                         <Arrow />
                                     </div>
                                 </div>
-                                <Swiper
-                                    slidesPerView={1}
-                                    spaceBetween={20}
-                                    modules={[Navigation, EffectFade]}
-                                    navigation={{
-                                        prevEl: ".prev3",
-                                        nextEl: ".next3",
-                                    }}
-                                    breakpoints={{
-                                        500: {
-                                            // width: 576,
-                                            slidesPerView: 2,
-                                        },
-                                        768: {
-                                            // width: 768,
-                                            slidesPerView: 3,
-                                        },
-                                    }}
-                                    className="mySwiper"
+                                <LightGallery
+                                    speed={500}
+                                    plugins={[lgZoom]}
+                                    selector=".gallery-item"
                                 >
-                                    {gallery.data.data.map((item, index) => {
-                                        return (
-                                            <SwiperSlide
-                                                className="gallery-swiper-item"
-                                                key={index}
-                                            >
-                                                <img
-                                                    className="gallery-swiper-item-img"
-                                                    src={item.image}
-                                                    alt=""
-                                                />
-                                            </SwiperSlide>
-                                        );
-                                    })}
-                                </Swiper>
+                                    <Swiper
+                                        slidesPerView={1}
+                                        spaceBetween={20}
+                                        modules={[Navigation, EffectFade]}
+                                        navigation={{
+                                            prevEl: ".prev3",
+                                            nextEl: ".next3",
+                                        }}
+                                        breakpoints={{
+                                            500: {
+                                                // width: 576,
+                                                slidesPerView: 2,
+                                            },
+                                            768: {
+                                                // width: 768,
+                                                slidesPerView: 3,
+                                            },
+                                        }}
+                                        className="mySwiper"
+                                    >
+                                        {gallery.data.data.map(
+                                            (item, index) => {
+                                                return (
+                                                    <SwiperSlide
+                                                        className="gallery-swiper-item"
+                                                        key={index}
+                                                    >
+                                                        <a
+                                                            className="gallery-item"
+                                                            href={item.image}
+                                                            data-src={
+                                                                item.image
+                                                            }
+                                                            
+                                                        >
+                                                            <img
+                                                                className="gallery-swiper-item-img img-responsive"
+                                                                src={item.image}
+                                                                alt=""
+                                                            />
+                                                        </a>
+                                                    </SwiperSlide>
+                                                );
+                                            },
+                                        )}
+                                    </Swiper>
+                                </LightGallery>
                             </div>
                         </div>
                     </div>
@@ -476,7 +510,7 @@ function HomePage() {
                             <div className="construction-timeline-text">
                                 <div className="construction-timeline-text-item">
                                     <label>Початок будівництва</label>
-                                    <span>Січень 2024 р</span>
+                                    <span>Січень 2024 р.</span>
                                 </div>
                                 <div className="construction-timeline-text-item">
                                     <label>Здача будинку</label>
@@ -536,7 +570,10 @@ function HomePage() {
                                                         alt=""
                                                     />
                                                     <div className="construction-swiper-item-box"></div>
-                                                    <a data-src={item.image}>
+                                                    <a
+                                                        href={item.image}
+                                                        data-src={item.image}
+                                                    >
                                                         <Сamera />
                                                     </a>
                                                 </div>
@@ -587,7 +624,7 @@ function HomePage() {
                                 setPopupConsultations(true);
                             }}
                         >
-                            ЗАПИСАТИСЬ НА ОГЛЯД
+                            ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                         </button>
                     </div>
                 </div>
@@ -801,7 +838,7 @@ function HomePage() {
                                     setPopupConsultations(true);
                                 }}
                             >
-                                ЗАПИСАТИСЬ НА ОГЛЯД
+                                ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                             </button>
                         </div>
                         <div className="map" id="map">

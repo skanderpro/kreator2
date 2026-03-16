@@ -82,10 +82,12 @@ function Menu() {
                             </a>
                         </li>
                         <li>
-                            <a onClick={() => handleScroll("construction")}>хід будівництва</a>
+                            <NavLink to="/сonstruction">
+                                хід будівництва
+                            </NavLink>
                         </li>
                         <li>
-                            <a onClick={() => handleScroll("news")}>новини</a>
+                            <NavLink to="/news">новини</NavLink>
                         </li>
                     </ul>
                 </div>

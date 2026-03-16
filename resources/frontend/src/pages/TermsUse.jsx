@@ -1,10 +1,6 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
-import Facebook from "../assets/svg/facebook.svg?react";
-import Twitter from "../assets/svg/twitter.svg?react";
-import Instagram from "../assets/svg/instagram.svg?react";
+import { NavLink } from "react-router-dom";
 
-import { formatDate } from "../formatters/date.js";
 function TermsUse() {
     return (
         <>
@@ -21,7 +17,7 @@ function TermsUse() {
                                 }
                             />
                         </NavLink>
-                        <span>Terms of Use</span>
+                        <span>Умови використання</span>
                     </div>
                 </div>
             </div>
@@ -35,19 +31,6 @@ function TermsUse() {
               alt={singleNews.data.data.title}
             /> */}
                         <div className="news-detail-info">
-                            <div className="news-detail-info-social">
-                                <div className="footer-social">
-                                    <NavLink to="/">
-                                        <Facebook />
-                                    </NavLink>
-                                    <NavLink to="/">
-                                        <Twitter />
-                                    </NavLink>
-                                    <NavLink to="/">
-                                        <Instagram />
-                                    </NavLink>
-                                </div>
-                            </div>
                             <div className="news-detail-info-text">
                                 <h4>Title</h4>
                                 {/* <div dangerouslySetInnerHTML={{__html: singleNews.data.data.content}} /> */}

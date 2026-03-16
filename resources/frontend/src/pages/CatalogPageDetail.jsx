@@ -9,7 +9,7 @@ import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 
 import lgZoom from "lightgallery/plugins/zoom";
-import {ContactForm} from "../components/ContactForm.jsx";
+import { ContactForm } from "../components/ContactForm.jsx";
 
 function CatalogPageDetail() {
     const { id } = useParams();
@@ -44,7 +44,6 @@ function CatalogPageDetail() {
         maximumFractionDigits: 2,
     });
     const isApartment = apartment.data.data?.type === "apartment";
-
 
     if (apartment.isLoading || apartment.isFetching) {
         return <div className="container">Loading...</div>;
@@ -110,7 +109,7 @@ function CatalogPageDetail() {
                                                 apartment.data.data
                                                     ?.living_area,
                                             )}{" "}
-                                             м2
+                                             м²
                                         </span>
                                     </div>
                                 )}
@@ -176,17 +175,18 @@ function CatalogPageDetail() {
                             </div>
                             <div className="catalog-detail-header-info">
                                 <div className="catalog-detail-header-info-text">
-                                    Ціна за м2:{" "}
+                                    Ціна за м²:{" "}
                                     <span>
                                         {areaFormatter.format(
                                             apartment.data.data
                                                 ?.price_for_meter,
                                         )}{" "}
-                                        грн/м2
+                                        грн/м²
                                     </span>
                                 </div>
                                 <div className="catalog-detail-header-info-price">
-                                    Вартість {isApartment ? 'квартири' : 'паркомісця'}
+                                    Вартість{" "}
+                                    {isApartment ? "квартири" : "паркомісця"}
                                     <span>
                                         {" "}
                                         {areaFormatter.format(
@@ -226,49 +226,38 @@ function CatalogPageDetail() {
                             >
                                 <div className="catalog-detail-tab-gallery">
                                     {sortedImages.map((item, index) => {
-                                        if (index === 0) {
-                                            return (
-                                                <a
-                                                    key={index}
-                                                    href={item.src}
-                                                    data-src={item.src}
-                                                    className={`catalog-detail-tab-gallery-item lightbox-item div${index + 1}`}
-                                                >
-                                                    <img src={item.src} />
-
-                                                    {index === 0 && (
-                                                        <svg
-                                                            width="70"
-                                                            height="68"
-                                                            viewBox="0 0 70 68"
-                                                            fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <ellipse
-                                                                cx="35"
-                                                                cy="34"
-                                                                rx="35"
-                                                                ry="34"
-                                                                transform="rotate(-180 35 34)"
-                                                                fill="#FFD299"
-                                                            />
-                                                            <path
-                                                                d="M50.3929 50.8475C51.2746 51.7292 52.6354 50.3683 51.7537 49.5058L44.5662 42.2992C47.0881 39.5099 48.4819 35.882 48.4762 32.1217C48.4762 23.7075 41.6337 16.865 33.2196 16.865C24.8054 16.865 17.9629 23.7075 17.9629 32.1217C17.9629 40.5358 24.8054 47.3783 33.2196 47.3783C37.0146 47.3783 40.5221 45.9792 43.2054 43.66L50.3929 50.8475ZM19.8776 32.1217C19.8776 24.7617 25.8768 18.7817 33.2176 18.7817C40.5776 18.7817 46.5576 24.7617 46.5576 32.1217C46.5576 39.4817 40.5776 45.4617 33.2176 45.4617C25.8768 45.4617 19.8776 39.4817 19.8776 32.1217Z"
-                                                                fill="#311B00"
-                                                            />
-                                                        </svg>
-                                                    )}
-                                                </a>
-                                            );
-                                        }
-
                                         return (
-                                            <div
+                                            <a
                                                 key={index}
-                                                className={`catalog-detail-tab-gallery-item div${index + 1}`}
+                                                href={item.src}
+                                                data-src={item.src}
+                                                className={`catalog-detail-tab-gallery-item lightbox-item div${index + 1}`}
                                             >
                                                 <img src={item.src} />
-                                            </div>
+
+                                                {index === 0 && (
+                                                    <svg
+                                                        width="70"
+                                                        height="68"
+                                                        viewBox="0 0 70 68"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <ellipse
+                                                            cx="35"
+                                                            cy="34"
+                                                            rx="35"
+                                                            ry="34"
+                                                            transform="rotate(-180 35 34)"
+                                                            fill="#FFD299"
+                                                        />
+                                                        <path
+                                                            d="M50.3929 50.8475C51.2746 51.7292 52.6354 50.3683 51.7537 49.5058L44.5662 42.2992C47.0881 39.5099 48.4819 35.882 48.4762 32.1217C48.4762 23.7075 41.6337 16.865 33.2196 16.865C24.8054 16.865 17.9629 23.7075 17.9629 32.1217C17.9629 40.5358 24.8054 47.3783 33.2196 47.3783C37.0146 47.3783 40.5221 45.9792 43.2054 43.66L50.3929 50.8475ZM19.8776 32.1217C19.8776 24.7617 25.8768 18.7817 33.2176 18.7817C40.5776 18.7817 46.5576 24.7617 46.5576 32.1217C46.5576 39.4817 40.5776 45.4617 33.2176 45.4617C25.8768 45.4617 19.8776 39.4817 19.8776 32.1217Z"
+                                                            fill="#311B00"
+                                                        />
+                                                    </svg>
+                                                )}
+                                            </a>
                                         );
                                     })}
                                 </div>

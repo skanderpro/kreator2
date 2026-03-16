@@ -3,6 +3,10 @@
     .catalog-detail-header-items {
         gap: 50px;
     }
+    .card-apartments-filter {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
 }
 @media (max-width: 1024px) {
     h2 {
@@ -34,7 +38,7 @@
         }
     }
     .card-apartments {
-        padding: 30px 0px;
+        padding: 30px 0px 0px;
     }
     .card-apartments-filter {
         gap: 15px;
@@ -256,6 +260,7 @@
             flex-direction: column;
             padding: 25px 0px;
             gap: 30px;
+            align-items: flex-start;
             span {
                 text-align: center;
             }
@@ -282,6 +287,7 @@
 
     .card-apartments .card-apartments-header {
         flex-direction: column;
+        margin-bottom: 20px;
         .card-apartments-header-right {
             flex-direction: row;
             p {
@@ -363,7 +369,6 @@
     .about-us {
         flex-direction: column;
         min-height: unset;
-      
     }
     .about-us-img {
         max-width: 100%;
@@ -384,12 +389,9 @@
     }
     .documents {
         padding: 30px 0px;
-        margin-bottom: 50px;
         gap: 30px;
     }
-    .documents-wrapper {
-        margin-bottom: 50px;
-    }
+
     .documents .documents-items,
     .documents .documents-item {
         align-items: flex-start;
@@ -529,6 +531,29 @@
     .wrapper {
         margin-top: 80px;
     }
+
+    .header.sticky {
+        .header__inner {
+            min-height: 60px;
+
+            .header__inner-logo a {
+                width: 40px;
+            }
+            .header__inner-link-item {
+                width: 40px;
+            }
+        }
+    }
+    .gallery-wrapper-con,
+    .advantages,
+    .technologies,
+    .construction-wrapper,
+    .about-us,
+    .news,
+    .documents-wrapper-con,
+    .contact-wrapper {
+        padding-top: 60px;
+    }
 }
 @media (max-width: 600px) {
     h2 {
@@ -653,10 +678,22 @@
     .menu-modal-list-box ul {
         gap: 20px;
     }
-    .menu-modal-list-box {
-        gap: 30px;
-    }
+
     .menu-modal-list-box ul li a {
         font-size: 16px;
+    }
+
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item
+        span {
+        font-size: 14px;
+    }
+    .documents .documents-item .icon-arrow {
+        order: -1;
+    }
+    .documents .documents-item {
+        gap: 20px;
     }
 }

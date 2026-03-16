@@ -60,7 +60,7 @@ function Footer() {
                             <ul>
                                 <li>
                                     Центральний відділ продажу – вул.
-                                    {settings.data.address_building}
+                                    Листопадова, 1/3
                                 </li>
                             </ul>
                         </div>
