@@ -69,7 +69,7 @@ function ContactPage() {
                                     setPopupConsultations(true);
                                 }}
                             >
-                                ЗАПИСАТИСЬ НА ОГЛЯД
+                                ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                             </button>
                         </div>
                         <div className="map">

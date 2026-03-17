@@ -16,7 +16,7 @@ import { AppContext } from "../context/AppContext";
 function Header() {
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     const settings = useSettings();
 
     const handleScroll = (id) => {
@@ -70,10 +70,7 @@ function Header() {
                         <nav className={`header__inner-nav `}>
                             <ul className="nav-list">
                                 <li className="nav-list-item">
-                                    <NavLink
-                                        to="/catalog"
-                                        onClick={() => setActiveMenuBtn(false)}
-                                    >
+                                    <NavLink to="/catalog">
                                         Підбір Квартир
                                     </NavLink>
                                 </li>
@@ -98,14 +95,12 @@ function Header() {
                         </nav>
                         <div className="header__left-menu">
                             <div className="header__inner-link">
-                                <button
+                                <a
                                     className={"header__inner-link-item"}
-                                    onClick={() => {
-                                        setPopupConsultations(true);
-                                    }}
+                                    href={`mailto:${settings.data.email}`}
                                 >
                                     <MailIcon />
-                                </button>
+                                </a>
                                 <a
                                     href={`tel:${settings.data.phone?.replaceAll(/\D/g, "")}`}
                                     className={"header__inner-link-item"}
