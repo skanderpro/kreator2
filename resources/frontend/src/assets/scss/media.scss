@@ -7,10 +7,16 @@
         gap: 20px;
         flex-wrap: wrap;
     }
+    .technologies-list-item h3 {
+        margin-left: 0px;
+    }
 }
 @media (max-width: 1024px) {
     h2 {
         font-size: 50px;
+    }
+    .technologies-list-item h3{
+        font-size: 20px;
     }
     .header__inner-link {
         a + a {
@@ -516,7 +522,13 @@
         max-width: 100%;
     }
     .footer .footer__inner .footer-right {
-        margin-left: auto;
+        align-items: flex-start;
+    }
+    .footer .footer__inner .footer-center {
+        align-items: flex-start;
+    }
+    .footer .footer__inner .footer-center-text {
+        align-items: flex-start;
     }
     .menu-modal-img {
         display: none;
@@ -553,6 +565,9 @@
     .documents-wrapper-con,
     .contact-wrapper {
         padding-top: 60px;
+    }
+    .advantages .advantages-header {
+        text-align: left;
     }
 }
 @media (max-width: 600px) {
@@ -626,6 +641,10 @@
     }
     .gallery .gallery-text {
         position: static;
+        align-items: flex-start;
+    }
+    .gallery .gallery-text p {
+        text-align: left;
     }
     .advantages .advantages-list {
         gap: 10px;
@@ -695,5 +714,8 @@
     }
     .documents .documents-item {
         gap: 20px;
+    }
+    .construction-swiper-header {
+        align-items: flex-start;
     }
 }

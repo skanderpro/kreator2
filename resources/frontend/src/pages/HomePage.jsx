@@ -509,11 +509,15 @@ function HomePage() {
                             <div className="construction-timeline-text">
                                 <div className="construction-timeline-text-item">
                                     <label>Початок будівництва</label>
-                                    <span>Січень 2024 р.</span>
+                                    <span>
+                                        Січень 2024 <b>р.</b>
+                                    </span>
                                 </div>
                                 <div className="construction-timeline-text-item">
                                     <label>Здача будинку</label>
-                                    <span>2 квартал 2026 р.</span>
+                                    <span>
+                                        2 квартал 2026 <b>р.</b>
+                                    </span>
                                 </div>
                             </div>
                         </div>
