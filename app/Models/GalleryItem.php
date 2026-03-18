@@ -9,6 +9,7 @@ class GalleryItem extends Model
 {
     use CrudTrait;
     protected $fillable = [
-        'image'
+        'image',
+        'created_at',
     ];
 }

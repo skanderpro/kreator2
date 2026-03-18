@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ContactRequest extends Model
 {
     use CrudTrait;
-    protected $fillable = ['name', 'phone', 'message'];
+    protected $fillable = ['name', 'phone', 'message', 'created_at',];
 }
