@@ -561,6 +561,8 @@
             gap: 30px;
             h3 {
                 max-width: 357px;
+                margin-right: auto;
+                margin-left: 85px;
             }
             p {
                 max-width: 550px;
@@ -633,6 +635,10 @@
                     font-size: 30px;
                     line-height: 120%;
                     text-transform: uppercase;
+                    b {
+                        text-transform: lowercase;
+                        font-size: 20px;
+                    }
                 }
             }
             .construction-timeline-text-item:last-child {
@@ -1138,14 +1144,14 @@
         width: 100%;
     }
     .btn {
-        width: 100%;
+        width: fit-content;
     }
 }
 .catalog-filter-btn {
     display: none;
     margin-bottom: 25px;
     justify-content: flex-end;
-
+    width: fit-content;
     .btn:hover {
         background-color: vars.$secondary;
         color: vars.$primary;
