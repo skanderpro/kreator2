@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Feature extends Model
 {
     use CrudTrait;
-    protected $fillable = ['title', 'image'];
+    protected $fillable = ['title', 'image', 'created_at',];
 }
