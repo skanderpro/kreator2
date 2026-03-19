@@ -8,8 +8,8 @@ function BuildStepSlide({ item }) {
     const lgContainerRef = useRef(null);
     const lgInstanceRef = useRef(null);
 
-   
-    const images = item.images?.length ? item.images : [item.image];
+
+    const images = item.photos?.length ? [item.image, ...item.photos] : [item.image];
 
     useEffect(() => {
         if (!lgContainerRef.current || !images.length) return;
@@ -46,7 +46,7 @@ function BuildStepSlide({ item }) {
             <div className="construction-swiper-item-img">
                 <img src={item.image} alt={item.title || ""} />
                 <div className="construction-swiper-item-box"></div>
-               
+
                 <div ref={lgContainerRef} style={{ display: "none" }} />
 
                 <Сamera />

@@ -20,6 +20,7 @@ class BuildStepResource extends JsonResource
             'created_at' => $this->created_at,
             'image' => !empty($this->image) ? Storage::url($this->image) : null,
             'title' => $this->title,
+            'photos' => !empty($this->photos) ? array_map(fn($photo) => Storage::url($photo), json_decode($this->photos, true)) : [],
         ];
     }
 }
