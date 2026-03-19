@@ -58,7 +58,7 @@ function HomePage() {
 
     const formik = useFormik({
         initialValues: {
-            type: "",
+            type: "apartment",
             rooms: [],
             priceFrom: "",
             priceTo: "",
@@ -100,7 +100,7 @@ function HomePage() {
 
     const { setPopupConsultations } = useContext(AppContext);
 
-  
+
     useEffect(() => {
         if (!lgGalleryContainerRef.current || !gallery.data?.data?.length)
             return;
@@ -860,7 +860,7 @@ function HomePage() {
                             </button>
                         </div>
                         <div className="map" id="map">
-                           
+
                             {Boolean(settings.data.map_api_key) && <Map />}
                         </div>
                     </div>

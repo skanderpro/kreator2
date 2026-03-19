@@ -59,6 +59,12 @@ class BuildStepCrudController extends CrudController
 
         CRUD::field('title')->type('text');
         CRUD::field('image')->type('upload')->withFiles();
+        CRUD::field([
+            'name'      => 'photos',
+            'label'     => 'Photos',
+            'type'      => 'upload_multiple',
+            'withFiles' => true
+        ]);
         CRUD::field('created_at')->type('date');
 
         /**

@@ -12,5 +12,6 @@ class BuildStep extends Model
         'image',
         'title',
         'created_at',
+        'photos',
     ];
 }
