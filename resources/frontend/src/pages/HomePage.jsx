@@ -539,13 +539,13 @@ function HomePage() {
                                 <div className="construction-timeline-text-item">
                                     <label>Початок будівництва</label>
                                     <span>
-                                        Січень 2024 <b>р.</b>
+                                        1 квартал 2022 <b>р.</b>
                                     </span>
                                 </div>
                                 <div className="construction-timeline-text-item">
                                     <label>Здача будинку</label>
                                     <span>
-                                        2 квартал 2026 <b>р.</b>
+                                        4 квартал 2026 <b>р.</b>
                                     </span>
                                 </div>
                             </div>
@@ -807,7 +807,7 @@ function HomePage() {
                             <h2>контакти</h2>
                             <div className="contact-info-list">
                                 <div className="contact-info-list-item">
-                                    <h3>Відділ продажу</h3>
+                                    <h3>Офіс продажу</h3>
                                     <ul>
                                         <li>
                                             {" "}
@@ -836,7 +836,7 @@ function HomePage() {
                                 <div className="contact-info-list-item">
                                     <h3>Графік роботи</h3>
                                     <ul>
-                                        <li> Пн. - Пт.: з 08:00 до 17:00</li>
+                                        <li> Пн. - Пт.: з 09:00 до 18:00</li>
                                         <li> Сб. - Нд.: вихідні дні</li>
                                     </ul>
                                 </div>

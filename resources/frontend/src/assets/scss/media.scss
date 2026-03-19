@@ -15,7 +15,7 @@
     h2 {
         font-size: 50px;
     }
-    .technologies-list-item h3{
+    .technologies-list-item h3 {
         font-size: 20px;
     }
     .header__inner-link {
@@ -562,12 +562,22 @@
     .construction-wrapper,
     .about-us,
     .news,
-    .documents-wrapper-con,
-    .contact-wrapper {
+    .documents-wrapper-con {
         padding-top: 60px;
     }
     .advantages .advantages-header {
         text-align: left;
+    }
+    .documents-wrapper-con {
+        margin-bottom: 60px;
+    }
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item
+        span
+        b {
+        font-size: 15px;
     }
 }
 @media (max-width: 600px) {
@@ -717,5 +727,13 @@
     }
     .construction-swiper-header {
         align-items: flex-start;
+    }
+}
+@media (max-width: 425px) {
+    .head-banner .head-banner_inner .head-banner__location {
+        justify-content: space-between;
+    }
+    .head-banner .head-banner_inner .head-banner__location span {
+        max-width: 155px;
     }
 }

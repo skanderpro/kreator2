@@ -450,7 +450,7 @@ function CatalogPage() {
                                                     ) : (
                                                         <>
                                                             <div className="catalog-list-item-info-item">
-                                                                Тип: Піземний
+                                                                Тип: підземний 
                                                                 <span>
                                                                     -1 поверх
                                                                 </span>
