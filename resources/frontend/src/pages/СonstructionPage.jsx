@@ -1,15 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useNews } from "../api/news.js";
-import { formatDate } from "../formatters/date.js";
 import { useBuildSteps } from "../api/build-step.js";
+import { BuildStepSlide } from "../components/BuildStepSlide.jsx";
 
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 
-import LightGallery from "lightgallery/react";
-import lgZoom from "lightgallery/plugins/zoom";
-import Сamera from "../assets/svg/camera.svg?react";
 function СonstructionPage() {
     const buildSteps = useBuildSteps();
 
@@ -37,36 +33,17 @@ function СonstructionPage() {
                 <div className="container">
                     <div className="news-page__inner">
                         <h2>Хід будівництва</h2>
-                        <LightGallery
-                            speed={500}
-                            plugins={[lgZoom]}
-                            selector="[data-src]"
-                            className="news-page-items"
-                        >
-                            <div className="news-page-items">
-                                {buildSteps.data.data.map((item, index) => {
-                                    return (
-                                        <div
-                                            className="construction-swiper-item"
-                                            key={index}
-                                        >
-                                            <div className="construction-swiper-item-img">
-                                                <img src={item.image} alt="" />
-                                                <div className="construction-swiper-item-box"></div>
-                                                <a
-                                                    href={item.image}
-                                                    data-src={item.image}
-                                                >
-                                                    <Сamera />
-                                                </a>
-                                            </div>
-
-                                            <span>{item.title}</span>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </LightGallery>
+                        <div className="news-page-items">
+                            {buildSteps.data.data.map((item, index) => (
+                                <div
+                                    className="construction-swiper-item"
+                                    key={index}
+                                >
+                                    <BuildStepSlide item={item} />
+                                    <span>{item.title}</span>
+                                </div>
+                            ))}
+                        </div>
                         <button className="btn">ПОКАЗАТИ БІЛЬШЕ</button>
                     </div>
                 </div>
