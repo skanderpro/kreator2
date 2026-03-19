@@ -57,13 +57,20 @@ function Header() {
         };
     }, []);
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
     return (
         <>
             <header className={`header ${isSticky ? "sticky" : ""}`}>
                 <div className="container">
                     <div className={`header__inner `}>
                         <div className="header__inner-logo">
-                            <NavLink to="/">
+                            <NavLink to="/" onClick={scrollToTop}>
                                 <Logo />
                             </NavLink>
                         </div>

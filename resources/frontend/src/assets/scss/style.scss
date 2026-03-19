@@ -912,6 +912,7 @@
 }
 .documents-wrapper-con {
     padding-top: 80px;
+    margin-bottom: 80px;
 }
 .documents-wrapper {
     background-color: vars.$primary;
@@ -1009,7 +1010,6 @@
 }
 .contact-wrapper {
     margin-bottom: 100px;
-    padding-top: 80px;
 }
 .contact {
     display: flex;
@@ -1610,6 +1610,9 @@
         padding: 53px 0px;
         border-top: 1px solid vars.$black;
         gap: 20px;
+        .footer-logo a {
+            display: flex;
+        }
         span {
             color: vars.$primary;
         }
