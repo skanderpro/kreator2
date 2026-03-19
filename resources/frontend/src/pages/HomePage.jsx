@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -8,7 +8,7 @@ import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import { Navigation, EffectFade } from "swiper/modules";
 
-import LightGallery from "lightgallery/react";
+import lightGallery from "lightgallery";
 import lgZoom from "lightgallery/plugins/zoom";
 
 import headBanner from "../assets/img/head-banner.jpg";
@@ -22,6 +22,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Map } from "../components/Map";
 
 import Popup from "../components/popup/Popup.jsx";
+import { BuildStepSlide } from "../components/BuildStepSlide.jsx";
 
 import { useGallery } from "../api/gallery";
 import { useNews } from "../api/news";
@@ -41,6 +42,8 @@ import { useSettings } from "../api/settings.js";
 
 function HomePage() {
     const lightboxRef = useRef(null);
+    const lgGalleryContainerRef = useRef(null);
+    const lgGalleryInstanceRef = useRef(null);
     const navigate = useNavigate();
 
     const gallery = useGallery();
@@ -96,6 +99,38 @@ function HomePage() {
     };
 
     const { setPopupConsultations } = useContext(AppContext);
+
+  
+    useEffect(() => {
+        if (!lgGalleryContainerRef.current || !gallery.data?.data?.length)
+            return;
+
+        if (lgGalleryInstanceRef.current) {
+            lgGalleryInstanceRef.current.destroy();
+            lgGalleryInstanceRef.current = null;
+        }
+
+        lgGalleryInstanceRef.current = lightGallery(
+            lgGalleryContainerRef.current,
+            {
+                plugins: [lgZoom],
+                speed: 500,
+                dynamic: true,
+                dynamicEl: gallery.data.data.map((item) => ({
+                    src: item.image,
+                    thumb: item.image,
+                })),
+            },
+        );
+
+        return () => {
+            if (lgGalleryInstanceRef.current) {
+                lgGalleryInstanceRef.current.destroy();
+                lgGalleryInstanceRef.current = null;
+            }
+        };
+    }, [gallery.data]);
+
 
     return (
         <>
@@ -354,57 +389,51 @@ function HomePage() {
                                         <Arrow />
                                     </div>
                                 </div>
-                                <LightGallery
-                                    speed={500}
-                                    plugins={[lgZoom]}
-                                    selector=".gallery-item"
+                                <div
+                                    ref={lgGalleryContainerRef}
+                                    style={{ display: "none" }}
+                                />
+                                <Swiper
+                                    slidesPerView={1}
+                                    spaceBetween={20}
+                                    modules={[Navigation, EffectFade]}
+                                    navigation={{
+                                        prevEl: ".prev3",
+                                        nextEl: ".next3",
+                                    }}
+                                    breakpoints={{
+                                        500: {
+                                            slidesPerView: 2,
+                                        },
+                                        768: {
+                                            slidesPerView: 3,
+                                        },
+                                    }}
+                                    className="mySwiper"
                                 >
-                                    <Swiper
-                                        slidesPerView={1}
-                                        spaceBetween={20}
-                                        modules={[Navigation, EffectFade]}
-                                        navigation={{
-                                            prevEl: ".prev3",
-                                            nextEl: ".next3",
-                                        }}
-                                        breakpoints={{
-                                            500: {
-                                                // width: 576,
-                                                slidesPerView: 2,
-                                            },
-                                            768: {
-                                                // width: 768,
-                                                slidesPerView: 3,
-                                            },
-                                        }}
-                                        className="mySwiper"
-                                    >
-                                        {gallery.data.data.map(
-                                            (item, index) => {
-                                                return (
-                                                    <SwiperSlide
-                                                        className="gallery-swiper-item"
-                                                        key={index}
-                                                    >
-                                                        <a
-                                                            className="gallery-item"
-                                                            href={item.image}
-                                                            data-src={
-                                                                item.image
-                                                            }
-                                                        >
-                                                            <img
-                                                                className="gallery-swiper-item-img img-responsive"
-                                                                src={item.image}
-                                                                alt=""
-                                                            />
-                                                        </a>
-                                                    </SwiperSlide>
-                                                );
-                                            },
-                                        )}
-                                    </Swiper>
-                                </LightGallery>
+                                    {gallery.data.data.map((item, index) => (
+                                        <SwiperSlide
+                                            className="gallery-swiper-item"
+                                            key={index}
+                                        >
+                                            <a
+                                                href={item.image}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    lgGalleryInstanceRef.current?.openGallery(
+                                                        index,
+                                                    );
+                                                }}
+                                            >
+                                                <img
+                                                    className="gallery-swiper-item-img img-responsive"
+                                                    src={item.image}
+                                                    alt=""
+                                                />
+                                            </a>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
                             </div>
                         </div>
                     </div>
@@ -533,60 +562,34 @@ function HomePage() {
                                     </div>
                                 </div>
                             </div>
-                            <LightGallery
-                                onInit={(ref) =>
-                                    (lightboxRef.current = ref.instance)
-                                }
-                                speed={500}
-                                plugins={[lgZoom]}
-                                selector="[data-src]"
+                            <Swiper
+                                slidesPerView={1}
+                                spaceBetween={20}
+                                modules={[Navigation]}
+                                navigation={{
+                                    prevEl: ".prev",
+                                    nextEl: ".next",
+                                }}
+                                breakpoints={{
+                                    500: {
+                                        slidesPerView: 2,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                    },
+                                }}
+                                className="mySwiper"
                             >
-                                <Swiper
-                                    slidesPerView={1}
-                                    spaceBetween={20}
-                                    modules={[Navigation]}
-                                    navigation={{
-                                        prevEl: ".prev",
-                                        nextEl: ".next",
-                                    }}
-                                    breakpoints={{
-                                        500: {
-                                            // width: 576,
-                                            slidesPerView: 2,
-                                        },
-                                        768: {
-                                            // width: 768,
-                                            slidesPerView: 3,
-                                        },
-                                    }}
-                                    className="mySwiper"
-                                >
-                                    {buildSteps.data.data.map((item, index) => {
-                                        return (
-                                            <SwiperSlide
-                                                className="construction-swiper-item"
-                                                key={index}
-                                            >
-                                                <div className="construction-swiper-item-img">
-                                                    <img
-                                                        src={item.image}
-                                                        alt=""
-                                                    />
-                                                    <div className="construction-swiper-item-box"></div>
-                                                    <a
-                                                        href={item.image}
-                                                        data-src={item.image}
-                                                    >
-                                                        <Сamera />
-                                                    </a>
-                                                </div>
-
-                                                <span>{item.title}</span>
-                                            </SwiperSlide>
-                                        );
-                                    })}
-                                </Swiper>
-                            </LightGallery>
+                                {buildSteps.data.data.map((item, index) => (
+                                    <SwiperSlide
+                                        className="construction-swiper-item"
+                                        key={index}
+                                    >
+                                        <BuildStepSlide item={item} />
+                                        <span>{item.title}</span>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
                 </div>
@@ -857,12 +860,7 @@ function HomePage() {
                             </button>
                         </div>
                         <div className="map" id="map">
-                            {/* <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3415.115508626325!2d25.587865226307486!3d49.556747161835105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47303135a5e8f5b5%3A0xbe7454d8aa3bac08!2z0J_QsNGA0Log0LjQvNC10L3QuCDQotCw0YDQsNGB0LAg0KjQtdCy0YfQtdC90LrQvg!5e0!3m2!1sru!2sua!4v1770389476451!5m2!1sru!2sua"
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe> */}
+                           
                             {Boolean(settings.data.map_api_key) && <Map />}
                         </div>
                     </div>
