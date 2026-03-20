@@ -736,4 +736,18 @@
     .head-banner .head-banner_inner .head-banner__location span {
         max-width: 155px;
     }
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item {
+        label {
+            max-width: 95px;
+        }
+    }
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item:last-child {
+        align-items: flex-end;
+    }
 }
