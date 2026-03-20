@@ -93,6 +93,7 @@ class NewsCrudController extends CrudController
         ]);
 
 
+        CRUD::field('cover')->type('upload')->withFiles();
         CRUD::field('image')->type('upload')->withFiles();
         CRUD::field('created_at')->type('date');
     }
