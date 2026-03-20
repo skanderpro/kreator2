@@ -41,7 +41,7 @@ function NewsDetailPage() {
                     <div className="news-detail__inner">
                         <img
                             className="news-swiper-item-img"
-                            src={singleNews.data.data.image}
+                            src={singleNews.data.data.cover || singleNews.data.data.image}
                             alt={singleNews.data.data.title}
                         />
                         <div className="news-detail-info">
