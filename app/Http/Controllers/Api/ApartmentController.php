@@ -79,10 +79,10 @@ class ApartmentController extends Controller
 
     public function getMeta()
     {
-        $minPrice = Apartment::min('price');
-        $maxPrice = Apartment::max('price');
-        $minArea = Apartment::min('area');
-        $maxArea = Apartment::max('area');
+        $minPrice = Apartment::query()->where('type', 'apartment')->min('price_for_meter');
+        $maxPrice = Apartment::query()->where('type', 'apartment')->max('price_for_meter');
+        $minArea = Apartment::query()->where('type', 'apartment')->min('area');
+        $maxArea = Apartment::query()->where('type', 'apartment')->max('area');
         $buildings = Apartment::query()->select('building')->groupBy('building')->orderBy('building', 'asc')->get()->pluck('building');
         $sections = Apartment::query()->select('section')->groupBy('section')->orderBy('section', 'asc')->get()->pluck('section');
         $rooms = Apartment::query()->select('rooms')->where('rooms', '>', 0)->groupBy('rooms')->orderBy('rooms', 'asc')->get()->pluck('rooms');
@@ -104,17 +104,14 @@ class ApartmentController extends Controller
         ]);
     }
 
-    public function minMaxArea()
-    {
-
-
-        return response()->json(['min' => $minArea, 'max' => $maxArea]);
-    }
-
     public function unsoldCount()
     {
-        $count = Apartment::query()->count();
+        $apartmentCount = Apartment::query()->where('type', 'apartment')->count();
+        $parkingCount = Apartment::query()->where('type', 'parking')->count();
 
-        return response()->json(['count' => $count]);
+        return response()->json([
+            'apartment' => $apartmentCount,
+            'parking' => $parkingCount,
+        ]);
     }
 }

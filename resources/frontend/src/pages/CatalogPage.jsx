@@ -19,9 +19,7 @@ function CatalogPage() {
             areaTo: searchParams.get("areaTo") || "",
             rooms: searchParams.getAll("rooms[]") || [],
             floor: "",
-            type: searchParams.getAll("type[]").length
-                ? searchParams.getAll("type[]")
-                : ["apartment"],
+            type: searchParams.get("type") || "apartment",
             parking: "",
             order: "price_asc",
             sold: "",
@@ -44,12 +42,10 @@ function CatalogPage() {
 
     const loadMoreClickHandler = () => {
         formik.setFieldValue("page", formik.values.page + 1);
-      
     };
 
     const orderChangeHandler = (e) => {
         formik.handleChange(e);
-      
     };
 
     const handleMultipleValues = (name, value) => () => {
@@ -72,7 +68,6 @@ function CatalogPage() {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });
-
 
     return (
         <>
@@ -156,31 +151,33 @@ function CatalogPage() {
                                         <div className="list-tab">
                                             <div
                                                 className={`list-tab-item ${
-                                                    formik.values.type.includes(
-                                                        "apartment",
-                                                    )
+                                                    formik.values.type ===
+                                                    "apartment"
                                                         ? "active"
                                                         : ""
                                                 }`}
-                                                onClick={handleMultipleValues(
-                                                    "type",
-                                                    "apartment",
-                                                )}
+                                                onClick={() =>
+                                                    formik.setFieldValue(
+                                                        "type",
+                                                        "apartment",
+                                                    )
+                                                }
                                             >
                                                 Квартира
                                             </div>
                                             <div
                                                 className={`list-tab-item ${
-                                                    formik.values.type.includes(
-                                                        "parking",
-                                                    )
+                                                    formik.values.type ===
+                                                    "parking"
                                                         ? "active"
                                                         : ""
                                                 }`}
-                                                onClick={handleMultipleValues(
-                                                    "type",
-                                                    "parking",
-                                                )}
+                                                onClick={() =>
+                                                    formik.setFieldValue(
+                                                        "type",
+                                                        "parking",
+                                                    )
+                                                }
                                             >
                                                 Паркомісце
                                             </div>
@@ -239,7 +236,7 @@ function CatalogPage() {
                                     </div>
                                 </div>
                                 <div className="card-apartments-filter-item">
-                                    <label>Площа, грн</label>
+                                    <label>Площа, м²</label>
                                     <div className="card-apartments-filter-col">
                                         <div className="filter-input">
                                             <input
@@ -253,7 +250,7 @@ function CatalogPage() {
                                                 placeholder={`від: ${apartmentsMeta.data.area.min}`}
                                                 value={formik.values.areaFrom}
                                             />
-                                            <span>м²</span>
+                                            
                                         </div>
                                         <div className="filter-input">
                                             <input
@@ -267,7 +264,7 @@ function CatalogPage() {
                                                 }
                                                 value={formik.values.areaTo}
                                             />
-                                            <span>м²</span>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -398,7 +395,6 @@ function CatalogPage() {
                                 >
                                     ОЧИСТИТИ
                                 </button>
-                                
                             </div>
                             <div className="catalog-box">
                                 <div className="catalog-list">
@@ -434,7 +430,7 @@ function CatalogPage() {
                                                         {areaFormatter.format(
                                                             item.area,
                                                         )}
-                                                        <span>м.кв</span>
+                                                        <span>м²</span>
                                                     </div>
                                                     {isApartment ? (
                                                         <>
@@ -454,7 +450,7 @@ function CatalogPage() {
                                                     ) : (
                                                         <>
                                                             <div className="catalog-list-item-info-item">
-                                                                Тип: Піземний
+                                                                Тип: підземний 
                                                                 <span>
                                                                     -1 поверх
                                                                 </span>
@@ -463,12 +459,16 @@ function CatalogPage() {
                                                     )}
                                                 </div>
                                                 <div className="catalog-list-item-price">
-                                                    {item.price_for_meter}{" "}
-                                                    <span>грн/м.кв</span>
+                                                    {areaFormatter.format(
+                                                        item.price_for_meter,
+                                                    )}{" "}
+                                                    <span>грн/м²</span>
                                                 </div>
                                                 <div className="catalog-list-item-link">
                                                     <div className="catalog-list-item-link-btn">
-                                                        {item.price}{" "}
+                                                        {areaFormatter.format(
+                                                            item.price,
+                                                        )}{" "}
                                                         <span>грн</span>
                                                     </div>
 

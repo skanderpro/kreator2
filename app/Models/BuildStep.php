@@ -10,6 +10,8 @@ class BuildStep extends Model
     use CrudTrait;
     protected $fillable = [
         'image',
-        'title'
+        'title',
+        'created_at',
+        'photos',
     ];
 }

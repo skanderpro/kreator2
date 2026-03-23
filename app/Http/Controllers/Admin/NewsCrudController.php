@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\NewsRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class NewsCrudController
@@ -58,14 +59,41 @@ class NewsCrudController extends CrudController
         CRUD::setValidation(NewsRequest::class);
 //        CRUD::setFromDb(); // set fields from db columns.
 
+//        Widget::add()->type('script')->content('https://cdn.ckeditor.com/ckeditor5/41.0.0/super-build/ckeditor.js');
+
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
          */
 
         CRUD::field('title')->type('text');
-        CRUD::field('excerpt')->type('ckeditor');
-        CRUD::field('content')->type('ckeditor');
+        CRUD::field([
+            'name' => 'excerpt',
+            'type' => 'tinymce',
+            'label' => 'Excerpt',
+            'options' => [
+                'extended_valid_elements' => 'iframe[src|frameborder|style|scrolling|class|width|height|allowfullscreen]',
+                'verify_html' => false,
+                'cleanup' => false,
+                'valid_children' => '+body[style],+body[script],+body[iframe]',
+            ],
+
+        ]);
+        CRUD::field([
+            'name' => 'content',
+            'type' => 'tinymce',
+            'label' => 'Content',
+            'options' => [
+                'extended_valid_elements' => 'iframe[src|frameborder|style|scrolling|class|width|height|allowfullscreen]',
+                'verify_html' => false,
+                'cleanup' => false,
+                'valid_children' => '+body[style],+body[script],+body[iframe]',
+            ],
+
+        ]);
+
+
+        CRUD::field('cover')->type('upload')->withFiles();
         CRUD::field('image')->type('upload')->withFiles();
         CRUD::field('created_at')->type('date');
     }

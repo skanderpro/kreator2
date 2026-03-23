@@ -5,6 +5,7 @@ import { NotfoundPage } from "./pages/NotfoundPage";
 import { CatalogPage } from "./pages/CatalogPage";
 import { CatalogPageDetail } from "./pages/CatalogPageDetail";
 import { NewsPage } from "./pages/NewsPage";
+import { СonstructionPage } from "./pages/СonstructionPage";
 import { NewsDetailPage } from "./pages/NewsDetailPage";
 import { ContactPage } from "./pages/ContactPage";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
@@ -27,6 +28,7 @@ function App() {
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="catalog-detail/:id" element={<CatalogPageDetail />} />
           <Route path="news" element={<NewsPage />} />
+          <Route path="сonstruction" element={<СonstructionPage />} />
           <Route path="news-detail/:id" element={<NewsDetailPage />} />
            <Route path="contact" element={<ContactPage />} />
            <Route path="privacy-policy" element={<PrivacyPolicy />} />

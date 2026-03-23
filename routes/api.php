@@ -29,7 +29,6 @@ Route::name('apartments.')->prefix('/apartments')->group(function () {
     Route::get('', [ApartmentController::class, 'index'])->name('index');
 
     Route::get('/meta', [ApartmentController::class, 'getMeta'])->name('getMeta');
-    Route::get('/min-max-area', [ApartmentController::class, 'minMaxArea'])->name('minMaxArea');
     Route::get('/unsold-count', [ApartmentController::class, 'unsoldCount'])->name('unsoldCount');
     Route::get('/{apartment}', [ApartmentController::class, 'show'])->name('show');
 });

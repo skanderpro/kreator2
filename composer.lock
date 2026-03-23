@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "975d664dc404407e66b8d577ff219d21",
+    "content-hash": "c5d71a96ccbca28917bc30c258fb14c7",
     "packages": [
         {
             "name": "backpack/basset",
@@ -416,6 +416,48 @@
                 "source": "https://github.com/Laravel-Backpack/theme-tabler/tree/2.0.1"
             },
             "time": "2026-01-12T12:09:11+00:00"
+        },
+        {
+            "name": "backpack/tinymce-field",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Laravel-Backpack/tinymce-field.git",
+                "reference": "2ef71c15468c201543f7ab2eb46d3f9a0b3f66cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Laravel-Backpack/tinymce-field/zipball/2ef71c15468c201543f7ab2eb46d3f9a0b3f66cf",
+                "reference": "2ef71c15468c201543f7ab2eb46d3f9a0b3f66cf",
+                "shasum": ""
+            },
+            "require": {
+                "backpack/crud": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Backpack\\TinyMCEField\\BackpackTinyMCEFieldProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Backpack\\TinyMCEField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "TinyMCE field for Backpack",
+            "keywords": [
+                "backpack",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/Laravel-Backpack/tinymce-field/issues",
+                "source": "https://github.com/Laravel-Backpack/tinymce-field/tree/1.0.0"
+            },
+            "time": "2025-11-19T12:04:36+00:00"
         },
         {
             "name": "brick/math",
@@ -10223,5 +10265,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

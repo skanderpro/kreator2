@@ -1,17 +1,16 @@
-import React, {useContext} from "react";
-import {Outlet} from "react-router-dom";
-import {Header} from "./Header";
-import {Footer} from "./Footer";
-import {Menu} from "./Menu";
-import {AppContext} from "../context/AppContext";
+import React, { useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
+import { Menu } from "./Menu";
+import { AppContext } from "../context/AppContext";
 import Popup from "./popup/Popup";
 import Airplane from "../assets/svg/airplane.svg?react";
-import {ContactForm} from "./ContactForm.jsx";
+import { ContactForm } from "./ContactForm.jsx";
 
 function Layout() {
     const { popupConsultations, setPopupConsultations, popupTy, setPopupTy } =
         useContext(AppContext);
-
 
     return (
         /**
@@ -39,7 +38,7 @@ function Layout() {
                             <h2>Замовити консультацію</h2>
                             <p>
                                 Наші менеджери зв’яжуться з вами та нададуть всю
-                                необхідну інформаці, яка вас цікавитиме.
+                                необхідну інформацію, яка вас цікавить.
                             </p>
                         </div>
                         <ContactForm />
@@ -55,7 +54,7 @@ function Layout() {
                         <div className="modal-ty-info">
                             <h2>Дякуємо!</h2>
                             <p>
-                                Найближчим часом наш спеціалість звяжеться з
+                                Найближчим часом наш спеціаліст звяжеться з
                                 Вами!
                             </p>
                             <button

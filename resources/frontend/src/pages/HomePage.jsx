@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -8,11 +8,10 @@ import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import { Navigation, EffectFade } from "swiper/modules";
 
-import LightGallery from "lightgallery/react";
+import lightGallery from "lightgallery";
 import lgZoom from "lightgallery/plugins/zoom";
 
-import headBanner from "../assets/img/head-banner.png";
-import LogoEdem from "../assets/svg/logo-edem.svg?react";
+import headBanner from "../assets/img/head-banner.jpg";
 import aboutImg from "../assets/img/house.jpg";
 import Arrow from "../assets/svg/arrow.svg?react";
 import Airplane from "../assets/svg/airplane.svg?react";
@@ -23,6 +22,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Map } from "../components/Map";
 
 import Popup from "../components/popup/Popup.jsx";
+import { BuildStepSlide } from "../components/BuildStepSlide.jsx";
 
 import { useGallery } from "../api/gallery";
 import { useNews } from "../api/news";
@@ -42,6 +42,8 @@ import { useSettings } from "../api/settings.js";
 
 function HomePage() {
     const lightboxRef = useRef(null);
+    const lgGalleryContainerRef = useRef(null);
+    const lgGalleryInstanceRef = useRef(null);
     const navigate = useNavigate();
 
     const gallery = useGallery();
@@ -56,7 +58,7 @@ function HomePage() {
 
     const formik = useFormik({
         initialValues: {
-            type: [],
+            type: "apartment",
             rooms: [],
             priceFrom: "",
             priceTo: "",
@@ -98,6 +100,38 @@ function HomePage() {
 
     const { setPopupConsultations } = useContext(AppContext);
 
+
+    useEffect(() => {
+        if (!lgGalleryContainerRef.current || !gallery.data?.data?.length)
+            return;
+
+        if (lgGalleryInstanceRef.current) {
+            lgGalleryInstanceRef.current.destroy();
+            lgGalleryInstanceRef.current = null;
+        }
+
+        lgGalleryInstanceRef.current = lightGallery(
+            lgGalleryContainerRef.current,
+            {
+                plugins: [lgZoom],
+                speed: 500,
+                dynamic: true,
+                dynamicEl: gallery.data.data.map((item) => ({
+                    src: item.image,
+                    thumb: item.image,
+                })),
+            },
+        );
+
+        return () => {
+            if (lgGalleryInstanceRef.current) {
+                lgGalleryInstanceRef.current.destroy();
+                lgGalleryInstanceRef.current = null;
+            }
+        };
+    }, [gallery.data]);
+
+
     return (
         <>
             <div className="head-banner">
@@ -109,10 +143,12 @@ function HomePage() {
                 <div className="container">
                     <div className="head-banner__inner">
                         <div className="head-banner_inner">
-                            <LogoEdem />
                             <h1 className="head-banner__title">
-                                Твій рай у місті!
+                                Набережна Вежа
                             </h1>
+                            <p className="head-banner__subtitle">
+                                Ваш простір спокою
+                            </p>
 
                             <button
                                 className="btn"
@@ -169,11 +205,26 @@ function HomePage() {
                         <div className="card-apartments-header">
                             <h2>підбір квартир та паркомісць</h2>
                             <div className="card-apartments-header-right">
-                                <p>За вашими параметрами ми знайшли для вас:</p>
-                                <div className="card-apartments-text">
-                                    {apartmentCount.data?.count}{" "}
-                                    <span>квартир</span>
-                                </div>
+                                {formik.values?.type?.length > 0 && (
+                                    <>
+                                        <p>
+                                            За вашими параметрами ми знайшли для
+                                            вас:
+                                        </p>
+                                        <div className="card-apartments-text">
+                                            {formik.values.type === "apartment"
+                                                ? apartmentCount.data?.apartment
+                                                : apartmentCount.data
+                                                      ?.parking}{" "}
+                                            <span>
+                                                {formik.values.type ===
+                                                "apartment"
+                                                    ? "квартир"
+                                                    : "паркомісць"}{" "}
+                                            </span>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </div>
                         <div className="card-apartments-filter">
@@ -183,31 +234,32 @@ function HomePage() {
                                     <div className="list-tab list-tab-wfc">
                                         <div
                                             className={`list-tab-item ${
-                                                formik.values.type.includes(
-                                                    "apartment",
-                                                )
+                                                formik.values.type ===
+                                                "apartment"
                                                     ? "active"
                                                     : ""
                                             }`}
-                                            onClick={handleMultipleValues(
-                                                "type",
-                                                "apartment",
-                                            )}
+                                            onClick={() =>
+                                                formik.setFieldValue(
+                                                    "type",
+                                                    "apartment",
+                                                )
+                                            }
                                         >
                                             Квартира
                                         </div>
                                         <div
                                             className={`list-tab-item ${
-                                                formik.values.type.includes(
-                                                    "parking",
-                                                )
+                                                formik.values.type === "parking"
                                                     ? "active"
                                                     : ""
                                             }`}
-                                            onClick={handleMultipleValues(
-                                                "type",
-                                                "parking",
-                                            )}
+                                            onClick={() =>
+                                                formik.setFieldValue(
+                                                    "type",
+                                                    "parking",
+                                                )
+                                            }
                                         >
                                             Паркомісце
                                         </div>
@@ -288,7 +340,6 @@ function HomePage() {
                                             }
                                             value={formik.values.areaFrom}
                                         />
-                                        <span>м²</span>
                                     </div>
                                     <div className="filter-input">
                                         <input
@@ -302,7 +353,6 @@ function HomePage() {
                                             }
                                             value={formik.values.areaTo}
                                         />
-                                        <span>м²</span>
                                     </div>
                                 </div>
                             </div>
@@ -339,6 +389,10 @@ function HomePage() {
                                         <Arrow />
                                     </div>
                                 </div>
+                                <div
+                                    ref={lgGalleryContainerRef}
+                                    style={{ display: "none" }}
+                                />
                                 <Swiper
                                     slidesPerView={1}
                                     spaceBetween={20}
@@ -349,30 +403,36 @@ function HomePage() {
                                     }}
                                     breakpoints={{
                                         500: {
-                                            // width: 576,
                                             slidesPerView: 2,
                                         },
                                         768: {
-                                            // width: 768,
                                             slidesPerView: 3,
                                         },
                                     }}
                                     className="mySwiper"
                                 >
-                                    {gallery.data.data.map((item, index) => {
-                                        return (
-                                            <SwiperSlide
-                                                className="gallery-swiper-item"
-                                                key={index}
+                                    {gallery.data.data.map((item, index) => (
+                                        <SwiperSlide
+                                            className="gallery-swiper-item"
+                                            key={index}
+                                        >
+                                            <a
+                                                href={item.image}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    lgGalleryInstanceRef.current?.openGallery(
+                                                        index,
+                                                    );
+                                                }}
                                             >
                                                 <img
-                                                    className="gallery-swiper-item-img"
+                                                    className="gallery-swiper-item-img img-responsive"
                                                     src={item.image}
                                                     alt=""
                                                 />
-                                            </SwiperSlide>
-                                        );
-                                    })}
+                                            </a>
+                                        </SwiperSlide>
+                                    ))}
                                 </Swiper>
                             </div>
                         </div>
@@ -478,11 +538,15 @@ function HomePage() {
                             <div className="construction-timeline-text">
                                 <div className="construction-timeline-text-item">
                                     <label>Початок будівництва</label>
-                                    <span>Січень 2024 р</span>
+                                    <span>
+                                        1 квартал 2022 <b>р.</b>
+                                    </span>
                                 </div>
                                 <div className="construction-timeline-text-item">
                                     <label>Здача будинку</label>
-                                    <span>2 квартал 2026 р.</span>
+                                    <span>
+                                        4 квартал 2026 <b>р.</b>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -498,57 +562,34 @@ function HomePage() {
                                     </div>
                                 </div>
                             </div>
-                            <LightGallery
-                                onInit={(ref) =>
-                                    (lightboxRef.current = ref.instance)
-                                }
-                                speed={500}
-                                plugins={[lgZoom]}
-                                selector="[data-src]"
+                            <Swiper
+                                slidesPerView={1}
+                                spaceBetween={20}
+                                modules={[Navigation]}
+                                navigation={{
+                                    prevEl: ".prev",
+                                    nextEl: ".next",
+                                }}
+                                breakpoints={{
+                                    500: {
+                                        slidesPerView: 2,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                    },
+                                }}
+                                className="mySwiper"
                             >
-                                <Swiper
-                                    slidesPerView={1}
-                                    spaceBetween={20}
-                                    modules={[Navigation]}
-                                    navigation={{
-                                        prevEl: ".prev",
-                                        nextEl: ".next",
-                                    }}
-                                    breakpoints={{
-                                        500: {
-                                            // width: 576,
-                                            slidesPerView: 2,
-                                        },
-                                        768: {
-                                            // width: 768,
-                                            slidesPerView: 3,
-                                        },
-                                    }}
-                                    className="mySwiper"
-                                >
-                                    {buildSteps.data.data.map((item, index) => {
-                                        return (
-                                            <SwiperSlide
-                                                className="construction-swiper-item"
-                                                key={index}
-                                            >
-                                                <div className="construction-swiper-item-img">
-                                                    <img
-                                                        src={item.image}
-                                                        alt=""
-                                                    />
-                                                    <div className="construction-swiper-item-box"></div>
-                                                    <a data-src={item.image}>
-                                                        <Сamera />
-                                                    </a>
-                                                </div>
-
-                                                <span>{item.title}</span>
-                                            </SwiperSlide>
-                                        );
-                                    })}
-                                </Swiper>
-                            </LightGallery>
+                                {buildSteps.data.data.map((item, index) => (
+                                    <SwiperSlide
+                                        className="construction-swiper-item"
+                                        key={index}
+                                    >
+                                        <BuildStepSlide item={item} />
+                                        <span>{item.title}</span>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
                 </div>
@@ -561,41 +602,47 @@ function HomePage() {
                     <div className="about-us-info">
                         <h2>про нас</h2>
                         <p className="about-us-info-text">
-                            «EDEM Таун» на вулиці Тролейбусній від компанії
-                            «Креатор-Буд» — сучасний комплекс таунхаусів для
-                            тих, хто цінує простір, тишу та комфорт, не
-                            відмовляючись від переваг міського життя.
+                            ЖК «Набережна Вежа» — це житловий комплекс
+                            бізнес-класу у винятковій локації Тернополя, де
+                            міська динаміка поєднується з природною гармонією.
+                            Комплекс зводиться у престижному та екологічно
+                            чистому районі поруч із Тернопільським ставом —
+                            однією з найкрасивіших природних локацій міста.
                         </p>
                         <p>
-                            Це екологічна оаза Тернополя, де зелень, безпека й
-                            приватність поєднуються з розвиненою
-                            інфраструктурою. Переваги: Таунхаус за ціною
-                            квартири, 2 поверхи, площа 120 м² Власний передній
-                            (30 м²) і задній двір (28 м²) для сімейного
-                            відпочинку Території розділені дизайнерськими
-                            клумбами 2 паркомісця біля будинку, великі панорамні
-                            вікна Можливість встановлення теплої підлоги на
-                            етапі будівництва Безпека та спокій: Закрита
-                            територія, відеоспостереження 24/7, цілодобова
-                            охорона Велике підземне укриття, всі комунікації
-                            підведені Зручна локація: Парк Загребелля — 10 хв.
-                            пішки, центр міста — 10 хв. авто Школи, садочки та
-                            Новa пошта поруч, Західний ринок — 3 хв. авто
-                            Комфорт для всієї родини: Сучасний ігровий
-                            майданчик, дизайнерські ландшафтні рішення Тут ранок
-                            починається з тиші, а день завершується заходом
-                            сонця у приватності та родинному затишку.  «EDEM
-                            Таун» — атмосфера безпеки та власного простору в
-                            самому Тернополі.
+                            Особливістю комплексу є його унікальні панорамні
+                            краєвиди. Близько 80% квартир матимуть захопливий
+                            вигляд на Тернопільський став та набережну,
+                            відкриваючи мешканцям щоденну можливість милуватися
+                            водною гладдю, міською панорамою та неймовірними
+                            заходами сонця.
                         </p>
-
+                        <p>
+                            Поруч із комплексом розташований парк імені Тараса
+                            Шевченка — зелена оаза міста. Ранкові пробіжки
+                            вздовж озера, прогулянки на велосипеді чи затишні
+                            сімейні вечори серед природи стануть природною
+                            частиною життя мешканців.
+                        </p>
+                        <p>
+                            Водночас «Набережна Вежа» розташована осторонь
+                            галасливих магістралей, що створює атмосферу спокою,
+                            простору та приватності. Тут легко відчути баланс
+                            між активним міським життям і відпочинком біля води
+                            — серед фонтанів, набережних алей та затишних
+                            скверів.
+                        </p>
+                        <p>
+                            ЖК «Набережна Вежа» — це місце, де панорама
+                            Тернополя стає частиною вашого щоденного життя.
+                        </p>
                         <button
                             className="btn"
                             onClick={() => {
                                 setPopupConsultations(true);
                             }}
                         >
-                            ЗАПИСАТИСЬ НА ОГЛЯД
+                            ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                         </button>
                     </div>
                 </div>
@@ -760,7 +807,7 @@ function HomePage() {
                             <h2>контакти</h2>
                             <div className="contact-info-list">
                                 <div className="contact-info-list-item">
-                                    <h3>Відділ продажу</h3>
+                                    <h3>Офіс продажу</h3>
                                     <ul>
                                         <li>
                                             {" "}
@@ -789,7 +836,7 @@ function HomePage() {
                                 <div className="contact-info-list-item">
                                     <h3>Графік роботи</h3>
                                     <ul>
-                                        <li> Пн. - Пт.: з 08:00 до 17:00</li>
+                                        <li> Пн. - Пт.: з 09:00 до 18:00</li>
                                         <li> Сб. - Нд.: вихідні дні</li>
                                     </ul>
                                 </div>
@@ -809,16 +856,11 @@ function HomePage() {
                                     setPopupConsultations(true);
                                 }}
                             >
-                                ЗАПИСАТИСЬ НА ОГЛЯД
+                                ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                             </button>
                         </div>
                         <div className="map" id="map">
-                            {/* <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3415.115508626325!2d25.587865226307486!3d49.556747161835105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47303135a5e8f5b5%3A0xbe7454d8aa3bac08!2z0J_QsNGA0Log0LjQvNC10L3QuCDQotCw0YDQsNGB0LAg0KjQtdCy0YfQtdC90LrQvg!5e0!3m2!1sru!2sua!4v1770389476451!5m2!1sru!2sua"
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe> */}
+
                             {Boolean(settings.data.map_api_key) && <Map />}
                         </div>
                     </div>

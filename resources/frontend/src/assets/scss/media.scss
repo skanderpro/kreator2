@@ -3,10 +3,20 @@
     .catalog-detail-header-items {
         gap: 50px;
     }
+    .card-apartments-filter {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .technologies-list-item h3 {
+        margin-left: 0px;
+    }
 }
 @media (max-width: 1024px) {
     h2 {
         font-size: 50px;
+    }
+    .technologies-list-item h3 {
+        font-size: 20px;
     }
     .header__inner-link {
         a + a {
@@ -34,7 +44,7 @@
         }
     }
     .card-apartments {
-        padding: 30px 0px;
+        padding: 30px 0px 0px;
     }
     .card-apartments-filter {
         gap: 15px;
@@ -256,6 +266,7 @@
             flex-direction: column;
             padding: 25px 0px;
             gap: 30px;
+            align-items: flex-start;
             span {
                 text-align: center;
             }
@@ -282,6 +293,7 @@
 
     .card-apartments .card-apartments-header {
         flex-direction: column;
+        margin-bottom: 20px;
         .card-apartments-header-right {
             flex-direction: row;
             p {
@@ -363,7 +375,6 @@
     .about-us {
         flex-direction: column;
         min-height: unset;
-      
     }
     .about-us-img {
         max-width: 100%;
@@ -384,12 +395,9 @@
     }
     .documents {
         padding: 30px 0px;
-        margin-bottom: 50px;
         gap: 30px;
     }
-    .documents-wrapper {
-        margin-bottom: 50px;
-    }
+
     .documents .documents-items,
     .documents .documents-item {
         align-items: flex-start;
@@ -514,7 +522,13 @@
         max-width: 100%;
     }
     .footer .footer__inner .footer-right {
-        margin-left: auto;
+        align-items: flex-start;
+    }
+    .footer .footer__inner .footer-center {
+        align-items: flex-start;
+    }
+    .footer .footer__inner .footer-center-text {
+        align-items: flex-start;
     }
     .menu-modal-img {
         display: none;
@@ -528,6 +542,42 @@
     }
     .wrapper {
         margin-top: 80px;
+    }
+
+    .header.sticky {
+        .header__inner {
+            min-height: 60px;
+
+            .header__inner-logo a {
+                width: 40px;
+            }
+            .header__inner-link-item {
+                width: 40px;
+            }
+        }
+    }
+    .gallery-wrapper-con,
+    .advantages,
+    .technologies,
+    .construction-wrapper,
+    .about-us,
+    .news,
+    .documents-wrapper-con {
+        padding-top: 60px;
+    }
+    .advantages .advantages-header {
+        text-align: left;
+    }
+    .documents-wrapper-con {
+        margin-bottom: 60px;
+    }
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item
+        span
+        b {
+        font-size: 15px;
     }
 }
 @media (max-width: 600px) {
@@ -601,6 +651,10 @@
     }
     .gallery .gallery-text {
         position: static;
+        align-items: flex-start;
+    }
+    .gallery .gallery-text p {
+        text-align: left;
     }
     .advantages .advantages-list {
         gap: 10px;
@@ -653,10 +707,47 @@
     .menu-modal-list-box ul {
         gap: 20px;
     }
-    .menu-modal-list-box {
-        gap: 30px;
-    }
+
     .menu-modal-list-box ul li a {
         font-size: 16px;
+    }
+
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item
+        span {
+        font-size: 14px;
+    }
+    .documents .documents-item .icon-arrow {
+        order: -1;
+    }
+    .documents .documents-item {
+        gap: 20px;
+    }
+    .construction-swiper-header {
+        align-items: flex-start;
+    }
+}
+@media (max-width: 425px) {
+    .head-banner .head-banner_inner .head-banner__location {
+        justify-content: space-between;
+    }
+    .head-banner .head-banner_inner .head-banner__location span {
+        max-width: 155px;
+    }
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item {
+        label {
+            max-width: 95px;
+        }
+    }
+    .construction
+        .construction-timeline
+        .construction-timeline-text
+        .construction-timeline-text-item:last-child {
+        align-items: flex-end;
     }
 }

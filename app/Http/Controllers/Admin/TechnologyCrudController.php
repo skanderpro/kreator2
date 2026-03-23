@@ -57,7 +57,7 @@ class TechnologyCrudController extends CrudController
     {
         CRUD::setValidation(TechnologyRequest::class);
         CRUD::field('title')->type('text');
-        CRUD::field('description')->type('ckeditor');
+        CRUD::field('description')->type('textarea');
         CRUD::field('image')->type('upload')->withFiles();
         CRUD::field('created_at')->type('date');
     }

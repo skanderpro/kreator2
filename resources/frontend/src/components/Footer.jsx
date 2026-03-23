@@ -4,14 +4,12 @@ import Facebook from "../assets/svg/facebook.svg?react";
 import Instagram from "../assets/svg/instagram.svg?react";
 
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import {useSettings} from "../api/settings.js";
+import { useSettings } from "../api/settings.js";
 
 function Footer() {
     const settings = useSettings();
     const navigate = useNavigate();
     const location = useLocation();
-
-
 
     const handleScroll = (id) => {
         if (location.pathname !== "/") {
@@ -29,12 +27,19 @@ function Footer() {
             });
         }
     };
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
     return (
         <footer className="footer">
             <div className="container">
                 <div className="footer__inner">
                     <div className="footer-logo">
-                        <NavLink to="/">
+                        <NavLink to="/" onClick={scrollToTop}>
                             <Logo />
                         </NavLink>
                     </div>
@@ -43,7 +48,9 @@ function Footer() {
                             <span>Контакти</span>
                             <ul>
                                 <li>
-                                    <a href={`tel:${settings.data.phone?.replaceAll(/\D/g, '')}`}>
+                                    <a
+                                        href={`tel:${settings.data.phone?.replaceAll(/\D/g, "")}`}
+                                    >
                                         {" "}
                                         {settings.data.phone}{" "}
                                     </a>
@@ -60,7 +67,7 @@ function Footer() {
                             <ul>
                                 <li>
                                     Центральний відділ продажу – вул.
-                                    {settings.data.address_building}
+                                    Листопадова, 1/3
                                 </li>
                             </ul>
                         </div>
@@ -73,7 +80,9 @@ function Footer() {
                                 </NavLink>
                             </li>
                             <li>
-                                <a onClick={() => handleScroll("construction")}>Хід будівництва</a>
+                                <a onClick={() => handleScroll("construction")}>
+                                    Хід будівництва
+                                </a>
                             </li>
                             <li>
                                 <a onClick={() => handleScroll("about")}>
@@ -112,8 +121,12 @@ function Footer() {
                                 <NavLink to="/privacy-policy">
                                     Політика конфіденційності
                                 </NavLink>
-                                <NavLink to="/terms-of-use">Умови використання</NavLink>
-                                <a href="https://www.prbaza.com">Розробка сайту PRBAZA</a>
+                                <NavLink to="/terms-of-use">
+                                    Умови використання
+                                </NavLink>
+                                <a href="https://www.prbaza.com">
+                                    Розробка сайту PRBAZA
+                                </a>
                             </div>
                         </div>
                     </div>

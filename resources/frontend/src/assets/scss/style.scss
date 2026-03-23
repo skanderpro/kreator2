@@ -223,6 +223,18 @@
                 line-height: 110%;
                 color: vars.$white;
             }
+            .icon-arrow {
+                transition: all 0.3s ease;
+                svg path {
+                    transition: all 0.3s ease;
+                }
+                &:hover {
+                    background-color: vars.$secondary;
+                    svg path {
+                        fill: vars.$primary;
+                    }
+                }
+            }
         }
     }
     .icon-arrow {
@@ -360,7 +372,12 @@
             border-radius: 20px;
             height: 262px;
             width: 100%;
-
+            a {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                cursor: pointer;
+            }
             .gallery-swiper-item-img {
                 width: 100%;
                 height: 100%;
@@ -400,7 +417,7 @@
     width: 100%;
     input {
         width: 100%;
-        padding: 14px 35px 14px 18px;
+        padding: 14px 18px 14px 18px;
         border-radius: 10px;
         background-color: vars.$inputs;
         font-size: 18px;
@@ -546,6 +563,8 @@
             gap: 30px;
             h3 {
                 max-width: 357px;
+                margin-right: auto;
+                margin-left: 85px;
             }
             p {
                 max-width: 550px;
@@ -618,6 +637,10 @@
                     font-size: 30px;
                     line-height: 120%;
                     text-transform: uppercase;
+                    b {
+                        text-transform: lowercase;
+                        font-size: 20px;
+                    }
                 }
             }
             .construction-timeline-text-item:last-child {
@@ -670,7 +693,7 @@
             height: 100%;
             object-fit: cover;
         }
-        a {
+        svg {
             position: absolute;
             bottom: 0;
             right: 0;
@@ -892,6 +915,7 @@
 }
 .documents-wrapper-con {
     padding-top: 80px;
+    margin-bottom: 80px;
 }
 .documents-wrapper {
     background-color: vars.$primary;
@@ -989,7 +1013,6 @@
 }
 .contact-wrapper {
     margin-bottom: 100px;
-    padding-top: 80px;
 }
 .contact {
     display: flex;
@@ -1124,14 +1147,14 @@
         width: 100%;
     }
     .btn {
-        width: 100%;
+        width: fit-content;
     }
 }
 .catalog-filter-btn {
     display: none;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     justify-content: flex-end;
-
+    width: fit-content;
     .btn:hover {
         background-color: vars.$secondary;
         color: vars.$primary;
@@ -1273,6 +1296,7 @@
                     text-transform: uppercase;
                     b {
                         font-weight: 400;
+                        font-size: 20px;
                         text-transform: lowercase;
                     }
                 }
@@ -1553,6 +1577,31 @@
     }
 }
 
+.news-page-items {
+    .construction-swiper-item {
+        span {
+            color: vars.$primary;
+        }
+        .construction-swiper-item-img .construction-swiper-item-box {
+            background: vars.$bg;
+        }
+        .construction-swiper-item-img .construction-swiper-item-box:after {
+            background-image: radial-gradient(
+                circle at 100% 100%,
+                transparent 30px,
+                vars.$bg 21px
+            );
+        }
+        .construction-swiper-item-img .construction-swiper-item-box:before {
+            background-image: radial-gradient(
+                circle at 100% 100%,
+                transparent 30px,
+                vars.$bg 21px
+            );
+        }
+    }
+}
+
 .footer {
     .container {
         max-width: 1320px;
@@ -1564,6 +1613,9 @@
         padding: 53px 0px;
         border-top: 1px solid vars.$black;
         gap: 20px;
+        .footer-logo a {
+            display: flex;
+        }
         span {
             color: vars.$primary;
         }
@@ -1595,7 +1647,7 @@
         .footer-social {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 25px;
 
             a svg {
                 transition: all 0.3s ease;
