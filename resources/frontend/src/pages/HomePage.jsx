@@ -11,7 +11,8 @@ import { Navigation, EffectFade } from "swiper/modules";
 import lightGallery from "lightgallery";
 import lgZoom from "lightgallery/plugins/zoom";
 
-import headBanner from "../assets/img/head-banner.jpg";
+import headBanner from "../assets/img/head-banner.png";
+import LogoEdem from "../assets/svg/logo-edem.svg?react";
 import aboutImg from "../assets/img/house.jpg";
 import Arrow from "../assets/svg/arrow.svg?react";
 import Airplane from "../assets/svg/airplane.svg?react";
@@ -100,7 +101,6 @@ function HomePage() {
 
     const { setPopupConsultations } = useContext(AppContext);
 
-
     useEffect(() => {
         if (!lgGalleryContainerRef.current || !gallery.data?.data?.length)
             return;
@@ -131,7 +131,6 @@ function HomePage() {
         };
     }, [gallery.data]);
 
-
     return (
         <>
             <div className="head-banner">
@@ -143,12 +142,10 @@ function HomePage() {
                 <div className="container">
                     <div className="head-banner__inner">
                         <div className="head-banner_inner">
+                            <LogoEdem />
                             <h1 className="head-banner__title">
-                                Набережна Вежа
+                                Твій рай у місті!
                             </h1>
-                            <p className="head-banner__subtitle">
-                                Ваш простір спокою
-                            </p>
 
                             <button
                                 className="btn"
@@ -860,7 +857,6 @@ function HomePage() {
                             </button>
                         </div>
                         <div className="map" id="map">
-
                             {Boolean(settings.data.map_api_key) && <Map />}
                         </div>
                     </div>

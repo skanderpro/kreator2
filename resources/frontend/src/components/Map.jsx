@@ -1,148 +1,154 @@
 import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import {useSettings} from "../api/settings.js";
+import { useSettings } from "../api/settings.js";
 
 function Map() {
-  const settings = useSettings();
+    const settings = useSettings();
 
-  const exampleMapStyles = [
-    {
-      featureType: "all",
-      elementType: "all",
-      stylers: [
+    const exampleMapStyles = [
         {
-          hue: "#ff8d00",
+            featureType: "all",
+            elementType: "all",
+            stylers: [
+                {
+                    hue: "#00ff4c",
+                },
+                {
+                    saturation: "-58",
+                },
+                {
+                    lightness: "15",
+                },
+            ],
         },
         {
-          saturation: "-33",
+            featureType: "all",
+            elementType: "labels.text.fill",
+            stylers: [
+                {
+                    color: "#1d3323",
+                },
+            ],
         },
         {
-          lightness: "10",
-        },
-      ],
-    },
-    {
-      featureType: "all",
-      elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#785c3a",
-        },
-      ],
-    },
-    {
-      featureType: "administrative.locality",
-      elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#311b00",
-        },
-      ],
-    },
-    {
-      featureType: "landscape.natural.terrain",
-      elementType: "geometry",
-      stylers: [
-        {
-          visibility: "simplified",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry",
-      stylers: [
-        {
-          visibility: "simplified",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "labels.text",
-      stylers: [
-        {
-          visibility: "on",
-        },
-      ],
-    },
-    {
-      featureType: "road.arterial",
-      elementType: "geometry",
-      stylers: [
-        {
-          visibility: "simplified",
-        },
-      ],
-    },
-    {
-      featureType: "transit.line",
-      elementType: "all",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "water",
-      elementType: "geometry.fill",
-      stylers: [
-        {
-          saturation: "-48",
+            featureType: "administrative.locality",
+            elementType: "labels.text.fill",
+            stylers: [
+                {
+                    color: "#1c3027",
+                },
+            ],
         },
         {
-          gamma: "1.03",
+            featureType: "landscape.natural.terrain",
+            elementType: "geometry",
+            stylers: [
+                {
+                    visibility: "simplified",
+                },
+            ],
         },
         {
-          hue: "#00ffc6",
+            featureType: "road.highway",
+            elementType: "geometry",
+            stylers: [
+                {
+                    visibility: "simplified",
+                },
+            ],
         },
         {
-          lightness: "32",
-        },
-      ],
-    },
-    {
-      featureType: "water",
-      elementType: "geometry.stroke",
-      stylers: [
-        {
-          saturation: "-14",
+            featureType: "road.highway",
+            elementType: "labels.text",
+            stylers: [
+                {
+                    visibility: "on",
+                },
+            ],
         },
         {
-          lightness: "0",
+            featureType: "road.arterial",
+            elementType: "geometry",
+            stylers: [
+                {
+                    visibility: "simplified",
+                },
+            ],
         },
         {
-          gamma: "1.00",
+            featureType: "transit.line",
+            elementType: "all",
+            stylers: [
+                {
+                    visibility: "off",
+                },
+            ],
         },
         {
-          weight: "1.74",
+            featureType: "water",
+            elementType: "geometry.fill",
+            stylers: [
+                {
+                    saturation: "28",
+                },
+                {
+                    gamma: "1.03",
+                },
+                {
+                    hue: "#00f5ff",
+                },
+                {
+                    lightness: "19",
+                },
+            ],
         },
-      ],
-    },
-  ];
+        {
+            featureType: "water",
+            elementType: "geometry.stroke",
+            stylers: [
+                {
+                    saturation: "-14",
+                },
+                {
+                    lightness: "0",
+                },
+                {
+                    gamma: "1.00",
+                },
+                {
+                    weight: "1.74",
+                },
+            ],
+        },
+    ];
 
-  const { isLoaded } = useJsApiLoader({
-    // googleMapsApiKey: "AIzaSyDi0At-fZMJLMy-A3N6Dgswma59o48g5YY", // <-- встав сюди ключ
-    googleMapsApiKey: settings.data.map_api_key,
-  });
+    const { isLoaded } = useJsApiLoader({
+        // googleMapsApiKey: "AIzaSyDi0At-fZMJLMy-A3N6Dgswma59o48g5YY", // <-- встав сюди ключ
+        googleMapsApiKey: settings.data.map_api_key,
+    });
 
-  if (!isLoaded) return <div>Loading...</div>;
-  return (
-    <>
-      <GoogleMap
-        center={{ lat: parseFloat(settings.data.map_lat), lng: parseFloat(settings.data.map_lng) }}
-        zoom={15}
-        options={{
-          styles: exampleMapStyles,
-        }}
-      >
-        <Marker
-          position={{ lat: parseFloat(settings.data.map_lat), lng: parseFloat(settings.data.map_lng) }}
-        />
-      </GoogleMap>
-    </>
-  );
+    if (!isLoaded) return <div>Loading...</div>;
+    return (
+        <>
+            <GoogleMap
+                center={{
+                    lat: parseFloat(settings.data.map_lat),
+                    lng: parseFloat(settings.data.map_lng),
+                }}
+                zoom={15}
+                options={{
+                    styles: exampleMapStyles,
+                }}
+            >
+                <Marker
+                    position={{
+                        lat: parseFloat(settings.data.map_lat),
+                        lng: parseFloat(settings.data.map_lng),
+                    }}
+                />
+            </GoogleMap>
+        </>
+    );
 }
 
 export { Map };
