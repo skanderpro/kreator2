@@ -811,7 +811,7 @@ function HomePage() {
                                     <ul>
                                         <li>
                                             {" "}
-                                            Центральний відділ продажу – вул.
+                                            Центральний офіс продажу –
                                             {
                                                 settings.data
                                                     .address_sell_department
@@ -837,7 +837,7 @@ function HomePage() {
                                     <h3>Графік роботи</h3>
                                     <ul>
                                         <li> Пн. - Пт.: з 09:00 до 18:00</li>
-                                        <li> Сб. - Нд.: вихідні дні</li>
+                                        <li> Сб. - Нд.: вихідні</li>
                                     </ul>
                                 </div>
                                 <div className="contact-info-list-item">
