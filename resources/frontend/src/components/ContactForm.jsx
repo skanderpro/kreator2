@@ -3,7 +3,7 @@ import {AppContext} from "../context/AppContext.js";
 import {useCreateContactRequest} from "../api/contact-request.js";
 import {useFormik} from "formik";
 
-export const ContactForm = () => {
+export const ContactForm = (props) => {
     const { setPopupConsultations, setPopupTy } =
         useContext(AppContext);
     const contactRequestCreator = useCreateContactRequest();
@@ -27,7 +27,23 @@ export const ContactForm = () => {
             return errors;
         },
         onSubmit: async (values) => {
-            await contactRequestCreator.mutateAsync({...values});
+            const result = await contactRequestCreator.mutateAsync({...values});
+            window.dataLayer = window.dataLayer || [];
+
+            if (result && props.isStatic) {
+                window.dataLayer.push({
+                    'event': 'form_submission_success',
+                    'form_type': 'footer_consultation',
+                    'form_location': 'footer_static'
+                });
+            } else if (result) {
+                window.dataLayer.push({
+                    'event': 'form_submission_success',
+                    'form_type': 'popup_consultation',
+                    'form_location': 'header_popup'
+                });
+            }
+
             setPopupTy(true);
             setPopupConsultations(false);
             formik.resetForm();

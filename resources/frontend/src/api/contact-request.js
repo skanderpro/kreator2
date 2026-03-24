@@ -11,15 +11,6 @@ export const useCreateContactRequest = () => useMutation({
              },
          });
 
-         if (response.ok) {
-             window.dataLayer = window.dataLayer || [];
-             window.dataLayer.push({
-                 'event': 'form_submission_success',
-                 'form_type': 'consultation',
-                 'form_location': 'footer_popup'
-             });
-         }
-
          return response.ok;
     },
 });
