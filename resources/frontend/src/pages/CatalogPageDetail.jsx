@@ -280,7 +280,7 @@ function CatalogPageDetail() {
                                 за умови розтермінування.
                             </p>
                         </div>
-                        <ContactForm />
+                        <ContactForm isStatic />
                     </div>
                 </div>
             </div>
