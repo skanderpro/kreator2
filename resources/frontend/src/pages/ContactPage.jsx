@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Map } from "../components/Map";
 import { AppContext } from "../context/AppContext";
+import { useSettings } from "../api/settings.js";
 function ContactPage() {
     const { setPopupConsultations } = useContext(AppContext);
+    const settings = useSettings();
     return (
         <>
             <div className="breadcrumbs">
@@ -30,21 +32,28 @@ function ContactPage() {
                             <h2>контакти</h2>
                             <div className="contact-info-list">
                                 <div className="contact-info-list-item">
-                                    <h3>Відділ продажу</h3>
+                                    <h3>Офіс продажу</h3>
                                     <ul>
                                         <li>
                                             {" "}
-                                            Центральний відділ продажу – вул.
-                                            Листопадова, 1/3
+                                            Центральний офіс продажу – 
+                                            {
+                                                settings.data
+                                                    .address_sell_department
+                                            }
                                         </li>
                                         <li>
-                                            <a href="tel:381708742">
-                                                +38(067)-170-87-42
+                                            <a
+                                                href={`tel:${settings.data.phone?.replaceAll(/\D/g, "")}`}
+                                            >
+                                                {settings.data.phone}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="mailto:kreatorbudternopil@gmail.com">
-                                                kreatorbudternopil@gmail.com
+                                            <a
+                                                href={`mailto:${settings.data.email}`}
+                                            >
+                                                {settings.data.email}
                                             </a>
                                         </li>
                                     </ul>
