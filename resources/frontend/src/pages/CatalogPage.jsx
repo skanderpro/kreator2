@@ -163,24 +163,9 @@ function CatalogPage() {
                                                     )
                                                 }
                                             >
-                                                Квартира
+                                                Котедж
                                             </div>
-                                            <div
-                                                className={`list-tab-item ${
-                                                    formik.values.type ===
-                                                    "parking"
-                                                        ? "active"
-                                                        : ""
-                                                }`}
-                                                onClick={() =>
-                                                    formik.setFieldValue(
-                                                        "type",
-                                                        "parking",
-                                                    )
-                                                }
-                                            >
-                                                Паркомісце
-                                            </div>
+                                          
                                         </div>
                                     </div>
                                 </div>

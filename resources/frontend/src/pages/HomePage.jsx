@@ -156,7 +156,7 @@ function HomePage() {
                                 ЗАПИСАТИСЬ НА ПЕРЕГЛЯД
                             </button>
                             <div className="head-banner__location">
-                                <span>{settings.data.address_building}</span>
+                                <span>м. Тернопіль, {settings.data.address_building}</span>
                                 <a
                                     href={settings.data.hero_url}
                                     className="icon-arrow icon-arrow--right"
@@ -214,10 +214,7 @@ function HomePage() {
                                                 : apartmentCount.data
                                                       ?.parking}{" "}
                                             <span>
-                                                {formik.values.type ===
-                                                "apartment"
-                                                    ? "квартир"
-                                                    : "паркомісць"}{" "}
+                                               Котеджів
                                             </span>
                                         </div>
                                     </>
@@ -243,23 +240,9 @@ function HomePage() {
                                                 )
                                             }
                                         >
-                                            Квартира
+                                            Котедж
                                         </div>
-                                        <div
-                                            className={`list-tab-item ${
-                                                formik.values.type === "parking"
-                                                    ? "active"
-                                                    : ""
-                                            }`}
-                                            onClick={() =>
-                                                formik.setFieldValue(
-                                                    "type",
-                                                    "parking",
-                                                )
-                                            }
-                                        >
-                                            Паркомісце
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
