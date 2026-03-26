@@ -1,5 +1,19 @@
 @use "vars";
 
+@font-face {
+    font-family: "Corinthia";
+    src: url(../fonts/corinthia.eot);
+    src:
+        url(../fonts/corinthia.eot?#iefix) format("embedded-opentype"),
+        url(../fonts/corinthia.otf) format("otf"),
+        url(../fonts/corinthia.svg#corinthia) format("svg"),
+        url(../fonts/corinthia.ttf) format("truetype"),
+        url(../fonts/corinthia.woff) format("woff"),
+        url(../fonts/corinthia.woff2) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+
 .header {
     position: fixed;
     left: 0;
@@ -177,13 +191,20 @@
         display: flex;
     }
 
-    > img {
+    > .head-banner__img {
         position: absolute;
         width: 100%;
         height: 100%;
         object-fit: contain;
         object-position: right;
         z-index: 0;
+        img,
+        source {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: right;
+        }
     }
     .head-banner_inner {
         z-index: 1;
@@ -200,9 +221,8 @@
             font-family: "Corinthia", cursive;
             font-weight: 400;
             font-style: normal;
-            font-size: 69px;
-            line-height: 123%;
-            text-transform: uppercase;
+            font-size: 119px;
+            line-height: 71%;
             color: vars.$white;
             margin-bottom: 20px;
         }
@@ -785,8 +805,15 @@
         p + p {
             margin-top: 20px;
         }
+
         .btn {
             margin-top: 55px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            list-style-type: disc;
         }
     }
 }
@@ -1031,6 +1058,11 @@
             flex-direction: column;
             gap: 35px;
             margin-bottom: 50px;
+             &-item:first-child {
+                ul li:last-child a {
+                    white-space: nowrap;
+                }
+            }
             &-item {
                 h3 {
                     margin-bottom: 13px;
@@ -1688,6 +1720,12 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            
+            &-item:first-child {
+                ul li:last-child a {
+                    white-space: nowrap;
+                }
+            }
             span {
                 font-weight: 800;
                 font-size: 14px;

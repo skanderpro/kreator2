@@ -1,4 +1,10 @@
 @use "vars";
+
+@media (max-width: 1300px) {
+    .head-banner .head-banner_inner .head-banner__title {
+        max-width: 400px;
+    }
+}
 @media (max-width: 1200px) {
     .catalog-detail-header-items {
         gap: 50px;
@@ -14,6 +20,12 @@
 @media (max-width: 1024px) {
     h2 {
         font-size: 50px;
+    }
+    .head-banner {
+        min-height: 500px;
+    }
+    .head-banner .head-banner_inner .head-banner__title {
+        max-width: 320px;
     }
     .technologies-list-item h3 {
         font-size: 20px;
@@ -578,6 +590,22 @@
         span
         b {
         font-size: 15px;
+    }
+
+    .head-banner > .head-banner__img {
+        position: static;
+        order: 1;
+        height: 210px;
+    }
+    .head-banner {
+        flex-direction: column;
+    }
+    .head-banner > .head-banner__img img,
+    .head-banner > .head-banner__img source {
+        object-fit: cover;
+    }
+    .head-banner .head-banner_inner > svg {
+        width: 220px;
     }
 }
 @media (max-width: 600px) {

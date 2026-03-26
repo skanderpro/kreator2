@@ -165,7 +165,6 @@ function CatalogPage() {
                                             >
                                                 Котедж
                                             </div>
-                                          
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +234,6 @@ function CatalogPage() {
                                                 placeholder={`від: ${apartmentsMeta.data.area.min}`}
                                                 value={formik.values.areaFrom}
                                             />
-                                            
                                         </div>
                                         <div className="filter-input">
                                             <input
@@ -249,7 +247,6 @@ function CatalogPage() {
                                                 }
                                                 value={formik.values.areaTo}
                                             />
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -422,7 +419,7 @@ function CatalogPage() {
                                                             <div className="catalog-list-item-info-item">
                                                                 {item.rooms}{" "}
                                                                 <span>
-                                                                    кімната
+                                                                    {`кімнат${item.rooms >= 2 ? "и" : "а"}`}
                                                                 </span>
                                                             </div>
                                                             <div className="catalog-list-item-info-item">
@@ -435,7 +432,7 @@ function CatalogPage() {
                                                     ) : (
                                                         <>
                                                             <div className="catalog-list-item-info-item">
-                                                                Тип: підземний 
+                                                                Тип: підземний
                                                                 <span>
                                                                     -1 поверх
                                                                 </span>
