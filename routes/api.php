@@ -12,8 +12,8 @@ use App\Http\Controllers\Api\TechnologyController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('news.')->prefix('/news')->group(function () {
-    Route::get('', [NewsController::class, 'index'])->name('index');
-    Route::get('/{news}', [NewsController::class, 'show'])->name('show');
+    Route::get('', [NewsController::class, 'index'])->name('list');
+    Route::get('/{news}', [NewsController::class, 'show'])->name('showOne');
 });
 
 Route::name('gallery-items.')->prefix('/gallery-items')->group(function () {
@@ -21,7 +21,7 @@ Route::name('gallery-items.')->prefix('/gallery-items')->group(function () {
 });
 
 Route::name('build-step.')->prefix('/build-steps')->group(function () {
-    Route::get('', [BuildStepController::class, 'index'])->name('index');
+    Route::get('', [BuildStepController::class, 'index'])->name('list');
 });
 
 
@@ -46,9 +46,9 @@ Route::name('settings.')->prefix('/settings')->group(function () {
 });
 
 Route::name('technology.')->prefix('/technology')->group(function () {
-    Route::get('', [TechnologyController::class, 'index'])->name('index');
+    Route::get('', [TechnologyController::class, 'index'])->name('list');
 });
 
 Route::name('contact-request.')->prefix('/contact-request')->group(function () {
-    Route::post('', [ContactRequestController::class, 'store'])->name('store');
+    Route::post('', [ContactRequestController::class, 'store'])->name('storeOne');
 });
