@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useMemo, useState} from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useSingleApartment } from "../api/apartments.js";
 import { AppContext } from "../context/AppContext";
@@ -14,6 +14,10 @@ import { ContactForm } from "../components/ContactForm.jsx";
 function CatalogPageDetail() {
     const { id } = useParams();
     const apartment = useSingleApartment(id);
+
+    const floor = useMemo(() => {
+        return Array.isArray(apartment.data.data?.floor) ? apartment.data.data?.floor.join(', ') : apartment.data.data?.floor;
+    }, [apartment.data.data?.floor]);
 
     const { setPopupConsultations } = useContext(AppContext);
 
@@ -154,7 +158,7 @@ function CatalogPageDetail() {
                                         }
                                     />
                                     Поверх
-                                    <span>{apartment.data.data?.floor}</span>
+                                    <span>{floor}</span>
                                 </div>
                                 {isApartment && (
                                     <div className="catalog-detail-header-item">

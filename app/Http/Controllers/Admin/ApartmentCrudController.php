@@ -57,6 +57,11 @@ class ApartmentCrudController extends CrudController
     {
         CRUD::setValidation(ApartmentRequest::class);
 
+        $floors = [];
+        for ($i = 1; $i <= 50; $i++) {
+            $floors[$i] = $i;
+        }
+
         CRUD::field('title')->type('text');
         CRUD::field('planing_type')->type('text');
         CRUD::field([
@@ -71,7 +76,16 @@ class ApartmentCrudController extends CrudController
         CRUD::field('rooms')->type('number');
         CRUD::field('building')->type('number');
         CRUD::field('section')->type('number');
-        CRUD::field('floor')->type('number');
+
+        CRUD::field([
+            'name'        => 'floor',
+            'label'       => "Floor",
+            'type'        => 'select_from_array',
+            'options'     => $floors,
+            'allows_null' => true,
+            'allows_multiple' => true,
+        ]);
+
         CRUD::field('area')->type('number')->attributes(["step" => "any"]);
         CRUD::field('price')->type('number')->attributes(["step" => "any"]);
         CRUD::field('price_for_meter')->type('number')->attributes(["step" => "any"]);
