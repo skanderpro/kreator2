@@ -1,6 +1,19 @@
+@font-face {
+    font-family: "Corinthia";
+    src: url(../fonts/corinthia.eot);
+    src:
+        url(../fonts/corinthia.eot?#iefix) format("embedded-opentype"),
+        url(../fonts/corinthia.otf) format("otf"),
+        url(../fonts/corinthia.svg#corinthia) format("svg"),
+        url(../fonts/corinthia.ttf) format("truetype"),
+        url(../fonts/corinthia.woff) format("woff"),
+        url(../fonts/corinthia.woff2) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
 $primary: #1c3027;
-$secondary: #F3D192;
-$bg: #FFF1D8;
+$secondary: #f3d192;
+$bg: #fff1d8;
 $inputs: #fdf8ef;
 $black: #000;
 $white: #fff;

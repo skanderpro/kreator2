@@ -21,11 +21,11 @@ function CatalogPageDetail() {
 
     const images = [
         {
-            title: "План приміщення",
+            title: "План 1-го поверху",
             src: apartment.data.data?.plan,
         },
         {
-            title: "План поверху",
+            title: "План 2-го поверху",
             src: apartment.data.data?.floor_plan,
         },
         {

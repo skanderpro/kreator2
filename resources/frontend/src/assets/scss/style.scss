@@ -1,18 +1,5 @@
 @use "vars";
 
-@font-face {
-    font-family: "Corinthia";
-    src: url(../fonts/corinthia.eot);
-    src:
-        url(../fonts/corinthia.eot?#iefix) format("embedded-opentype"),
-        url(../fonts/corinthia.otf) format("otf"),
-        url(../fonts/corinthia.svg#corinthia) format("svg"),
-        url(../fonts/corinthia.ttf) format("truetype"),
-        url(../fonts/corinthia.woff) format("woff"),
-        url(../fonts/corinthia.woff2) format("woff2");
-    font-weight: 400;
-    font-style: normal;
-}
 
 .header {
     position: fixed;
@@ -1058,7 +1045,7 @@
             flex-direction: column;
             gap: 35px;
             margin-bottom: 50px;
-             &-item:first-child {
+            &-item:first-child {
                 ul li:last-child a {
                     white-space: nowrap;
                 }
@@ -1212,7 +1199,7 @@
     background-color: vars.$white;
     padding: 20px;
     border-radius: 30px;
-    color: #311b00;
+    color: vars.$primary;
     &-title {
         font-weight: 700;
         font-size: 24px;
@@ -1720,7 +1707,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            
+
             &-item:first-child {
                 ul li:last-child a {
                     white-space: nowrap;

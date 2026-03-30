@@ -203,7 +203,7 @@ function HomePage() {
                 <div className="container">
                     <div className="card-apartments">
                         <div className="card-apartments-header">
-                            <h2>підбір квартир та паркомісць</h2>
+                            <h2>підбір таунхаусів</h2>
                             <div className="card-apartments-header-right">
                                 {formik.values?.type?.length > 0 && (
                                     <>
@@ -355,9 +355,9 @@ function HomePage() {
                             <div className="gallery-text">
                                 <h2>галерея</h2>
                                 <p>
-                                    ЖК «Набережна Вежа» – це комплекс бізнес
-                                    класу, головною перевагою якого є місце
-                                    розташування.
+                                    «EDEM Таун» — сучасні таунхауси в Тернополі
+                                    з комфортом, тишею та простором, поєднані з
+                                    міськими зручностями.
                                 </p>
                             </div>
                             <div className="gallery-swiper">
@@ -425,10 +425,8 @@ function HomePage() {
                     <div className="advantages-header">
                         <h2>переваги</h2>
                         <p>
-                            Унікальність ЖК «Набережна Вежа» у тому, що з його
-                            вікон проглядається одна з найкрасивіших панорам
-                            Тернополя. Поруч комплексу розташований Парк
-                            Шевченка.
+                            Зелені зони, безпека та приватність роблять комплекс
+                            справжньою оазою для життя.
                         </p>
                     </div>
                     <div className="advantages-list">
@@ -519,7 +517,7 @@ function HomePage() {
                                 <div className="construction-timeline-text-item">
                                     <label>Початок будівництва</label>
                                     <span>
-                                        1 квартал 2022 <b>р.</b>
+                                        1 квартал 2026 <b>р.</b>
                                     </span>
                                 </div>
                                 <div className="construction-timeline-text-item">
