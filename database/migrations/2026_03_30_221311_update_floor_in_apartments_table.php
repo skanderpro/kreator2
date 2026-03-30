@@ -24,7 +24,7 @@ return new class extends Migration
                 continue;
             }
 
-            $apartment->floor = json_encode([$apartment->floor_old]);
+            $apartment->floor = [$apartment->floor_old];
             $apartment->save();
         }
 
