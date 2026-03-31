@@ -6,7 +6,21 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProvider } from "./context/AppProvider";
 const queryClient = new QueryClient();
 
-createRoot(document.getElementById("root")).render(
+const root = document.getElementById('root');
+
+window.addEventListener('load', () => {
+    if (!root) {
+        return;
+    }
+
+    requestAnimationFrame(() => {
+        while(root.nextSibling instanceof Text) {
+            root.nextSibling.remove()
+        }
+    })
+});
+
+createRoot(root).render(
     <StrictMode>
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
