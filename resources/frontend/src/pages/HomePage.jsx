@@ -216,7 +216,7 @@ function HomePage() {
                                                 ? apartmentCount.data?.apartment
                                                 : apartmentCount.data
                                                       ?.parking}{" "}
-                                            <span>Котеджів</span>
+                                            <span>Таунхаусів</span>
                                         </div>
                                     </>
                                 )}
@@ -241,7 +241,7 @@ function HomePage() {
                                                 )
                                             }
                                         >
-                                            Котедж
+                                            Таунхаус
                                         </div>
                                     </div>
                                 </div>

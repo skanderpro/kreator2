@@ -163,7 +163,7 @@ function CatalogPage() {
                                                     )
                                                 }
                                             >
-                                                Котедж
+                                                Таунхаус
                                             </div>
                                         </div>
                                     </div>
@@ -318,7 +318,7 @@ function CatalogPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="card-apartments-filter-item">
+                                {/* <div className="card-apartments-filter-item">
                                     <label>Спеціальні умови</label>
                                     <div className="card-apartments-filter-inner">
                                         <div className="list-tab">
@@ -369,7 +369,7 @@ function CatalogPage() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <button
                                     className="btn btn-primary"
                                     type="button"
