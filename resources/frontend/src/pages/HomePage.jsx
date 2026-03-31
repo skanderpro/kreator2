@@ -241,7 +241,7 @@ function HomePage() {
                                                 )
                                             }
                                         >
-                                            Котедж
+                                            Таунхаус
                                         </div>
                                     </div>
                                 </div>
