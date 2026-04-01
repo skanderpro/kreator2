@@ -8,17 +8,17 @@ const queryClient = new QueryClient();
 
 const root = document.getElementById('root');
 
-window.addEventListener('load', () => {
-    if (!root) {
-        return;
-    }
-
-    requestAnimationFrame(() => {
-        while(root.nextSibling instanceof Text) {
-            root.nextSibling.remove()
-        }
-    })
-});
+// window.addEventListener('load', () => {
+//     if (!root) {
+//         return;
+//     }
+//
+//     requestAnimationFrame(() => {
+//         while(root.nextSibling instanceof Text) {
+//             root.nextSibling.remove()
+//         }
+//     })
+// });
 
 createRoot(root).render(
     <StrictMode>
