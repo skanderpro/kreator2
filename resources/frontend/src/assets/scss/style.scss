@@ -1,6 +1,5 @@
 @use "vars";
 
-
 .header {
     position: fixed;
     left: 0;
@@ -1487,7 +1486,9 @@
         }
     }
 }
-
+.news-page-banner {
+    color: vars.$primary;
+}
 .news-detail {
     margin-bottom: 100px;
     &__inner {

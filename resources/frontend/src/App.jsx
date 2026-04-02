@@ -9,7 +9,7 @@ import { СonstructionPage } from "./pages/СonstructionPage";
 import { NewsDetailPage } from "./pages/NewsDetailPage";
 import { ContactPage } from "./pages/ContactPage";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
-import { TermsUse } from "./pages/TermsUse";
+// import { TermsUse } from "./pages/TermsUse";
 import { Layout } from "./components/Layout";
 
 import "./assets/scss/main.scss";
@@ -32,7 +32,7 @@ function App() {
           <Route path="news-detail/:id" element={<NewsDetailPage />} />
            <Route path="contact" element={<ContactPage />} />
            <Route path="privacy-policy" element={<PrivacyPolicy />} />
-           <Route path="terms-of-use" element={<TermsUse />} />
+           {/* <Route path="terms-of-use" element={<TermsUse />} /> */}
           <Route path="*" element={<NotfoundPage />} />
         </Route>
       </Routes>

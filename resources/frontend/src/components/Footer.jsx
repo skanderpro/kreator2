@@ -121,9 +121,9 @@ function Footer() {
                                 <NavLink to="/privacy-policy">
                                     Політика конфіденційності
                                 </NavLink>
-                                <NavLink to="/terms-of-use">
+                                {/* <NavLink to="/terms-of-use">
                                     Умови використання
-                                </NavLink>
+                                </NavLink> */}
                                 <a href="https://www.prbaza.com">
                                     Розробка сайту PRBAZA
                                 </a>

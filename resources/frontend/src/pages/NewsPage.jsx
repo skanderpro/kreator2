@@ -3,71 +3,7 @@ import { NavLink } from "react-router-dom";
 import {useNews} from "../api/news.js";
 import {formatDate} from "../formatters/date.js";
 function NewsPage() {
-    const newsSwiperList = [
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-        {
-            imgUrl: "swiper-news-1.jpg",
-            date: "25.12.2025",
-            text: "Підсумки 2025 року від компанії «Креатор-Буд»",
-            description:
-                "У 2025 «Креатор-Буд» активно будував та вводив в експлуатацію нові будинки, створив «Стандарти майбутнього» та тариф електропостачання Free Watt. ",
-        },
-    ];
+   
 
     const news = useNews();
 
@@ -95,7 +31,7 @@ function NewsPage() {
                 <div className="container">
                     <div className="news-page__inner">
                         <h2>новини</h2>
-                        <div className="news-page-banner">
+                        <NavLink  to={"/news-detail/" + news.data.data[0]?.id} className="news-page-banner">
                             <div className="news-swiper-item">
                                 <img
                                     className="news-swiper-item-img"
@@ -109,15 +45,15 @@ function NewsPage() {
                                 </div>
                             </div>
                             <div className="news-page-banner-item">
-                                <NavLink
+                                <div
                                     className="news-page-banner-item-text"
-                                    to={"/news-detail/" + news.data.data[0]?.id}
+                                   
                                 >
                                     {news.data.data[0]?.title}
-                                </NavLink>
+                                </div>
                                 <div dangerouslySetInnerHTML={{__html: news.data.data[0]?.excerpt}} />
                             </div>
-                        </div>
+                        </NavLink>
                         <div className="news-page-items">
                             {news.data.data.slice(1)?.map((item, index) => {
                                 return (
