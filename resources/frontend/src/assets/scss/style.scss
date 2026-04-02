@@ -870,6 +870,8 @@
             margin-bottom: 28px;
         }
         &-description {
+            max-height: 150px;
+            overflow: hidden;
         }
     }
     .news-swiper-item-box {
