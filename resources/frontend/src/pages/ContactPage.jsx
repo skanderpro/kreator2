@@ -61,8 +61,8 @@ function ContactPage() {
                                 <div className="contact-info-list-item">
                                     <h3>Графік роботи</h3>
                                     <ul>
-                                        <li> Пн. - Пт.: з 08:00 до 17:00</li>
-                                        <li> Сб. - Нд.: вихідні дні</li>
+                                        <li> Пн. - Пт.: з 09:00 до 18:00</li>
+                                        <li> Сб. - Нд.: вихідні </li>
                                     </ul>
                                 </div>
                                 <div className="contact-info-list-item">
