@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             UserSeeder::class,
             TechnologySeeder::class,
+            ContentPagesSeeder::class,
         ]);
     }
 }

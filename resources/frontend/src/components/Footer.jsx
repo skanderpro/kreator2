@@ -118,12 +118,10 @@ function Footer() {
                         <div className="footer-center">
                             <span>© Kreatorbud</span>
                             <div className="footer-center-text">
-                                <NavLink to="/privacy-policy">
+                                <NavLink to="/page/privacy-policy">
                                     Політика конфіденційності
                                 </NavLink>
-                                {/* <NavLink to="/terms-of-use">
-                                    Умови використання
-                                </NavLink> */}
+
                                 <a href="https://www.prbaza.com">
                                     Розробка сайту PRBAZA
                                 </a>

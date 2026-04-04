@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ApartmentController;
 use App\Http\Controllers\Api\BuildStepController;
 use App\Http\Controllers\Api\ContactRequestController;
+use App\Http\Controllers\Api\ContentPageController;
 use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\GalleryItemsController;
@@ -12,8 +13,8 @@ use App\Http\Controllers\Api\TechnologyController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('news.')->prefix('/news')->group(function () {
-    Route::get('', [NewsController::class, 'index'])->name('list');
-    Route::get('/{news}', [NewsController::class, 'show'])->name('showOne');
+    Route::get('', [NewsController::class, 'index'])->name('index');
+    Route::get('/{news}', [NewsController::class, 'show'])->name('show');
 });
 
 Route::name('gallery-items.')->prefix('/gallery-items')->group(function () {
@@ -21,7 +22,7 @@ Route::name('gallery-items.')->prefix('/gallery-items')->group(function () {
 });
 
 Route::name('build-step.')->prefix('/build-steps')->group(function () {
-    Route::get('', [BuildStepController::class, 'index'])->name('list');
+    Route::get('', [BuildStepController::class, 'index'])->name('index');
 });
 
 
@@ -46,9 +47,13 @@ Route::name('settings.')->prefix('/settings')->group(function () {
 });
 
 Route::name('technology.')->prefix('/technology')->group(function () {
-    Route::get('', [TechnologyController::class, 'index'])->name('list');
+    Route::get('', [TechnologyController::class, 'index'])->name('index');
+});
+
+Route::name('contentPages.')->prefix('/content-pages')->group(function () {
+    Route::get('{page:slug}', [ContentPageController::class, 'show'])->name('show');
 });
 
 Route::name('contact-request.')->prefix('/contact-request')->group(function () {
-    Route::post('', [ContactRequestController::class, 'store'])->name('storeOne');
+    Route::post('', [ContactRequestController::class, 'store'])->name('store');
 });
