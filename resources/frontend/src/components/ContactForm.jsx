@@ -16,11 +16,9 @@ export const ContactForm = (props) => {
         validate: (values) => {
             const errors = {};
 
-            if (!values.name?.trim()?.length) {
-                errors.name = 'Поле ім\'я не може бути порожнім';
-            } else if (!values.phone?.trim()?.length) {
+            if (!values.phone?.trim()?.length) {
                 errors.phone = 'Поле телефон не може бути порожнім';
-            } else if (!values.phone?.match(/^[+0-9]{10,}$/)) {
+            } else if (!values.phone?.match(/^[+]{0,1}[0-9]{9,15}$/)) {
                 errors.phone = 'Невірний формат телефону';
             }
 
@@ -42,6 +40,12 @@ export const ContactForm = (props) => {
                     'form_type': 'popup_consultation',
                     'form_location': 'header_popup'
                 });
+            }
+
+            if (window.custom_crm) {
+                await window.custom_crm.feedback(values.phone, {
+                    ...values
+                })
             }
 
             setPopupTy(true);
