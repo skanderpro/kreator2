@@ -12,3 +12,4 @@
 <x-backpack::menu-item title="Features" icon="la la-question" :link="backpack_url('feature')" />
 <x-backpack::menu-item title="Technologies" icon="la la-question" :link="backpack_url('technology')" />
 <x-backpack::menu-item title="Contact requests" icon="la la-question" :link="backpack_url('contact-request')" />
+<x-backpack::menu-item title="Content pages" icon="la la-question" :link="backpack_url('content-page')" />
