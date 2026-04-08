@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\SeoMeta;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::creator('seo', function ($view) {
+            $view->with('meta', SeoMeta::getMetaForPage(request()->path()));
+        });
     }
 
     protected function overrideConfigValues()
