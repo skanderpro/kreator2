@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewsRequest extends FormRequest
+class SeoMetaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,8 @@ class NewsRequest extends FormRequest
     public function rules()
     {
         return [
-             'title' => 'required|min:5|max:255',
-             'content' => 'required|min:5',
-             'excerpt' => 'required|min:5',
-             'image' => 'required',
+             'rule' => 'required',
+             'hint' => 'required',
         ];
     }
 

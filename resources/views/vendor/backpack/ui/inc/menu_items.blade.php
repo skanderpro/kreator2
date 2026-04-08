@@ -13,3 +13,5 @@
 <x-backpack::menu-item title="Technologies" icon="la la-question" :link="backpack_url('technology')" />
 <x-backpack::menu-item title="Contact requests" icon="la la-question" :link="backpack_url('contact-request')" />
 <x-backpack::menu-item title="Content pages" icon="la la-question" :link="backpack_url('content-page')" />
+
+<x-backpack::menu-item title="Seo metas" icon="la la-question" :link="backpack_url('seo-meta')" />

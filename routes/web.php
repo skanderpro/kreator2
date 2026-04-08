@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/{any?}', function ($any = 'index.html') {
@@ -40,7 +41,16 @@ Route::get('/{any?}', function ($any = 'index.html') {
     ];
     $mimeType = isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : 'application/octet-stream';
 
-    return response()->make(file_get_contents($realPath), 200, [
+    $content = file_get_contents($realPath);
+    if ($extension === 'html') {
+        $seo = view('seo')->render();
+
+        $content = Blade::render($content, [
+            'seo' => $seo,
+        ]);
+    }
+
+    return response()->make($content, 200, [
         'Content-Type' => $mimeType
     ]);
 })->where('any', '^(?!admin).*$');
