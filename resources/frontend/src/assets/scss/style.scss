@@ -1505,8 +1505,8 @@
     }
     &-info {
         display: flex;
-        gap: 20px;
-        justify-content: space-between;
+        gap: 40px;
+        justify-content: flex-start;
         &-text {
             max-width: 997px;
             h4 {
