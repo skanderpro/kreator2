@@ -39,12 +39,9 @@ class ApartmentCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        CRUD::column('title')->type('text');
+        CRUD::column('type')->type('text');
+        CRUD::column('price')->type('text');
     }
 
     /**
