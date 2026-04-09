@@ -78,7 +78,7 @@ function Header() {
                             <ul className="nav-list">
                                 <li className="nav-list-item">
                                     <NavLink to="/catalog">
-                                        Підбір Квартир
+                                        Підбір таунхаусів
                                     </NavLink>
                                 </li>
                                 <li className="nav-list-item">

@@ -76,7 +76,7 @@ function Footer() {
                         <ul>
                             <li>
                                 <NavLink to="/catalog">
-                                    Підбір квартир та паркомісць
+                                    Підбір таунхаусів
                                 </NavLink>
                             </li>
                             <li>

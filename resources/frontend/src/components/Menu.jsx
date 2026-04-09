@@ -51,7 +51,7 @@ function Menu() {
 
                     <ul>
                         <li>
-                            <NavLink to="/catalog">Підбір квартир </NavLink>
+                            <NavLink to="/catalog">Підбір таунхаусів </NavLink>
                         </li>
                         <li>
                             <a onClick={() => handleScroll("about")}>
