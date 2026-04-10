@@ -28,7 +28,6 @@ class NewsRequest extends FormRequest
              'title' => 'required|min:5|max:255',
              'content' => 'required|min:5',
              'excerpt' => 'required|min:5',
-             'image' => 'required',
         ];
     }
 
