@@ -68,7 +68,7 @@ function ContactPage() {
                                 <div className="contact-info-list-item">
                                     <h3>Розташування комплексу</h3>
                                     <ul>
-                                        <li> вул. Білецька, 30</li>
+                                        <li> вул. Тролейбусна, 14</li>
                                     </ul>
                                 </div>
                             </div>
