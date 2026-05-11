@@ -6,6 +6,12 @@
 
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+@if(!empty($meta?->page_title))
+    <title>{{ $meta->page_title }}</title>
+@else
+    <title>«EDEM Таун»</title>
+@endif
+
 @if(!empty($meta?->description))
     <meta name="description" content="{{ $meta->description }}">
 @endif
