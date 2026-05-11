@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string|null $title
+ * @property string|null $page_title
  * @property string $rule
  * @property string $hint
  * @property string|null $description
@@ -23,7 +24,7 @@ class SeoMeta extends Model
 {
     use CrudTrait;
 
-    protected $fillable = ['title', 'rule', 'hint', 'description', 'keywords', 'og_title', 'og_description', 'og_image', 'og_url', 'canonical'];
+    protected $fillable = ['page_title', 'title', 'rule', 'hint', 'description', 'keywords', 'og_title', 'og_description', 'og_image', 'og_url', 'canonical'];
 
     public static function getMetaForPage(string $path)
     {

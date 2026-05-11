@@ -41,6 +41,7 @@ class SeoMetaCrudController extends CrudController
     {
 //        CRUD::setFromDb(); // set columns from db columns.
 
+        CRUD::column('page_title')->type('text');
         CRUD::column('title')->type('text');
         CRUD::column('hint')->type('text');
         CRUD::column('rule')->type('text');
@@ -67,6 +68,7 @@ class SeoMetaCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          */
 
+        CRUD::field('page_title')->type('text');
         CRUD::field('title')->type('text');
         CRUD::field('hint')->type('text');
         CRUD::field('rule')->type('text');
