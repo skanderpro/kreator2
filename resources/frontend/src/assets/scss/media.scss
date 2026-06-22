@@ -648,6 +648,10 @@
     .catalog-filter-btn {
         justify-content: flex-start;
     }
+    .construction-wrapper-head {
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
 }
 @media (max-width: 500px) {
     h2 {
