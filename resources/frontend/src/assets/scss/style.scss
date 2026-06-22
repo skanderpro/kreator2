@@ -592,10 +592,11 @@
     display: flex;
     justify-content: space-between;
     gap: 30px;
+    margin-bottom: 30px;
     h2 {
         color: vars.$white;
     }
-    .filter-select{
+    .filter-select {
         max-width: 160px;
         background-color: vars.$secondary;
     }
