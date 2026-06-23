@@ -588,6 +588,19 @@
 .construction-wrapper {
     padding-top: 80px;
 }
+.construction-wrapper-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+    h2 {
+        color: vars.$white;
+    }
+    .filter-select {
+        max-width: 160px;
+        background-color: vars.$secondary;
+    }
+}
 .construction {
     display: flex;
     flex-direction: column;

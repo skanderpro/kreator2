@@ -465,7 +465,17 @@ function HomePage() {
 
                 <div className="construction-wrapper" id="construction">
                     <div className="construction">
-                        <h2>Терміни будівництва</h2>
+                        <div className="construction-wrapper-head">
+                            <h2>Терміни будівництва</h2>
+                            <select
+                                name="building"
+                                id=""
+                                className="filter-select"
+                            >
+                                <option value={"1"}>1 Черга</option>
+                            </select>
+                        </div>
+
                         <div className="construction-timeline">
                             <div className="construction-timeline-line">
                                 <svg
