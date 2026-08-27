@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, {useRef, useEffect, useContext, useState} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -41,6 +41,7 @@ import { AppContext } from "../context/AppContext";
 import { useFormik } from "formik";
 import { useTechnologies } from "../api/technology.js";
 import { useSettings } from "../api/settings.js";
+import {useBuildQueues} from "../api/build-queue.js";
 
 function HomePage() {
     const lightboxRef = useRef(null);
@@ -57,6 +58,8 @@ function HomePage() {
     const apartmentCount = useApartmentsUnsoldCount();
     const technologies = useTechnologies();
     const settings = useSettings();
+    const buildQueue = useBuildQueues();
+    const [selectedQueueIndex, setSelectedQueueIndex] = useState(0);
 
     const formik = useFormik({
         initialValues: {
@@ -471,8 +474,17 @@ function HomePage() {
                                 name="building"
                                 id=""
                                 className="filter-select"
+                                onChange={(e) => {
+                                    setSelectedQueueIndex(+e.target.value);
+                                }}
                             >
-                                <option value={"1"}>1 Черга</option>
+                                {buildQueue.data.data.map((item, index) => {
+                                    return (
+                                        <option key={`build-queue-${index}`} value={index}>
+                                            {item.title}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
 
@@ -499,7 +511,7 @@ function HomePage() {
                                 </svg>
                                 <div
                                     className="timeline"
-                                    style={{ width: "80%" }}
+                                    style={{ width: `${buildQueue.data.data?.[selectedQueueIndex]?.progress || '0'}%` }}
                                 ></div>
                                 <div className="line"></div>
                                 <svg
@@ -527,13 +539,13 @@ function HomePage() {
                                 <div className="construction-timeline-text-item">
                                     <label>Початок будівництва</label>
                                     <span>
-                                        1 квартал 2026 <b>р.</b>
+                                        {buildQueue.data.data?.[selectedQueueIndex]?.start_quarter} квартал {buildQueue.data.data?.[selectedQueueIndex]?.start_year} <b>р.</b>
                                     </span>
                                 </div>
                                 <div className="construction-timeline-text-item">
                                     <label>Здача будинку</label>
                                     <span>
-                                        4 квартал 2026 <b>р.</b>
+                                        {buildQueue.data.data?.[selectedQueueIndex]?.end_quarter} квартал {buildQueue.data.data?.[selectedQueueIndex]?.end_year} <b>р.</b>
                                     </span>
                                 </div>
                             </div>

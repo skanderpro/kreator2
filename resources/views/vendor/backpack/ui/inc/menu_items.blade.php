@@ -15,3 +15,4 @@
 <x-backpack::menu-item title="Content pages" icon="la la-question" :link="backpack_url('content-page')" />
 
 <x-backpack::menu-item title="Seo metas" icon="la la-question" :link="backpack_url('seo-meta')" />
+<x-backpack::menu-item title="Build queues" icon="la la-question" :link="backpack_url('build-queue')" />

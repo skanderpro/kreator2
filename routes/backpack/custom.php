@@ -27,6 +27,7 @@ Route::group([
     Route::crud('contact-request', 'ContactRequestCrudController');
     Route::crud('content-page', 'ContentPageCrudController');
     Route::crud('seo-meta', 'SeoMetaCrudController');
+    Route::crud('build-queue', 'BuildQueueCrudController');
 }); // this should be the absolute last line of this file
 
 /**

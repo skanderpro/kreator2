@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApartmentController;
+use App\Http\Controllers\Api\BuildQueueController;
 use App\Http\Controllers\Api\BuildStepController;
 use App\Http\Controllers\Api\ContactRequestController;
 use App\Http\Controllers\Api\ContentPageController;
@@ -25,6 +26,9 @@ Route::name('build-step.')->prefix('/build-steps')->group(function () {
     Route::get('', [BuildStepController::class, 'index'])->name('index');
 });
 
+Route::name('build-queue.')->prefix('/build-queue')->group(function () {
+    Route::get('', [BuildQueueController::class, 'index'])->name('index');
+});
 
 Route::name('apartments.')->prefix('/apartments')->group(function () {
     Route::get('', [ApartmentController::class, 'index'])->name('index');
